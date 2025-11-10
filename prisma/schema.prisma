@@ -63,10 +63,6 @@ model Account {
   Privilege     AccountPrivilege              @default(USER)
   EmailAddress  String                @unique
   Password      String
-}
-
-model AccountInfo {
-  AccountID     Int                   @unique
   FirstName     String
   MiddleName    String
   LastName      String
@@ -77,11 +73,7 @@ model Merch {
   AccountID     Int
   PostTime      DateTime                      @default(now())
   StockStatus   MerchStockStatus
-  MerchPrice    Float
-}
-
-model MerchInfo {
-  MerchID       Int                   @unique
+  Price         Float
   Name          String
   Description   String
   Length        Float
