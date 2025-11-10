@@ -17,9 +17,96 @@ datasource db {
   // directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
-enum Role {
+
+// Role or privilege of an account.
+
+enum AccountPrivilege {
   USER
-  ADMIN
+  ADMINISTRATOR
+}
+
+
+//  Stock status of a merchandise.
+
+enum MerchStockStatus {
+  ON_STOCK
+  SOLD
+  RECALLED
+}
+
+
+// Tags that categorizes a merchandise.
+
+enum MerchTag {
+  COLLECTABLE
+  ELECTRONIC
+  FICTIONAL
+  FURNITURE
+  HYGIENE_EQUIPMENT
+  KITCHENWARE
+  SCHOOL_SUPPLY
+  SPORT_EQUIPMENT
+}
+
+
+//  How new is a merchandise.
+
+enum MerchCondition {
+  NEW
+  EXCELLENT
+  GOOD
+  FAIR
+  POOR
+}
+
+
+//  Main material that a merchandise is made of.
+
+enum MerchMaterial {
+  ALUMINUM
+  INTANGIBLE
+  IRON
+  TITANIUM
+  PAPER
+  PLASTIC
+  WOOD
+  OTHER
+}
+
+
+//  Stores account and user information.
+
+model Account {
+  AccountID     Int               @id @unique @default(autoincrement())
+  Privilege     AccountPrivilege              @default(USER)
+  EmailAddress  String                @unique
+  Password      String
+  FirstName     String
+  MiddleName    String
+  LastName      String
+
+  merch         Merch[]
+}
+
+
+//  Stores merchandise information. There is one to many correspondence between Account and Merch.
+
+model Merch {
+  MerchID       Int               @id @unique @default(autoincrement())
+  AccountID     Int
+  PostTime      DateTime                      @default(now())
+  StockStatus   MerchStockStatus
+  Price         Float
+  Name          String
+  Description   String
+  Length        Float
+  Width         Float
+  Height        Float
+  Mass          Float
+  Material      MerchMaterial
+  Condition     MerchCondition
+
+  seller        Account           @relation(fields: [AccountID], references: [AccountID])
 }
 
 model User {
