@@ -17,16 +17,25 @@ datasource db {
   // directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
+
+// Role or privilege of an account.
+
 enum AccountPrivilege {
   USER
   ADMINISTRATOR
 }
+
+
+//  Stock status of a merchandise.
 
 enum MerchStockStatus {
   ON_STOCK
   SOLD
   RECALLED
 }
+
+
+// Tags that categorizes a merchandise.
 
 enum MerchTag {
   COLLECTABLE
@@ -39,6 +48,9 @@ enum MerchTag {
   SPORT_EQUIPMENT
 }
 
+
+//  How new is a merchandise.
+
 enum MerchCondition {
   NEW
   EXCELLENT
@@ -46,6 +58,9 @@ enum MerchCondition {
   FAIR
   POOR
 }
+
+
+//  Main material that a merchandise is made of.
 
 enum MerchMaterial {
   ALUMINUM
@@ -58,6 +73,9 @@ enum MerchMaterial {
   OTHER
 }
 
+
+//  Stores account and user information.
+
 model Account {
   AccountID     Int               @id @unique @default(autoincrement())
   Privilege     AccountPrivilege              @default(USER)
@@ -69,6 +87,9 @@ model Account {
 
   merch         Merch[]
 }
+
+
+//  Stores merchandise information. There is one to many correspondence between Account and Merch.
 
 model Merch {
   MerchID       Int               @id @unique @default(autoincrement())
