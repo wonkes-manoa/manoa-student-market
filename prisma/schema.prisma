@@ -66,10 +66,30 @@ model Account {
 }
 
 model AccountInfo {
-  AccountID     Int
+  AccountID     Int                   @unique
   FirstName     String
   MiddleName    String
   LastName      String
+}
+
+model Merch {
+  MerchID       Int               @id @unique @default(autoincrement())
+  AccountID     Int
+  PostTime      DateTime                      @default(now())
+  StockStatus   MerchStockStatus
+  MerchPrice    Float
+}
+
+model MerchInfo {
+  MerchID       Int                   @unique
+  Name          String
+  Description   String
+  Length        Float
+  Width         Float
+  Height        Float
+  Mass          Float
+  Material      MerchMaterial
+  Condition     MerchCondition
 }
 
 model User {
