@@ -1,4 +1,4 @@
-import { Button, Col, Container, Form, Row } from 'react-bootstrap';
+import { Button, Col, Container, Row } from 'react-bootstrap';
 import { Merch } from '@prisma/client';
 
 const MerchPanel = ({ merch }: { merch : Merch }) => (
@@ -25,27 +25,10 @@ const MerchPanel = ({ merch }: { merch : Merch }) => (
       </Col>
     </Row>
 
-    {/* Options (e.g. quantity, variant) */}
-    <Row className="align-items-center mb-3">
-      <Col xs="auto">
-        <Form.Label className="fw-semibold mb-0">Quantity:</Form.Label>
-      </Col>
-      <Col xs="auto">
-        <Form.Select style={{ width: '6rem' }} defaultValue="1">
-          {[1, 2, 3, 4, 5].map((n) => (
-            <option key={n} value={n}>
-              {n}
-            </option>
-          ))}
-        </Form.Select>
-      </Col>
-    </Row>
-
-    {/* Action buttons */}
     <Row className="g-2">
       <Col xs={12} md={6}>
         <Button variant="warning" className="w-100 fw-semibold">
-          Get Seller&apos;s Contact Info
+          Get Seller&apos;s Contact
         </Button>
       </Col>
       <Col xs={12} md={6}>
@@ -55,7 +38,6 @@ const MerchPanel = ({ merch }: { merch : Merch }) => (
       </Col>
     </Row>
 
-    {/* Meta information */}
     <Row className="mt-4 small text-muted">
       <Col>
         <p className="mb-1">
