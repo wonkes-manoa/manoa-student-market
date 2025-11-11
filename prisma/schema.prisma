@@ -63,7 +63,7 @@ enum MassUnit {
 }
 
 
-// Tags that categorizes a merchandise.
+//  Tags that categorizes a merchandise.
 
 enum MerchTag {
   COLLECTABLE
