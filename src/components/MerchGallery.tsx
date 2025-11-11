@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import { Card, Image } from 'react-bootstrap';
 
