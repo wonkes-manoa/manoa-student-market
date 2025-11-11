@@ -7,10 +7,11 @@ const testPhotograph : string[] = [
   '/merch-photo/test-3.jpeg',
   '/merch-photo/test-4.jpeg',
   '/merch-photo/test-5.jpeg',
+  '/merch-photo/test-6.png',
 ];
 
 const MerchDetail = () => (
-  <Container>
+  <Container fluid>
     <Row>
       <Col>
         <MerchGallery photograph={testPhotograph} />
