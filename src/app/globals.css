@@ -1,3 +1,21 @@
+:root {
+  --nat-navbar-bg: #082D0F;
+  --nat-navbar-bg-color: #082D0F;
+  --nat-navbat-text-highlight: khaki;
+  --nat-navbar-highlight-text: var(--bs-gray-500);
+  --nat-navbar-highlight-bg: lightblue;
+  --nat-navbar-bg-rgb: 0, 0, 139;
+  --nat-navbar-text-color: white;
+}
+
+body .navbar {
+  --bs-navbar-active-color: var(--nat-navbar-highlight-text);
+  --bs-navbar-brand-color: var(--nat-navbar-text-color);
+  --bs-navbar-brand-hover-color: var(--nat-navbar-highlight-text);
+  --bs-navbar-color: var(--nat-navbar-text-color);
+  --bs-navbar-hover-color: var(--nat-navbar-highlight-text);
+}
+
 html,
 body {
   --bs-light-rgb: 236, 236, 236;
@@ -5,10 +23,15 @@ body {
   height: 100%;
   padding: 0;
   margin: 0;
+  background: fixed center url("/mm2.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
+
 .wrapper {
   box-sizing: border-box;
   min-height: 100%;
   display: flex;
   flex-direction: column;
 }
+
