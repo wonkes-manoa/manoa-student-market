@@ -35,6 +35,34 @@ enum MerchStockStatus {
 }
 
 
+//  SI and imperial units for length.
+
+enum LengthUnit {
+  MILLIMETER
+  CENTIMETER
+  DECIMETER
+  METER
+
+  INCH
+  FEET
+  YARD
+  MILE
+}
+
+
+//  SI and imperial units for mass.
+
+enum MassUnit {
+  MILLIGRAM
+  GRAM
+  KILOGRAM
+  TON
+
+  OUNCE
+  POUND
+}
+
+
 // Tags that categorizes a merchandise.
 
 enum MerchTag {
@@ -99,10 +127,15 @@ model Merch {
   Price         Float
   Name          String
   Description   String
+  Image         String[]
   Length        Float
   Width         Float
   Height        Float
   Mass          Float
+  LUnit         LengthUnit
+  WUnit         LengthUnit
+  HUnit         LengthUnit
+  MUnit         MassUnit
   Material      MerchMaterial
   Condition     MerchCondition
 

@@ -2,7 +2,7 @@ import MerchDetail from '@/components/MerchDetail';
 import { Container } from 'react-bootstrap';
 
 const MerchDetailPage = async () => (
-  <Container>
+  <Container className="mt-5">
     <MerchDetail />
   </Container>
 );
