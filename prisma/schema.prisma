@@ -107,8 +107,9 @@ enum MerchMaterial {
 model Account {
   AccountID     Int               @id @unique @default(autoincrement())
   Privilege     AccountPrivilege              @default(USER)
-  EmailAddress  String                @unique
+  Username      String                @unique
   Password      String
+  EmailAddress  String                @unique
   FirstName     String
   MiddleName    String
   LastName      String

@@ -55,6 +55,7 @@ async function main() {
       create: {
         Privilege: privilege,
         EmailAddress: account.EmailAddress,
+        Username: account.Username,
         Password: account.Password,
         FirstName: account.FirstName,
         MiddleName: account.MiddleName,

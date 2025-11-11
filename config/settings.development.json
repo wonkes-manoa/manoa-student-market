@@ -14,6 +14,7 @@
   "defaultAccount": [
     {
       "EmailAddress": "alice@example.com",
+      "Username": "ecila",
       "Password": "changeme",
       "Privilege": "USER",
       "FirstName": "Alice",
@@ -22,6 +23,7 @@
     },
     {
       "EmailAddress": "bob@example.com",
+      "Username": "bobb",
       "Password": "changeme",
       "Privilege": "USER",
       "FirstName": "Bob",
@@ -30,6 +32,7 @@
     },
     {
       "EmailAddress": "carol@example.com",
+      "Username": "cutelittlecarrot",
       "Password": "changeme",
       "Privilege": "ADMINISTRATOR",
       "FirstName": "Carol",
