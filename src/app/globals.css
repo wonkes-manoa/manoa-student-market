@@ -28,6 +28,10 @@ body {
   background-repeat: no-repeat;
 }
 
+footer, footer a {
+  color: var(--nat-navbar-bg-color);
+}
+
 .wrapper {
   box-sizing: border-box;
   min-height: 100%;
