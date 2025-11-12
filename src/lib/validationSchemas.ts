@@ -1,3 +1,4 @@
+import { MerchMaterial } from '@prisma/client';
 import * as Yup from 'yup';
 
 export const AddStuffSchema = Yup.object({
@@ -45,6 +46,7 @@ export const AddMerchSchema = Yup.object({
     'MILLIMETER',
     'CENTIMETER',
     'DECIMETER',
+    'METER',
     'INCH',
     'FEET',
     'YARD',
@@ -54,6 +56,7 @@ export const AddMerchSchema = Yup.object({
     'MILLIMETER',
     'CENTIMETER',
     'DECIMETER',
+    'METER',
     'INCH',
     'FEET',
     'YARD',
@@ -63,6 +66,7 @@ export const AddMerchSchema = Yup.object({
     'MILLIMETER',
     'CENTIMETER',
     'DECIMETER',
+    'METER',
     'INCH',
     'FEET',
     'YARD',
@@ -76,15 +80,8 @@ export const AddMerchSchema = Yup.object({
     'OUNCE',
     'POUND',
   ]).required(),
-  Material: Yup.string().oneOf([
-    'ALUMINUM',
-    'INTANGIBLE',
-    'IRON',
-    'TITANIUM',
-    'PAPER',
-    'PLASTIC',
-    'WOOD',
-    'OTHER',
-  ]).required(),
+  Material: Yup.string()
+    .oneOf(Object.keys(MerchMaterial) as (keyof typeof MerchMaterial)[])
+    .required(),
   Condition: Yup.string().oneOf(['NEW', 'EXCELLENT', 'GOOD', 'FAIR', 'POOR']).required(),
 });

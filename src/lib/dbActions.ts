@@ -41,7 +41,7 @@ export async function addMerch(merch: {
   const material = merch.Material as MerchMaterial;
   const condition = merch.Condition as MerchCondition;
 
-  await prisma.merch.create({
+  const newMerch = await prisma.merch.create({
     data: {
       AccountID: merch.AccountID,
       StockStatus: stockStatus,
@@ -62,7 +62,7 @@ export async function addMerch(merch: {
   });
 
   // After adding merch, redirect to the list page.
-  redirect('/list');
+  redirect(`/merch-detail/${newMerch.MerchID}`);
 }
 
 /**

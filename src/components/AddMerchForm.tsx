@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import swal from 'sweetalert';
 import { redirect } from 'next/navigation';
+import { MerchMaterial } from '@prisma/client';
 import { addMerch } from '@/lib/dbActions';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import { AddMerchSchema } from '@/lib/validationSchemas';
@@ -50,7 +51,7 @@ const onSubmit = async (data: {
     Material: data.Material,
     Condition: data.Condition,
   });
-  swal('Success', 'Your item has been added', 'success', {
+  swal('Success', 'Your merch has been added', 'success', {
     timer: 2000,
   });
 };
@@ -162,6 +163,7 @@ const AddMerchForm = ({ id } : { id : number }) => {
                     </Form.Group>
                     <Form.Select {...register('LUnit')} className="mb-3">
                       <option value="METER">m</option>
+                      <option value="DECIMETER">dm</option>
                       <option value="CENTIMETER">cm</option>
                       <option value="MILLIMETER">mm</option>
                       <option value="INCH">inch</option>
@@ -183,6 +185,8 @@ const AddMerchForm = ({ id } : { id : number }) => {
                       <div className="invalid-feedback">{errors.Width?.message}</div>
                     </Form.Group>
                     <Form.Select {...register('WUnit')} className="mb-3">
+                      <option value="METER">m</option>
+                      <option value="DECIMETER">dm</option>
                       <option value="CENTIMETER">cm</option>
                       <option value="MILLIMETER">mm</option>
                       <option value="INCH">inch</option>
@@ -206,6 +210,8 @@ const AddMerchForm = ({ id } : { id : number }) => {
                       <div className="invalid-feedback">{errors.Height?.message}</div>
                     </Form.Group>
                     <Form.Select {...register('HUnit')} className="mb-3">
+                      <option value="METER">m</option>
+                      <option value="DECIMETER">dm</option>
                       <option value="CENTIMETER">cm</option>
                       <option value="MILLIMETER">mm</option>
                       <option value="INCH">inch</option>
@@ -244,13 +250,11 @@ const AddMerchForm = ({ id } : { id : number }) => {
                     {...register('Material')}
                     className={errors.Material ? 'is-invalid' : ''}
                   >
-                    <option value="ALUMINUM">Aluminum</option>
-                    <option value="IRON">Iron</option>
-                    <option value="TITANIUM">Titanium</option>
-                    <option value="PAPER">Paper</option>
-                    <option value="PLASTIC">Plastic</option>
-                    <option value="WOOD">Wood</option>
-                    <option value="OTHER">Other</option>
+                    {Object.keys(MerchMaterial).map((key) => (
+                      <option key={key} value={key}>
+                        {key.charAt(0).toUpperCase() + key.slice(1).toLowerCase().replaceAll('_', ' ')}
+                      </option>
+                    ))}
                   </Form.Select>
                   <div className="invalid-feedback">{errors.Material?.message}</div>
                 </Form.Group>
