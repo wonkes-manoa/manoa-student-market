@@ -10,7 +10,7 @@ const Home = () => (
         </Col>
 
         <Col xs={8} className="d-flex flex-column justify-content-center">
-          <h1>Welcome to Wonke's Market!</h1>
+          <h1>Welcome to Wonke&apos;s Market!</h1>
           <p>A place to buy and sell junk!</p>
         </Col>
       </Row>
