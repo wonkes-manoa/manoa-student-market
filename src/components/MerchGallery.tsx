@@ -4,15 +4,16 @@ import { useState } from 'react';
 import { Container, Row, Col, Image } from 'react-bootstrap';
 
 const MerchGallery = ({ photograph }: { photograph : string[] }) => {
+  const albumPath : string = '/merch-photo/';
   if (photograph.length === 0) {
-    photograph.push('');
+    photograph.push('no-image-available.png');
   }
-  const [selectedPhotographURL, setSelectedPhotographURL] = useState(photograph[0]);
+  const [selectedPhotograph, setSelectedPhotograph] = useState(photograph[0]);
   return (
     <Container fluid>
       <Container className="ratio ratio-1x1" fluid style={{ maxWidth: '600px' }}>
         <Image
-          src={selectedPhotographURL}
+          src={albumPath + selectedPhotograph}
           alt=""
           className="object-fit-cover rounded-2"
         />
@@ -23,14 +24,14 @@ const MerchGallery = ({ photograph }: { photograph : string[] }) => {
             <Col className="ratio ratio-1x1 px-0" style={{ maxWidth: '120px' }}>
               <Image
                 key={photographURL}
-                src={photographURL}
+                src={albumPath + photographURL}
                 alt=""
                 className={
                   `object-fit-cover
                   rounded-2
-                  ${photographURL === selectedPhotographURL ? 'border border-3 border-success' : ''}`
+                  ${photographURL === selectedPhotograph ? 'border border-3 border-success' : ''}`
                 }
-                onClick={() => setSelectedPhotographURL(photographURL)}
+                onClick={() => setSelectedPhotograph(photographURL)}
               />
             </Col>
           ))}

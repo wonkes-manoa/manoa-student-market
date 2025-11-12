@@ -7,7 +7,7 @@ import authOptions from '@/lib/authOptions';
 import { loggedInProtectedPage } from '@/lib/page-protection';
 import { prisma } from '@/lib/prisma';
 
-export default async function MerchDetailPage({ merchID }: { merchID : number }) {
+export default async function MerchDetailPage({ params }: { params: { id: string | string[] } }) {
   // Protect the page, only logged in users can access it.
   const session = await getServerSession(authOptions);
   loggedInProtectedPage(
@@ -16,11 +16,14 @@ export default async function MerchDetailPage({ merchID }: { merchID : number })
       // eslint-disable-next-line @typescript-eslint/comma-dangle
     } | null,
   );
+  const merchID = Number(Array.isArray(params?.id) ? params?.id[0] : params?.id);
   const merch : Merch | null = await prisma.merch.findUnique({
     where: { MerchID: merchID },
   });
   if (!merch) {
-    return notFound();
+    return (
+      notFound()
+    );
   }
   return (
     <Container className="mt-5">
