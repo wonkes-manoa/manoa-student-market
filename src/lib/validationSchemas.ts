@@ -18,9 +18,9 @@ export const EditStuffSchema = Yup.object({
 export const AddMerchSchema = Yup.object({
   AccountID: Yup.number().required(),
   StockStatus: Yup.string().oneOf(['ON_STOCK', 'SOLD', 'RECALLED']).required(),
-  Price: Yup.number().positive().required(),
-  Name: Yup.string().required(),
-  Description: Yup.string().required(),
+  Price: Yup.number().positive().required('Price shall be positive.').default(0),
+  Name: Yup.string().required('Provide a merch name.'),
+  Description: Yup.string().required('Describe your merch.'),
   Image: Yup.array().of(Yup.string()).min(0).required(),
   Length: Yup.number().min(0).required(),
   Width: Yup.number().min(0).required(),
@@ -34,7 +34,7 @@ export const AddMerchSchema = Yup.object({
     'FEET',
     'YARD',
     'MILE',
-  ]).required(),
+  ]).required().default('INCH'),
   WUnit: Yup.string().oneOf([
     'MILLIMETER',
     'CENTIMETER',
@@ -43,7 +43,7 @@ export const AddMerchSchema = Yup.object({
     'FEET',
     'YARD',
     'MILE',
-  ]).required(),
+  ]).required().default('INCH'),
   HUnit: Yup.string().oneOf([
     'MILLIMETER',
     'CENTIMETER',
@@ -52,7 +52,7 @@ export const AddMerchSchema = Yup.object({
     'FEET',
     'YARD',
     'MILE',
-  ]).required(),
+  ]).required().default('INCH'),
   MUnit: Yup.string().oneOf([
     'MILLIGRAM',
     'GRAM',
@@ -60,7 +60,7 @@ export const AddMerchSchema = Yup.object({
     'TON',
     'OUNCE',
     'POUND',
-  ]).required(),
+  ]).required().default('KILOGRAM'),
   Material: Yup.string().oneOf([
     'ALUMINUM',
     'INTANGIBLE',

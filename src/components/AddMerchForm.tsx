@@ -131,7 +131,6 @@ const AddStuffForm = ({ id } : { id : number }) => {
                     {...register('StockStatus')}
                     className={errors.StockStatus ? 'is-invalid' : ''}
                   >
-                    <option value="">Select status</option>
                     <option value="ON_STOCK">On Stock</option>
                     <option value="SOLD">Sold</option>
                     <option value="RECALLED">Recalled</option>
