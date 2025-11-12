@@ -9,5 +9,128 @@
     { "name": "Bicycle", "quantity": 2, "owner": "john@foo.com", "condition": "poor" },
     { "name": "Banana", "quantity": 2, "owner": "admin@foo.com", "condition": "good" },
     { "name": "Boogie Board", "quantity": 2, "owner": "admin@foo.com", "condition": "excellent" }
+  ],
+
+  "defaultAccount": [
+    {
+      "EmailAddress": "alice@example.com",
+      "Username": "ecila",
+      "Password": "changeme",
+      "Privilege": "USER",
+      "FirstName": "Alice",
+      "MiddleName": "",
+      "LastName": "Lee"
+    },
+    {
+      "EmailAddress": "bob@example.com",
+      "Username": "bobb",
+      "Password": "changeme",
+      "Privilege": "USER",
+      "FirstName": "Bob",
+      "MiddleName": "J",
+      "LastName": "Chen"
+    },
+    {
+      "EmailAddress": "carol@example.com",
+      "Username": "cutelittlecarrot",
+      "Password": "changeme",
+      "Privilege": "ADMINISTRATOR",
+      "FirstName": "Carol",
+      "MiddleName": "",
+      "LastName": "Nguyen"
+    }
+  ],
+
+  "defaultMerch": [
+    {
+      "AccountID": 1,
+      "StockStatus": "ON_STOCK",
+      "Price": 29.99,
+      "Name": "Wireless Mouse",
+      "Description": "A comfortable wireless mouse with 1600 DPI precision and 2.4GHz USB receiver.",
+      "Image": ["1-1.jpg", "1-2.jpg"],
+      "Length": 11.0,
+      "Width": 6.0,
+      "Height": 4.0,
+      "Mass": 0.08,
+      "LUnit": "CENTIMETER",
+      "WUnit": "CENTIMETER",
+      "HUnit": "CENTIMETER",
+      "MUnit": "KILOGRAM",
+      "Material": "PLASTIC",
+      "Condition": "EXCELLENT"
+    },
+    {
+      "AccountID": 1,
+      "StockStatus": "ON_STOCK",
+      "Price": 59.99,
+      "Name": "Bluetooth Headphones",
+      "Description": "Over-ear wireless headphones with noise cancellation and 20-hour battery life.",
+      "Image": ["2-1.jpg"],
+      "Length": 18.0,
+      "Width": 15.0,
+      "Height": 8.0,
+      "Mass": 0.35,
+      "LUnit": "CENTIMETER",
+      "WUnit": "CENTIMETER",
+      "HUnit": "CENTIMETER",
+      "MUnit": "KILOGRAM",
+      "Material": "PLASTIC",
+      "Condition": "GOOD"
+    },
+    {
+      "AccountID": 2,
+      "StockStatus": "ON_STOCK",
+      "Price": 249.0,
+      "Name": "Office Chair",
+      "Description": "Ergonomic mesh office chair with adjustable height and lumbar support.",
+      "Image": [],
+      "Length": 60.0,
+      "Width": 60.0,
+      "Height": 110.0,
+      "Mass": 12.0,
+      "LUnit": "CENTIMETER",
+      "WUnit": "CENTIMETER",
+      "HUnit": "CENTIMETER",
+      "MUnit": "KILOGRAM",
+      "Material": "PLASTIC",
+      "Condition": "EXCELLENT"
+    },
+    {
+      "AccountID": 3,
+      "StockStatus": "ON_STOCK",
+      "Price": 999.0,
+      "Name": "Gaming Laptop",
+      "Description": "High-performance gaming laptop with Intel i7, RTX 4070, and 16GB RAM.",
+      "Image": ["4-1.jpg", "4-2.jpg",  "4-3.jpg",  "4-4.jpg",  "4-5.jpg",  "4-6.jpg",  "4-7.jpg"],
+      "Length": 36.0,
+      "Width": 25.0,
+      "Height": 2.5,
+      "Mass": 2.3,
+      "LUnit": "CENTIMETER",
+      "WUnit": "CENTIMETER",
+      "HUnit": "CENTIMETER",
+      "MUnit": "KILOGRAM",
+      "Material": "ALUMINUM",
+      "Condition": "NEW"
+    },
+    {
+      "AccountID": 2,
+      "StockStatus": "SOLD",
+      "Price": 79.99,
+      "Name": "Smart Lamp",
+      "Description": "Touch-controlled LED smart lamp with adjustable brightness and color temperature.",
+      "Image": ["5-1.jpg", "5-2.jpg", "5-3.jpg"],
+      "Length": 14.0,
+      "Width": 14.0,
+      "Height": 40.0,
+      "Mass": 0.8,
+      "LUnit": "CENTIMETER",
+      "WUnit": "CENTIMETER",
+      "HUnit": "CENTIMETER",
+      "MUnit": "KILOGRAM",
+      "Material": "ALUMINUM",
+      "Condition": "EXCELLENT"
+    }
   ]
 }
