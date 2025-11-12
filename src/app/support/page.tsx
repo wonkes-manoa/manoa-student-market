@@ -1,10 +1,45 @@
-import { Container } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 
 /** Render a list of stuff for the logged in user. */
 const SupportPage = async () => (
   <main>
     <Container id="support" className="p-3">
-      <h1>Support</h1>
+      <Container>
+        <h1>Wonkes Support</h1>
+      </Container>
+      <Container>
+        <Row>
+          <Col>
+            Wonkes
+            <h2>About Us</h2>
+            <p>Wonkes is blah blah blah</p>
+          </Col>
+          <Col>
+            <h3>Connect with Students</h3>
+            <p>
+              Et cupiditate eligendi rerum iusto reiciendis.
+              Dolorem quo sed eligendi impedit incidunt quis.
+              Enim cupiditate quis ut id aut sed omnis et. Sit qui labore dolores cupiditate iste repellendus.
+              Quas voluptatem doloribus et non non. Quod soluta ratione et ipsa rerum et.
+            </p>
+            <h3>Buy and sell your junk</h3>
+            <p>
+              Et cupiditate eligendi rerum iusto reiciendis.
+              Dolorem quo sed eligendi impedit incidunt quis.
+              Enim cupiditate quis ut id aut sed omnis et. Sit qui labore dolores cupiditate iste repellendus.
+              Quas voluptatem doloribus et non non. Quod soluta ratione et ipsa rerum et.
+            </p>
+            <h3>Favorite your trusted vendor</h3>
+            <p>
+              Et cupiditate eligendi rerum iusto reiciendis.
+              Dolorem quo sed eligendi impedit incidunt quis.
+              Enim cupiditate quis ut id aut sed omnis et. Sit qui labore dolores cupiditate iste repellendus.
+              Quas voluptatem doloribus et non non. Quod soluta ratione et ipsa rerum et.
+            </p>
+          </Col>
+        </Row>
+      </Container>
+
       <h2>Webpage Info</h2>
       <p>TBD</p>
       <h2>FAQ</h2>
