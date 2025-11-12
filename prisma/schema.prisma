@@ -117,6 +117,17 @@ model Account {
   merch         Merch[]
 }
 
+// Profile Card information.
+model Project {
+  id          Int               @id @default(autoincrement())
+  name        String            @unique
+  homepage    String?
+  description String?
+  picture     String?
+  profiles    ProfileProject[]
+  interests   ProjectInterest[]
+}
+
 
 //  Stores merchandise information. There is one to many correspondence between Account and Merch.
 
