@@ -1,4 +1,4 @@
-import { MerchMaterial } from '@prisma/client';
+import { LengthUnit, MassUnit, MerchCondition, MerchMaterial, MerchStockStatus } from '@prisma/client';
 import * as Yup from 'yup';
 
 export const AddStuffSchema = Yup.object({
@@ -17,15 +17,22 @@ export const EditStuffSchema = Yup.object({
 });
 
 export const AddMerchSchema = Yup.object({
-  AccountID: Yup.number().required(),
-  StockStatus: Yup.string().oneOf(['ON_STOCK', 'SOLD', 'RECALLED']).required(),
+  AccountID: Yup.number()
+    .required(),
+  StockStatus: Yup.string()
+    .oneOf(Object.keys(MerchStockStatus) as (keyof typeof MerchStockStatus)[])
+    .required(),
   Price: Yup.number()
     .typeError('Please enter a price.')
     .positive('Price shall be positive.')
     .required('Please enter a price.'),
-  Name: Yup.string().required('Provide a merch name.'),
-  Description: Yup.string().required('Describe your merch.'),
-  Image: Yup.array().of(Yup.string()).default([]),
+  Name: Yup.string()
+    .required('Provide a merch name.'),
+  Description: Yup.string()
+    .required('Describe your merch.'),
+  Image: Yup.array()
+    .of(Yup.string())
+    .default([]),
   Length: Yup.number()
     .typeError('Please enter a length.')
     .min(0, 'No negative length.')
@@ -42,46 +49,22 @@ export const AddMerchSchema = Yup.object({
     .typeError('Please enter a length.')
     .min(0, 'No negative mass.')
     .required(),
-  LUnit: Yup.string().oneOf([
-    'MILLIMETER',
-    'CENTIMETER',
-    'DECIMETER',
-    'METER',
-    'INCH',
-    'FEET',
-    'YARD',
-    'MILE',
-  ]).required(),
-  WUnit: Yup.string().oneOf([
-    'MILLIMETER',
-    'CENTIMETER',
-    'DECIMETER',
-    'METER',
-    'INCH',
-    'FEET',
-    'YARD',
-    'MILE',
-  ]).required(),
-  HUnit: Yup.string().oneOf([
-    'MILLIMETER',
-    'CENTIMETER',
-    'DECIMETER',
-    'METER',
-    'INCH',
-    'FEET',
-    'YARD',
-    'MILE',
-  ]).required(),
-  MUnit: Yup.string().oneOf([
-    'MILLIGRAM',
-    'GRAM',
-    'KILOGRAM',
-    'TON',
-    'OUNCE',
-    'POUND',
-  ]).required(),
+  LUnit: Yup.string()
+    .oneOf(Object.keys(LengthUnit) as (keyof typeof LengthUnit)[])
+    .required(),
+  WUnit: Yup.string()
+    .oneOf(Object.keys(LengthUnit) as (keyof typeof LengthUnit)[])
+    .required(),
+  HUnit: Yup.string()
+    .oneOf(Object.keys(LengthUnit) as (keyof typeof LengthUnit)[])
+    .required(),
+  MUnit: Yup.string()
+    .oneOf(Object.keys(MassUnit) as (keyof typeof MassUnit)[])
+    .required(),
   Material: Yup.string()
     .oneOf(Object.keys(MerchMaterial) as (keyof typeof MerchMaterial)[])
     .required(),
-  Condition: Yup.string().oneOf(['NEW', 'EXCELLENT', 'GOOD', 'FAIR', 'POOR']).required(),
+  Condition: Yup.string()
+    .oneOf(Object.keys(MerchCondition) as (keyof typeof MerchCondition)[])
+    .required(),
 });

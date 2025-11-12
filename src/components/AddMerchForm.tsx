@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import swal from 'sweetalert';
 import { redirect } from 'next/navigation';
-import { MerchMaterial } from '@prisma/client';
+import { LengthUnit, MassUnit, MerchCondition, MerchMaterial, MerchStockStatus } from '@prisma/client';
 import { addMerch } from '@/lib/dbActions';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import { AddMerchSchema } from '@/lib/validationSchemas';
@@ -141,9 +141,11 @@ const AddMerchForm = ({ id } : { id : number }) => {
                     {...register('StockStatus')}
                     className={errors.StockStatus ? 'is-invalid' : ''}
                   >
-                    <option value="ON_STOCK">On Stock</option>
-                    <option value="SOLD">Sold</option>
-                    <option value="RECALLED">Recalled</option>
+                    {Object.keys(MerchStockStatus).map((key) => (
+                      <option key={key} value={key}>
+                        {key.charAt(0).toUpperCase() + key.slice(1).toLowerCase().replaceAll('_', ' ')}
+                      </option>
+                    ))}
                   </Form.Select>
                   <div className="invalid-feedback">{errors.StockStatus?.message}</div>
                 </Form.Group>
@@ -162,14 +164,11 @@ const AddMerchForm = ({ id } : { id : number }) => {
                       <div className="invalid-feedback">{errors.Length?.message}</div>
                     </Form.Group>
                     <Form.Select {...register('LUnit')} className="mb-3">
-                      <option value="METER">m</option>
-                      <option value="DECIMETER">dm</option>
-                      <option value="CENTIMETER">cm</option>
-                      <option value="MILLIMETER">mm</option>
-                      <option value="INCH">inch</option>
-                      <option value="FEET">ft</option>
-                      <option value="YARD">yd</option>
-                      <option value="MILE">mile</option>
+                      {Object.keys(LengthUnit).map((key) => (
+                        <option key={key} value={key}>
+                          {key.charAt(0).toUpperCase() + key.slice(1).toLowerCase().replaceAll('_', ' ')}
+                        </option>
+                      ))}
                     </Form.Select>
                   </Col>
 
@@ -185,14 +184,11 @@ const AddMerchForm = ({ id } : { id : number }) => {
                       <div className="invalid-feedback">{errors.Width?.message}</div>
                     </Form.Group>
                     <Form.Select {...register('WUnit')} className="mb-3">
-                      <option value="METER">m</option>
-                      <option value="DECIMETER">dm</option>
-                      <option value="CENTIMETER">cm</option>
-                      <option value="MILLIMETER">mm</option>
-                      <option value="INCH">inch</option>
-                      <option value="FEET">ft</option>
-                      <option value="YARD">yd</option>
-                      <option value="MILE">mile</option>
+                      {Object.keys(LengthUnit).map((key) => (
+                        <option key={key} value={key}>
+                          {key.charAt(0).toUpperCase() + key.slice(1).toLowerCase().replaceAll('_', ' ')}
+                        </option>
+                      ))}
                     </Form.Select>
                   </Col>
                 </Row>
@@ -210,14 +206,11 @@ const AddMerchForm = ({ id } : { id : number }) => {
                       <div className="invalid-feedback">{errors.Height?.message}</div>
                     </Form.Group>
                     <Form.Select {...register('HUnit')} className="mb-3">
-                      <option value="METER">m</option>
-                      <option value="DECIMETER">dm</option>
-                      <option value="CENTIMETER">cm</option>
-                      <option value="MILLIMETER">mm</option>
-                      <option value="INCH">inch</option>
-                      <option value="FEET">ft</option>
-                      <option value="YARD">yd</option>
-                      <option value="MILE">mile</option>
+                      {Object.keys(LengthUnit).map((key) => (
+                        <option key={key} value={key}>
+                          {key.charAt(0).toUpperCase() + key.slice(1).toLowerCase().replaceAll('_', ' ')}
+                        </option>
+                      ))}
                     </Form.Select>
                   </Col>
 
@@ -233,12 +226,11 @@ const AddMerchForm = ({ id } : { id : number }) => {
                       <div className="invalid-feedback">{errors.Mass?.message}</div>
                     </Form.Group>
                     <Form.Select {...register('MUnit')} className="mb-3">
-                      <option value="TON">ton</option>
-                      <option value="KILOGRAM">kg</option>
-                      <option value="GRAM">g</option>
-                      <option value="MILLIGRAM">mg</option>
-                      <option value="OUNCE">oz</option>
-                      <option value="POUND">lb</option>
+                      {Object.keys(MassUnit).map((key) => (
+                        <option key={key} value={key}>
+                          {key.charAt(0).toUpperCase() + key.slice(1).toLowerCase().replaceAll('_', ' ')}
+                        </option>
+                      ))}
                     </Form.Select>
                   </Col>
                 </Row>
@@ -266,11 +258,11 @@ const AddMerchForm = ({ id } : { id : number }) => {
                     {...register('Condition')}
                     className={errors.Condition ? 'is-invalid' : ''}
                   >
-                    <option value="NEW">New</option>
-                    <option value="EXCELLENT">Excellent</option>
-                    <option value="GOOD">Good</option>
-                    <option value="FAIR">Fair</option>
-                    <option value="POOR">Poor</option>
+                    {Object.keys(MerchCondition).map((key) => (
+                      <option key={key} value={key}>
+                        {key.charAt(0).toUpperCase() + key.slice(1).toLowerCase().replaceAll('_', ' ')}
+                      </option>
+                    ))}
                   </Form.Select>
                   <div className="invalid-feedback">{errors.Condition?.message}</div>
                 </Form.Group>
