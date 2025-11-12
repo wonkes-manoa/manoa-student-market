@@ -18,14 +18,29 @@ export const EditStuffSchema = Yup.object({
 export const AddMerchSchema = Yup.object({
   AccountID: Yup.number().required(),
   StockStatus: Yup.string().oneOf(['ON_STOCK', 'SOLD', 'RECALLED']).required(),
-  Price: Yup.number().positive().required('Price shall be positive.'),
+  Price: Yup.number()
+    .typeError('Please enter a price.')
+    .positive('Price shall be positive.')
+    .required('Please enter a price.'),
   Name: Yup.string().required('Provide a merch name.'),
   Description: Yup.string().required('Describe your merch.'),
   Image: Yup.array().of(Yup.string()).min(0).required(),
-  Length: Yup.number().min(0).required(),
-  Width: Yup.number().min(0).required(),
-  Height: Yup.number().min(0).required(),
-  Mass: Yup.number().min(0).required(),
+  Length: Yup.number()
+    .typeError('Please enter a length.')
+    .min(0, 'No negative length.')
+    .required(),
+  Width: Yup.number()
+    .typeError('Please enter a width.')
+    .min(0, 'No negative width.')
+    .required(),
+  Height: Yup.number()
+    .typeError('Please enter a height.')
+    .min(0, 'No negative height.')
+    .required(),
+  Mass: Yup.number()
+    .typeError('Please enter a length.')
+    .min(0, 'No negative mass.')
+    .required(),
   LUnit: Yup.string().oneOf([
     'MILLIMETER',
     'CENTIMETER',
