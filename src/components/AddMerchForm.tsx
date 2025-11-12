@@ -55,9 +55,8 @@ const onSubmit = async (data: {
   });
 };
 
-const AddStuffForm = ({ id } : { id : number }) => {
+const AddMerchForm = ({ id } : { id : number }) => {
   const { data: session, status } = useSession();
-  // console.log('AddStuffForm', status, session);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const currentUser = session?.user?.email || '';
   const {
@@ -67,6 +66,7 @@ const AddStuffForm = ({ id } : { id : number }) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
+      Image: [],
       LUnit: 'CENTIMETER',
       WUnit: 'CENTIMETER',
       HUnit: 'CENTIMETER',
@@ -97,7 +97,7 @@ const AddStuffForm = ({ id } : { id : number }) => {
           <Card className="shadow-sm">
             <Card.Body>
               <h2 className="text-center mb-4">Add Merchandise</h2>
-              <Form onSubmit={handleSubmit(onSubmit)} noValidate>
+              <Form onSubmit={handleSubmit(onSubmit)}>
                 <input type="hidden" {...register('AccountID')} value={id} />
                 {/* Name */}
                 <Form.Group className="mb-3">
@@ -313,4 +313,4 @@ const AddStuffForm = ({ id } : { id : number }) => {
   );
 };
 
-export default AddStuffForm;
+export default AddMerchForm;

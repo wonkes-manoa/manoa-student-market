@@ -60,7 +60,8 @@ export async function addMerch(merch: {
       Condition: condition,
     },
   });
-  // After adding, redirect to the list page
+
+  // After adding merch, redirect to the list page.
   redirect('/list');
 }
 

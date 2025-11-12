@@ -24,7 +24,7 @@ export const AddMerchSchema = Yup.object({
     .required('Please enter a price.'),
   Name: Yup.string().required('Provide a merch name.'),
   Description: Yup.string().required('Describe your merch.'),
-  Image: Yup.array().of(Yup.string()).min(0).required(),
+  Image: Yup.array().of(Yup.string()).default([]),
   Length: Yup.number()
     .typeError('Please enter a length.')
     .min(0, 'No negative length.')

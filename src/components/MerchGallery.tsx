@@ -21,7 +21,7 @@ const MerchGallery = ({ photograph }: { photograph : string[] }) => {
       <Container className="pt-2" fluid>
         <Row>
           {photograph.map((photographURL) => (
-            <Col className="ratio ratio-1x1 px-0" style={{ maxWidth: '120px' }}>
+            <Col className="ratio ratio-1x1 px-0" key={photographURL} style={{ maxWidth: '120px' }}>
               <Image
                 key={photographURL}
                 src={albumPath + photographURL}
