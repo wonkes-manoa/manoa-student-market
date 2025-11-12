@@ -37,6 +37,9 @@ const NavBar: React.FC = () => {
             ) : (
               ''
             )}
+            <Nav.Link id="support-nav" href="/support" key="support" active={pathName === '/support'}>
+              Support
+            </Nav.Link>
           </Nav>
           <Nav>
             {session ? (
