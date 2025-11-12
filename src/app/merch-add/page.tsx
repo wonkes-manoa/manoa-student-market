@@ -14,7 +14,7 @@ const AddMerch = async () => {
   );
   return (
     <Container>
-      <AddMerchForm />
+      <AddMerchForm id={0} />
     </Container>
   );
 };

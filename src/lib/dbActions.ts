@@ -1,9 +1,68 @@
 'use server';
 
-import { Stuff, Condition } from '@prisma/client';
+import { Stuff,
+  Condition,
+  MerchStockStatus,
+  LengthUnit,
+  MerchMaterial,
+  MerchCondition,
+  MassUnit } from '@prisma/client';
 import { hash } from 'bcrypt';
 import { redirect } from 'next/navigation';
 import { prisma } from './prisma';
+
+/**
+ * Adds a new merch to the database.
+ * @param merch
+ */
+export async function addMerch(merch: {
+  AccountID: number,
+  StockStatus: string,
+  Price: number,
+  Name: string,
+  Description: string,
+  Image: string[],
+  Length: number,
+  Width: number,
+  Height: number,
+  Mass: number,
+  LUnit: string,
+  WUnit: string,
+  HUnit: string,
+  MUnit: string,
+  Material: string,
+  Condition: string,
+}) {
+  const stockStatus = merch.StockStatus as MerchStockStatus;
+  const lengthUnit = merch.LUnit as LengthUnit;
+  const widthUnit = merch.WUnit as LengthUnit;
+  const heightUnit = merch.HUnit as LengthUnit;
+  const massUnit = merch.MUnit as MassUnit;
+  const material = merch.Material as MerchMaterial;
+  const condition = merch.Condition as MerchCondition;
+
+  await prisma.merch.create({
+    data: {
+      AccountID: merch.AccountID,
+      StockStatus: stockStatus,
+      Price: merch.Price,
+      Name: merch.Name,
+      Description: merch.Description,
+      Length: merch.Length,
+      Width: merch.Width,
+      Height: merch.Height,
+      Mass: merch.Mass,
+      LUnit: lengthUnit,
+      WUnit: widthUnit,
+      HUnit: heightUnit,
+      MUnit: massUnit,
+      Material: material,
+      Condition: condition,
+    },
+  });
+  // After adding, redirect to the list page
+  redirect('/list');
+}
 
 /**
  * Adds a new stuff to the database.
