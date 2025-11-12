@@ -66,6 +66,15 @@ const AddStuffForm = ({ id } : { id : number }) => {
     reset,
     formState: { errors },
   } = useForm({
+    defaultValues: {
+      LUnit: 'CENTIMETER',
+      WUnit: 'CENTIMETER',
+      HUnit: 'CENTIMETER',
+      MUnit: 'KILOGRAM',
+      StockStatus: 'ON_STOCK',
+      Material: 'PLASTIC',
+      Condition: 'GOOD',
+    },
     resolver: yupResolver(AddMerchSchema),
   });
   if (status === 'loading') {
@@ -235,7 +244,6 @@ const AddStuffForm = ({ id } : { id : number }) => {
                     {...register('Material')}
                     className={errors.Material ? 'is-invalid' : ''}
                   >
-                    <option value="">Select material</option>
                     <option value="ALUMINUM">Aluminum</option>
                     <option value="IRON">Iron</option>
                     <option value="TITANIUM">Titanium</option>
@@ -254,7 +262,6 @@ const AddStuffForm = ({ id } : { id : number }) => {
                     {...register('Condition')}
                     className={errors.Condition ? 'is-invalid' : ''}
                   >
-                    <option value="">Select condition</option>
                     <option value="NEW">New</option>
                     <option value="EXCELLENT">Excellent</option>
                     <option value="GOOD">Good</option>
