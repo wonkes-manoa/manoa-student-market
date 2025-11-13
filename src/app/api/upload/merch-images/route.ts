@@ -2,12 +2,11 @@ import { NextRequest, NextResponse } from 'next/server';
 import path from 'path';
 import fs from 'fs/promises';
 import { prisma } from '@/lib/prisma';
-import { Merch } from '@prisma/client'; // type safety
 
 export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
-    const merchId = parseInt(formData.get('MerchID') as string);
+    const merchId = parseInt(formData.get('MerchID') as string, 10);
     const files = formData.getAll('Image') as File[];
 
     if (!merchId || files.length === 0) {
@@ -25,6 +24,7 @@ export async function POST(req: NextRequest) {
 
     const imageUrls: string[] = [];
 
+    /* eslint-disable no-await-in-loop */
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       const buffer = Buffer.from(await file.arrayBuffer());
@@ -34,6 +34,7 @@ export async function POST(req: NextRequest) {
       await fs.writeFile(dest, buffer);
       imageUrls.push(newName);
     }
+    /* eslint-enable no-await-in-loop */
 
     // merge with any existing images
     const updated = await prisma.merch.update({
