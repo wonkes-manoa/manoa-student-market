@@ -30,9 +30,16 @@ export const AddMerchSchema = Yup.object({
     .required('Provide a merch name.'),
   Description: Yup.string()
     .required('Describe your merch.'),
-  Image: Yup.array()
-    .of(Yup.string())
-    .default([]),
+  Image: Yup.mixed<FileList>()
+    .test('fileType', 'Invalid file type', (value) => {
+      if (!value || value.length === 0) return true; // allow empty (optional)
+      for (let i = 0; i < value.length; i++) {
+        const file = value[i];
+        if (!file.type.startsWith('image/')) return false;
+      }
+      return true;
+    })
+    .notRequired(),
   Length: Yup.number()
     .typeError('Please enter a length.')
     .min(0, 'No negative length.')

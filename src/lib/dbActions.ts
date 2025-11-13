@@ -48,6 +48,7 @@ export async function addMerch(merch: {
       Price: merch.Price,
       Name: merch.Name,
       Description: merch.Description,
+      Image: merch.Image,
       Length: merch.Length,
       Width: merch.Width,
       Height: merch.Height,
@@ -61,8 +62,7 @@ export async function addMerch(merch: {
     },
   });
 
-  // After adding merch, redirect to the list page.
-  redirect(`/merch-detail/${newMerch.MerchID}`);
+  return newMerch;
 }
 
 /**

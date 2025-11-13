@@ -5,12 +5,14 @@ import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import swal from 'sweetalert';
-import { redirect } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import { LengthUnit, MassUnit, MerchCondition, MerchMaterial, MerchStockStatus } from '@prisma/client';
 import { addMerch } from '@/lib/dbActions';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import { AddMerchSchema } from '@/lib/validationSchemas';
 import MerchGallery from '@/components/MerchGallery';
+import { Maybe } from 'yup';
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
 const onSubmit = async (data: {
   AccountID: number,
@@ -18,7 +20,7 @@ const onSubmit = async (data: {
   Price: number;
   Name: string;
   Description: string;
-  Image: (string | undefined)[] | undefined;
+  Image?: Maybe<FileList | undefined>;
   Length: number;
   Width: number;
   Height: number;
@@ -29,17 +31,14 @@ const onSubmit = async (data: {
   MUnit: string;
   Material: string;
   Condition: string;
-}) => {
-  const cleanImages: string[] = (data.Image || []).filter(
-    (img): img is string => typeof img === 'string' && img.trim() !== '',
-  );
-  await addMerch({
+}, router: AppRouterInstance) => {
+  const newMerch = await addMerch({
     AccountID: data.AccountID,
     StockStatus: data.StockStatus,
     Price: data.Price,
     Name: data.Name,
     Description: data.Description,
-    Image: cleanImages,
+    Image: [],
     Length: data.Length,
     Width: data.Width,
     Height: data.Height,
@@ -51,12 +50,33 @@ const onSubmit = async (data: {
     Material: data.Material,
     Condition: data.Condition,
   });
+  const files = data.Image;
+  if (files && files.length > 0) {
+    const uploadData = new FormData();
+    uploadData.append('MerchID', String(newMerch.MerchID));
+
+    for (const file of files) {
+      uploadData.append('Image', file);
+    }
+
+    const res = await fetch('/api/upload/merch-images', {
+      method: 'POST',
+      body: uploadData,
+    });
+
+    if (!res.ok) {
+      console.error('Image upload failed');
+    }
+  }
   swal('Success', 'Your merch has been added', 'success', {
     timer: 2000,
+  }).then(() => {
+    router.push(`/merch-detail/${newMerch.MerchID}`);
   });
 };
 
 const AddMerchForm = ({ id } : { id : number }) => {
+  const router = useRouter();
   const { data: session, status } = useSession();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const currentUser = session?.user?.email || '';
@@ -67,7 +87,6 @@ const AddMerchForm = ({ id } : { id : number }) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      Image: [],
       LUnit: 'CENTIMETER',
       WUnit: 'CENTIMETER',
       HUnit: 'CENTIMETER',
@@ -98,7 +117,7 @@ const AddMerchForm = ({ id } : { id : number }) => {
           <Card className="shadow-sm">
             <Card.Body>
               <h2 className="text-center mb-4">Add Merchandise</h2>
-              <Form onSubmit={handleSubmit(onSubmit)}>
+              <Form onSubmit={handleSubmit((data) => onSubmit(data, router))}>
                 <input type="hidden" {...register('AccountID')} value={id} />
                 {/* Name */}
                 <Form.Group className="mb-3">
