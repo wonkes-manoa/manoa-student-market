@@ -3,6 +3,7 @@ import path from 'path';
 import fs from 'fs/promises';
 import { prisma } from '@/lib/prisma';
 
+/* eslint-disable import/prefer-default-export */
 export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
