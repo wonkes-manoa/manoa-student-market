@@ -297,7 +297,9 @@ const AddMerchForm = ({ id } : { id : number }) => {
                     className="form-control"
                   />
                   <Form.Text muted>
-                    You can upload multiple images (JPG, PNG).
+                    You can upload multiple images at once; suggested range is 5-7.
+                    <br />
+                    Accepted formats: JPG, JPEG, PNG, WEBP, GIF, BMP, SVG, TIFF.
                   </Form.Text>
                 </Form.Group>
 
