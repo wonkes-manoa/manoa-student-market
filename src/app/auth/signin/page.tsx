@@ -2,6 +2,7 @@
 
 import { signIn } from 'next-auth/react';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
+import './page.css';
 
 /** The sign in page. */
 const SignIn = () => {
@@ -25,13 +26,16 @@ const SignIn = () => {
   };
 
   return (
-    <main>
+    <main
+      className="min-vh-100 flex-grow-1 d-flex align-items-center"
+      style={{ backgroundColor: '#A8C686', minHeight: '100dvh' }}
+    >
       <Container>
         <Row className="justify-content-center">
           <Col xs={5}>
-            <h1 className="text-center">Sign In</h1>
             <Card>
               <Card.Body>
+                <h1 className="text-center">Login</h1>
                 <Form method="post" onSubmit={handleSubmit}>
                   <Form.Group controlId="formBasicEmail">
                     <Form.Label>Email</Form.Label>
@@ -41,14 +45,14 @@ const SignIn = () => {
                     <Form.Label>Password</Form.Label>
                     <input name="password" type="password" className="form-control" />
                   </Form.Group>
-                  <Button type="submit" className="mt-3">
-                    Signin
+                  <Button type="submit" className="login-button mt-3">
+                    Login
                   </Button>
                 </Form>
               </Card.Body>
               <Card.Footer>
-                Don&apos;t have an account?
-                <a href="/auth/signup">Sign up</a>
+                Don&apos;t have an account?&nbsp;
+                <a id="signup-link" href="/auth/signup">Sign up</a>
               </Card.Footer>
             </Card>
           </Col>
