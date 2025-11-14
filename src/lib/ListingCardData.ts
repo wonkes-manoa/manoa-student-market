@@ -1,12 +1,10 @@
-import { Project } from '@prisma/client';
+import { PhotoItem } from '@prisma/client';
 
 export type ListingCardData = {
-  email: string;
-  bio: string | null;
-  firstName: string | null;
-  lastName: string | null;
-  picture: string | null;
-  title: string | null;
-  projects: Project[];
-  interests: string[];
+  photoItem: PhotoItem;
+  username: string | null;
+  itemSold: string | null;
+  price: string | null;
+  quality: string | null;
+  dateOfList: Date | null;
 };
