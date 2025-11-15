@@ -10,6 +10,8 @@ import {
   MerchCondition,
 } from '@prisma/client';
 import { hash } from 'bcrypt';
+import path from 'path';
+import fs from 'fs/promises';
 import * as config from '../config/settings.development.json';
 
 const prisma = new PrismaClient();
@@ -80,7 +82,6 @@ async function main() {
         Price: merch.Price,
         Name: merch.Name,
         Description: merch.Description,
-        Image: merch.Image,
         Length: merch.Length,
         Width: merch.Width,
         Height: merch.Height,
@@ -93,6 +94,22 @@ async function main() {
         Condition: condition,
       },
     });
+  }
+  for (const image of config.defaultMerchImages) {
+    const filePath = path.join(process.cwd(), 'public', 'merch-photo', image.FileName);
+    /* eslint-disable no-await-in-loop */
+    const fileBuffer = await fs.readFile(filePath);
+    await prisma.merchImage.upsert({
+      where: { ImageID: config.defaultMerchImages.indexOf(image) + 1 },
+      update: {},
+      create: {
+        MerchID: image.MerchID,
+        FileName: image.FileName,
+        MIMEType: image.MIMEType,
+        Data: fileBuffer,
+      },
+    });
+    /* eslint-enable no-await-in-loop */
   }
 }
 main()

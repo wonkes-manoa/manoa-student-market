@@ -1,51 +1,36 @@
 import { NextRequest, NextResponse } from 'next/server';
-import path from 'path';
-import fs from 'fs/promises';
 import { prisma } from '@/lib/prisma';
 
 /* eslint-disable import/prefer-default-export */
 export async function POST(req: NextRequest) {
-  try {
-    const formData = await req.formData();
-    const merchId = parseInt(formData.get('MerchID') as string, 10);
-    const files = formData.getAll('Image') as File[];
+  const formData = await req.formData();
 
-    if (!merchId || files.length === 0) {
-      return NextResponse.json({ error: 'No merchId or files' }, { status: 400 });
-    }
+  const merchID = Number(formData.get('MerchID'));
+  const imageFiles = formData.getAll('Image') as File[];
 
-    // confirm merch exists
-    const merch = await prisma.merch.findUnique({ where: { MerchID: merchId } });
-    if (!merch) {
-      return NextResponse.json({ error: 'Merch not found' }, { status: 404 });
-    }
+  if (Number.isNaN(merchID)) {
+    return NextResponse.json({ error: 'Invalid merchID' }, { status: 400 });
+  }
 
-    const uploadDir = path.join(process.cwd(), 'public', 'merch-photo');
-    await fs.mkdir(uploadDir, { recursive: true });
+  const createdImages = [];
 
-    const imageUrls: string[] = [];
+  /* eslint-disable no-await-in-loop */
+  for (const file of imageFiles) {
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
 
-    /* eslint-disable no-await-in-loop */
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      const buffer = Buffer.from(await file.arrayBuffer());
-      const ext = path.extname(file.name) || '.jpg';
-      const newName = `${merchId}-${i + 1}${ext}`;
-      const dest = path.join(uploadDir, newName);
-      await fs.writeFile(dest, buffer);
-      imageUrls.push(newName);
-    }
+    const created = await prisma.merchImage.create({
+      data: {
+        MerchID: merchID,
+        FileName: file.name,
+        MIMEType: file.type,
+        Data: buffer,
+      },
+    });
     /* eslint-enable no-await-in-loop */
 
-    // merge with any existing images
-    const updated = await prisma.merch.update({
-      where: { MerchID: merchId },
-      data: { Image: { set: [...(merch.Image ?? []), ...imageUrls] } },
-    });
-
-    return NextResponse.json({ success: true, urls: updated.Image });
-  } catch (err) {
-    console.error('Upload error:', err);
-    return NextResponse.json({ error: 'Upload failed' }, { status: 500 });
+    createdImages.push(created.ImageID);
   }
+
+  return NextResponse.json({ ok: true, images: createdImages });
 }
