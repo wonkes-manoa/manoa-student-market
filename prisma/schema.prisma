@@ -164,7 +164,7 @@ model Merch {
   Price         Float
   Name          String
   Description   String
-  Image         String[]
+  Image         MerchPhoto[]
   Length        Float
   Width         Float
   Height        Float
@@ -177,6 +177,17 @@ model Merch {
   Condition     MerchCondition
 
   seller        Account           @relation(fields: [AccountID], references: [AccountID])
+}
+
+model MerchPhoto {
+  PhotoID       Int               @id @unique @default(autoincrement())
+  MerchID       Int
+  FileName      String
+  MIMEType      String            // Type of file.
+  Data          Bytes             // Photo itself.
+  CreationTime  DateTime                      @default(now())
+
+  merch         Merch             @relation(fields: [MerchID], references: [MerchID])
 }
 
 enum Role {
