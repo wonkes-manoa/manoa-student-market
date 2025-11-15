@@ -3,17 +3,47 @@
 import { useState } from 'react';
 import { Container, Row, Col, Image } from 'react-bootstrap';
 
+const DEFAULT_IMAGE : {
+  id: number,
+  mimeType: string,
+  base64: string;
+  url?: string;
+} = {
+  id: -1,
+  mimeType: 'image/png',
+  base64: '',
+  url: '/merch-photo/no-image-available.png',
+};
+
+const parseImageSource = (image : {
+  id: number,
+  mimeType: string,
+  base64: string,
+  url?: string,
+}) => {
+  if (image.base64 && image.base64.length > 0) {
+    return `data:${image.mimeType};base64,${image.base64}`;
+  }
+  return image.url;
+};
+
 const MerchGallery = ({ photograph }: { photograph : {
   id: number,
   mimeType: string,
   base64: string,
+  url?: string,
 }[] }) => {
+  if (photograph.length === 0) {
+    photograph.push(DEFAULT_IMAGE);
+  }
+
   const [selectedPhotograph, setSelectedPhotograph] = useState(photograph[0]);
+
   return (
     <Container fluid>
       <Container className="ratio ratio-1x1" fluid style={{ maxWidth: '600px' }}>
         <Image
-          src={`data:${selectedPhotograph.mimeType};base64,${selectedPhotograph.base64}`}
+          src={parseImageSource(selectedPhotograph)}
           alt=""
           className="object-fit-cover rounded-2"
         />
@@ -24,7 +54,7 @@ const MerchGallery = ({ photograph }: { photograph : {
             <Col className="ratio ratio-1x1 px-0" key={photographData.id} style={{ maxWidth: '120px' }}>
               <Image
                 key={photographData.id}
-                src={`data:${photographData.mimeType};base64,${photographData.base64}`}
+                src={parseImageSource(photographData)}
                 alt=""
                 className={
                   `object-fit-cover

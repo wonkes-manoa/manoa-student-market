@@ -38,7 +38,6 @@ const onSubmit = async (data: {
     Price: data.Price,
     Name: data.Name,
     Description: data.Description,
-    Image: [],
     Length: data.Length,
     Width: data.Width,
     Height: data.Height,

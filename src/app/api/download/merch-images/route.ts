@@ -6,7 +6,7 @@ export async function GET(req: NextRequest) {
   const merchID = Number(req.nextUrl.searchParams.get('merchID'));
 
   const images = await prisma.merchImage.findMany({
-    where: { merchID },
+    where: { MerchID: merchID },
   });
 
   const output = images.map((image: {

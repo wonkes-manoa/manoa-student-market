@@ -5,8 +5,8 @@ import { prisma } from '@/lib/prisma';
 export async function POST(req: NextRequest) {
   const formData = await req.formData();
 
-  const merchID = Number(formData.get('merchID'));
-  const imageFiles = formData.getAll('images') as File[];
+  const merchID = Number(formData.get('MerchID'));
+  const imageFiles = formData.getAll('Image') as File[];
 
   if (Number.isNaN(merchID)) {
     return NextResponse.json({ error: 'Invalid merchID' }, { status: 400 });
@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
 
     const created = await prisma.merchImage.create({
       data: {
-        merchID,
+        MerchID: merchID,
         FileName: file.name,
         MIMEType: file.type,
         Data: buffer,

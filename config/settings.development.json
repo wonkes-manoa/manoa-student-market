@@ -136,6 +136,11 @@
       "MIMEType": "image/jpg"
     },
     {
+      "MerchID": 1,
+      "FileName": "1-2.jpg",
+      "MIMEType": "image/jpg"
+    },
+    {
       "MerchID": 2,
       "FileName": "2-1.jpg",
       "MIMEType": "image/jpg"
@@ -188,11 +193,6 @@
     {
       "MerchID": 5,
       "FileName": "5-3.jpg",
-      "MIMEType": "image/jpg"
-    },
-    {
-      "MerchID": 7,
-      "FileName": "7-1.jpg",
       "MIMEType": "image/jpg"
     }
   ]
