@@ -14,7 +14,7 @@ const ListingCard = ({ profile }: { profile: ListingCardData }) => {
         <div className="position-relative bg-light" style={{ height: '220px' }}>
           <TooltipImage
             src={firstPhoto?.url ?? '/fallback.png'}
-            name={profile.username ?? 'Unknown'}
+            name="My Image"
             className="object-fit-cover w-100 h-100"
             width={100}
             roundedCircle={false}
@@ -23,14 +23,22 @@ const ListingCard = ({ profile }: { profile: ListingCardData }) => {
 
         {/* Body */}
         <Card.Body className="p-3">
-          {/* Product Name */}
+
+          {/* Item Sold */}
           <Card.Title className="fw-semibold text-dark mb-2">
-            {profile.username}
+            <u>{profile.itemSold ?? 'No Item Listed'}</u>
           </Card.Title>
 
-          {/* Item Sold / Item Name */}
-          <Card.Text className="text-muted mb-2">
-            {profile.itemSold ?? 'No Item Listed'}
+          {/* PRICE */}
+          <Card.Title className="fw-semibold text-dark mb-2">
+            {profile.price ? `$${profile.price}` : 'No Price Given'}
+          </Card.Title>
+
+          {/* Username */}
+          <Card.Text className="mb-2">
+            Listed by:
+            {' '}
+            {profile.username}
           </Card.Text>
 
           {/* Condition + Date */}
