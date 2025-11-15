@@ -164,7 +164,7 @@ model Merch {
   Price         Float
   Name          String
   Description   String
-  Image         MerchPhoto[]
+  Image         MerchImage[]
   Length        Float
   Width         Float
   Height        Float
