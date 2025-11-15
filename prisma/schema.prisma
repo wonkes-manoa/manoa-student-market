@@ -179,12 +179,12 @@ model Merch {
   seller        Account           @relation(fields: [AccountID], references: [AccountID])
 }
 
-model MerchPhoto {
-  PhotoID       Int               @id @unique @default(autoincrement())
+model MerchImage {
+  ImageID       Int               @id @unique @default(autoincrement())
   MerchID       Int
   FileName      String
   MIMEType      String            // Type of file.
-  Data          Bytes             // Photo itself.
+  Data          Bytes             // Image itself.
   CreationTime  DateTime                      @default(now())
 
   merch         Merch             @relation(fields: [MerchID], references: [MerchID])
