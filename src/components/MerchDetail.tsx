@@ -4,7 +4,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { Merch } from '@prisma/client';
 
 const MerchDetail = ({ merch } : { merch : Merch }) => (
-  <Container fluid>
+  <Container className="bg-white py-4 rounded-4" fluid>
     <Row>
       <Col>
         <MerchGallery photograph={merch.Image} />
