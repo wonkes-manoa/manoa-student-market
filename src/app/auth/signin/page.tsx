@@ -3,7 +3,6 @@
 import { signIn } from 'next-auth/react';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import swal from 'sweetalert';
-import '../style.css';
 
 /** The sign in page. */
 const SignIn = () => {
@@ -57,7 +56,7 @@ const SignIn = () => {
                     <Form.Label>Password</Form.Label>
                     <input name="password" type="password" className="form-control" />
                   </Form.Group>
-                  <Button type="submit" className="login-button mt-3">
+                  <Button type="submit" className="bg-wonkes-1 border-0 mt-3">
                     Login
                   </Button>
                 </Form>
