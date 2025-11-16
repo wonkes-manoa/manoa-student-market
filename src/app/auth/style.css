@@ -1,0 +1,77 @@
+:root {
+  --theme-color-1: #082d0f;
+  --theme-color-2: #30592e;
+  --theme-color-3: #458441;
+  --theme-color-4: #61b15e;
+  --theme-color-5: #60be5d;
+  --theme-color-6: #75d872;
+  --theme-color-7: #a8c686;
+}
+
+a {
+  color: var(--theme-color-3);
+}
+
+a:hover {
+  color: var(--theme-color-5);
+}
+
+.bg-wonkes-1 {
+  background-color: var(--theme-color-1);
+}
+
+.bg-wonkes-1:hover {
+  background-color: var(--theme-color-3);
+}
+
+.bg-wonkes-2 {
+  background-color: var(--theme-color-2);
+}
+
+.bg-wonkes-3 {
+  background-color: var(--theme-color-3);
+}
+
+.bg-wonkes-4 {
+  background-color: var(--theme-color-4);
+}
+
+.bg-wonkes-4:hover {
+  background-color: var(--theme-color-6);
+}
+
+.bg-wonkes-5 {
+  background-color: var(--theme-color-5);
+}
+
+.bg-wonkes-6 {
+  background-color: var(--theme-color-6);
+}
+
+.bg-wonkes-7 {
+  background-color: var(--theme-color-7);
+}
+
+.border-wonkes-1 {
+  border-color: var(--theme-color-1);
+}
+
+.border-wonkes-2 {
+  border-color: var(--theme-color-2);
+}
+
+.border-wonkes-3 {
+  border-color: var(--theme-color-3);
+}
+
+.border-wonkes-4 {
+  border-color: var(--theme-color-4);
+}
+
+.border-wonkes-5 {
+  border-color: var(--theme-color-5);
+}
+
+.border-wonkes-6 {
+  border-color: var(--theme-color-6);
+}

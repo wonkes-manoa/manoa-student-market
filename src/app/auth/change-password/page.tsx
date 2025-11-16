@@ -52,16 +52,19 @@ const ChangePassword = () => {
   }
 
   return (
-    <main>
+    <main
+      className="flex-grow-1 d-flex align-items-center bg-wonkes-7"
+      style={{ minHeight: '70vh' }}
+    >
       <Container>
         <Row className="justify-content-center">
           <Col xs={5}>
-            <h1 className="text-center">Change Password</h1>
             <Card>
               <Card.Body>
+                <h1 className="text-center">Change Password</h1>
                 <Form onSubmit={handleSubmit(onSubmit)}>
                   <Form.Group className="form-group">
-                    <Form.Label>Old Passord</Form.Label>
+                    <Form.Label>Old Password</Form.Label>
                     <input
                       type="password"
                       {...register('oldpassword')}
@@ -91,12 +94,20 @@ const ChangePassword = () => {
                   <Form.Group className="form-group py-3">
                     <Row>
                       <Col>
-                        <Button type="submit" className="btn btn-primary">
+                        <Button
+                          variant="danger"
+                          type="submit"
+                          className="w-100 fw-semibold float-center"
+                        >
                           Change
                         </Button>
                       </Col>
                       <Col>
-                        <Button type="button" onClick={() => reset()} className="btn btn-warning float-right">
+                        <Button
+                          type="button"
+                          onClick={() => reset()}
+                          className="w-100 fw-semibold bg-wonkes-1 border-0 float-end"
+                        >
                           Reset
                         </Button>
                       </Col>

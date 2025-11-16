@@ -38,7 +38,6 @@ const onSubmit = async (data: {
     Price: data.Price,
     Name: data.Name,
     Description: data.Description,
-    Image: [],
     Length: data.Length,
     Width: data.Width,
     Height: data.Height,
@@ -50,21 +49,21 @@ const onSubmit = async (data: {
     Material: data.Material,
     Condition: data.Condition,
   });
-  const files = data.Image;
-  if (files && files.length > 0) {
+  const images = data.Image;
+  if (images && images.length > 0) {
     const uploadData = new FormData();
     uploadData.append('MerchID', String(newMerch.MerchID));
 
-    for (const file of files) {
-      uploadData.append('Image', file);
+    for (const image of images) {
+      uploadData.append('Image', image);
     }
 
-    const res = await fetch('/api/upload/merch-images', {
+    const result = await fetch('/api/upload/merch-images', {
       method: 'POST',
       body: uploadData,
     });
 
-    if (!res.ok) {
+    if (!result.ok) {
       console.error('Image upload failed');
     }
   }
