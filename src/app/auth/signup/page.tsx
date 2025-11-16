@@ -6,7 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { Card, Col, Container, Button, Form, Row } from 'react-bootstrap';
 import { createUser } from '@/lib/dbActions';
-import './page.css';
+import '../style.css';
 
 type SignUpForm = {
   email: string;
@@ -46,8 +46,8 @@ const SignUp = () => {
 
   return (
     <main
-      className="min-vh-100 flex-grow-1 d-flex align-items-center"
-      style={{ backgroundColor: '#A8C686', minHeight: '100dvh' }}
+      className="flex-grow-1 d-flex align-items-center bg-wonkes-7"
+      style={{ minHeight: '70vh' }}
     >
       <Container>
         <Row className="justify-content-center">

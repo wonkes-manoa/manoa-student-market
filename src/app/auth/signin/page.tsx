@@ -3,7 +3,7 @@
 import { signIn } from 'next-auth/react';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import swal from 'sweetalert';
-import './page.css';
+import '../style.css';
 
 /** The sign in page. */
 const SignIn = () => {
@@ -39,8 +39,8 @@ const SignIn = () => {
 
   return (
     <main
-      className="min-vh-100 flex-grow-1 d-flex align-items-center"
-      style={{ backgroundColor: '#A8C686', minHeight: '100dvh' }}
+      className="flex-grow-1 d-flex align-items-center bg-wonkes-7"
+      style={{ minHeight: '70vh' }}
     >
       <Container>
         <Row className="justify-content-center">
