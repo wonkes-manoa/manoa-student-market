@@ -8,7 +8,6 @@ import swal from 'sweetalert';
 import { Card, Col, Container, Button, Form, Row } from 'react-bootstrap';
 import { changePassword } from '@/lib/dbActions';
 import LoadingSpinner from '@/components/LoadingSpinner';
-import './page.css';
 
 type ChangePasswordForm = {
   oldpassword: string;
@@ -54,8 +53,8 @@ const ChangePassword = () => {
 
   return (
     <main
-      className="min-vh-100 flex-grow-1 d-flex align-items-center"
-      style={{ backgroundColor: '#A8C686', minHeight: '100dvh' }}
+      className="flex-grow-1 d-flex align-items-center bg-wonkes-7"
+      style={{ minHeight: '70vh' }}
     >
       <Container>
         <Row className="justify-content-center">
@@ -95,12 +94,20 @@ const ChangePassword = () => {
                   <Form.Group className="form-group py-3">
                     <Row>
                       <Col>
-                        <Button type="submit" className="reset-pass-button btn-primary float-center">
+                        <Button
+                          variant="danger"
+                          type="submit"
+                          className="w-100 fw-semibold float-center"
+                        >
                           Change
                         </Button>
                       </Col>
                       <Col>
-                        <Button type="button" onClick={() => reset()} className="reset-button btn-warning float-end">
+                        <Button
+                          type="button"
+                          onClick={() => reset()}
+                          className="w-100 fw-semibold bg-wonkes-1 border-0 float-end"
+                        >
                           Reset
                         </Button>
                       </Col>
