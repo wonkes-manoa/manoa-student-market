@@ -13,7 +13,7 @@ import { prisma } from './prisma';
 
 /**
  * Adds a new merch to the database.
- * @param merch
+ * @param merch, an object that specify the detail of the merch to add.
  */
 export async function addMerch(merch: {
   AccountID: number,
@@ -61,6 +61,40 @@ export async function addMerch(merch: {
   });
 
   return newMerch;
+}
+
+/**
+ * Fetches all image of a merch from the database.
+ * @param merchID, the ID of the merch to get image of.
+ */
+export async function getMerchImage(merchID : number) {
+  return fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/download/merch-images?merchID=${merchID}`, {
+    cache: 'no-store',
+  }).then(result => result.json());
+}
+
+export const DEFAULT_IMAGE : {
+  id: number,
+  mimeType: string,
+  base64: string;
+  url?: string;
+} = {
+  id: -1,
+  mimeType: 'image/png',
+  base64: '',
+  url: '/merch-photo/no-image-available.png',
+};
+
+export async function parseImageSource(image : {
+  id: number,
+  mimeType: string,
+  base64: string,
+  url?: string,
+}) {
+  if (image.base64 && image.base64.length > 0) {
+    return `data:${image.mimeType};base64,${image.base64}`;
+  }
+  return image.url;
 }
 
 /**

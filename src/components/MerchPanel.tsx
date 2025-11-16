@@ -1,5 +1,6 @@
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import { Merch } from '@prisma/client';
+import MerchCard from '@/components/MerchCard';
 
 const MerchPanel = ({ merch }: { merch : Merch }) => (
   <Container fluid>
@@ -63,6 +64,10 @@ const MerchPanel = ({ merch }: { merch : Merch }) => (
           `}
         </p>
       </Col>
+    </Row>
+
+    <Row>
+      <MerchCard merch={merch} />
     </Row>
   </Container>
 );
