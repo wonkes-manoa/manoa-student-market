@@ -1,10 +1,13 @@
-import { PhotoItem } from '@prisma/client';
+import { MerchImage } from '@prisma/client';
 
 export type ListingCardData = {
-  photoItem: PhotoItem | null;
-  username: string;
-  itemSold: string | null;
-  price: string | null;
-  quality: string | null;
-  dateOfList: Date | null;
+  MerchID: number;
+  Image: MerchImage[];
+  Name: string;
+  Price: number;
+  seller: {
+    Username: string;
+  };
+  Condition: string;
+  PostTime: Date;
 };
