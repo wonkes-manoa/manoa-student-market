@@ -131,29 +131,6 @@ model Account {
   merch         Merch[]
 }
 
-// Profile Card information.
-model CardData {
-  id          Int        @id @default(autoincrement())
-  photoItem   PhotoItem? @relation(fields: [photoItemId], references: [id])
-  photoItemId Int?       @unique
-
-  username    String     @unique
-  itemSold    String?
-  price       Decimal?   @db.Money
-  quality     String?
-  dateOfList  DateTime?  @db.Date
-}
-
-model PhotoItem {
-  id        Int       @id @default(autoincrement())
-  url       String
-  caption   String?
-  cardData  CardData?
-}
-
-
-
-
 //  Stores merchandise information. There is one to many correspondence between Account and Merch.
 
 model Merch {
