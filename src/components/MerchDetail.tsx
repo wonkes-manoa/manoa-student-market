@@ -37,8 +37,8 @@ const MerchDetail = ({ merch }: Props) => {
         });
         const data: MerchImageData[] = await res.json();
 
-        // If there are images, take the first. Otherwise use fallback.
-        setImages(data.length > 0 ? [data[0]] : [fallbackImage]);
+        // If there are images, take all, not just the first one. Otherwise use fallback.
+        setImages(data.length > 0 ? data : [fallbackImage]);
       } catch (error) {
         console.error('Failed to fetch merch images', error);
         setImages([fallbackImage]);
