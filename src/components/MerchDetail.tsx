@@ -1,8 +1,7 @@
-import MerchGallery from '@/components/MerchGallery';
+import MerchGallery, { getMerchImage } from '@/components/MerchGallery';
 import MerchPanel from '@/components/MerchPanel';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Merch } from '@prisma/client';
-import { getMerchImage } from '@/lib/dbActions';
 
 const MerchDetail = async ({ merch } : { merch : Merch }) => {
   const merchImages: {

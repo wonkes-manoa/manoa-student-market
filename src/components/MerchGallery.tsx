@@ -1,8 +1,37 @@
 'use client';
 
-import { DEFAULT_IMAGE, parseImageSource } from '@/lib/dbActions';
 import { useState } from 'react';
 import { Container, Row, Col, Image } from 'react-bootstrap';
+
+export function getMerchImage(merchID : number) {
+  return fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/download/merch-images?merchID=${merchID}`, {
+    cache: 'no-store',
+  }).then(result => result.json());
+}
+
+export const DEFAULT_IMAGE : {
+  id: number,
+  mimeType: string,
+  base64: string;
+  url?: string;
+} = {
+  id: -1,
+  mimeType: 'image/png',
+  base64: '',
+  url: '/merch-photo/no-image-available.png',
+};
+
+export function parseImageSource(image : {
+  id: number,
+  mimeType: string,
+  base64: string,
+  url?: string,
+}) {
+  if (image.base64 && image.base64.length > 0) {
+    return `data:${image.mimeType};base64,${image.base64}`;
+  }
+  return image.url;
+}
 
 const MerchGallery = ({ photograph }: { photograph : {
   id: number,

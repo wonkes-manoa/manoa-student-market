@@ -1,6 +1,6 @@
 import { Merch } from '@prisma/client';
 import { Card, Row, Col, Container, Image } from 'react-bootstrap';
-import { DEFAULT_IMAGE, getMerchImage, parseImageSource } from '@/lib/dbActions';
+import { DEFAULT_IMAGE, getMerchImage, parseImageSource } from '@/components/MerchGallery';
 
 const MerchCard = async ({ merch } : { merch : Merch }) => {
   const merchImages: {
