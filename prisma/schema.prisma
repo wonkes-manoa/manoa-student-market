@@ -92,11 +92,25 @@ enum MerchCondition {
 
 enum MerchMaterial {
   ALUMINUM
-  INTANGIBLE
+  BAMBOO
+  BRASS
+  BRONZE
+  CARBON
+  CERAMIC
+  CLOTH
+  COPPER
+  FABRIC
+  GLASS
+  GOLD
   IRON
-  TITANIUM
+  LEATHER
   PAPER
   PLASTIC
+  RUBBER
+  SILVER
+  STEEL
+  STONE
+  TITANIUM
   WOOD
   OTHER
 }
@@ -117,6 +131,28 @@ model Account {
   merch         Merch[]
 }
 
+// Profile Card information.
+model CardData {
+  id          Int        @id @default(autoincrement())
+  photoItem   PhotoItem? @relation(fields: [photoItemId], references: [id])
+  photoItemId Int?       @unique
+
+  username    String     @unique
+  itemSold    String?
+  price       Decimal?   @db.Money
+  quality     String?
+  dateOfList  DateTime?  @db.Date
+}
+
+model PhotoItem {
+  id        Int       @id @default(autoincrement())
+  url       String
+  caption   String?
+  cardData  CardData?
+}
+
+
+
 
 //  Stores merchandise information. There is one to many correspondence between Account and Merch.
 
@@ -128,7 +164,7 @@ model Merch {
   Price         Float
   Name          String
   Description   String
-  Image         String[]
+  Image         MerchImage[]
   Length        Float
   Width         Float
   Height        Float
@@ -141,6 +177,17 @@ model Merch {
   Condition     MerchCondition
 
   seller        Account           @relation(fields: [AccountID], references: [AccountID])
+}
+
+model MerchImage {
+  ImageID       Int               @id @unique @default(autoincrement())
+  MerchID       Int
+  FileName      String
+  MIMEType      String            // Type of file.
+  Data          Bytes             // Image itself.
+  CreationTime  DateTime                      @default(now())
+
+  merch         Merch             @relation(fields: [MerchID], references: [MerchID])
 }
 
 enum Role {

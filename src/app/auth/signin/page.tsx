@@ -14,14 +14,25 @@ const SignIn = () => {
     };
     const email = target.email.value;
     const password = target.password.value;
+    if (!email || !password) {
+      swal('Missing information', 'Please enter both of your email and password.', 'warning');
+      return;
+    }
     const result = await signIn('credentials', {
-      callbackUrl: '/list',
+      redirect: false,
       email,
       password,
     });
 
-    if (result?.error) {
-      console.error('Sign in failed: ', result.error);
+    if (result?.ok) {
+      swal({
+        title: 'Welcome back!!',
+        text: 'You are now logged in.',
+        icon: 'success',
+        timer: 2000,
+      }).then(() => window.location.href = '/list');
+    } else {
+      swal('Login failed!', 'Invalid login credential.', 'error');
     }
   };
 
