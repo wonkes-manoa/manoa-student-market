@@ -1,0 +1,15 @@
+.reset-pass-button{
+  background-color: #082D0F !important;
+}
+.reset-pass-button:hover{
+  background-color: #30592e !important;
+}
+
+.reset-button{
+  background-color: #61b15e !important;
+  border-color:#61b15e !important;
+}
+
+.reset-button:hover{
+  background-color: #75d872 !important;
+}
