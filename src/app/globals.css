@@ -125,3 +125,8 @@ a:hover {
 .border-wonkes-6 {
   border-color: var(--theme-color-6);
 }
+
+.no-link-style {
+  text-decoration: none;
+  color: inherit;
+}
