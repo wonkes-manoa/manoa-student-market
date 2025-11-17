@@ -39,6 +39,12 @@ const MerchGallery = ({ photograph }: { photograph : {
 
   const [selectedPhotograph, setSelectedPhotograph] = useState(photograph[0]);
 
+  // Update selectedPhotograph when photograph is populated, but selectedPhotograph is not set.
+  // This may situation occur when this component is refreshed.
+  if (photograph[0] !== DEFAULT_IMAGE && selectedPhotograph === DEFAULT_IMAGE) {
+    setSelectedPhotograph(photograph[0]);
+  }
+
   return (
     <Container fluid>
       <Container className="ratio ratio-1x1" fluid style={{ maxWidth: '600px' }}>
