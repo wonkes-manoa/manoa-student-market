@@ -38,6 +38,12 @@ const NavBar: React.FC = () => {
               ''
             )}
             <Nav.Link id="support-nav" href="/support" key="support" active={pathName === '/support'}>
+              View Listings
+            </Nav.Link>
+            <Nav.Link id="support-nav" href="/support" key="support" active={pathName === '/support'}>
+              Sell Items
+            </Nav.Link>
+            <Nav.Link id="support-nav" href="/support" key="support" active={pathName === '/support'}>
               Support
             </Nav.Link>
           </Nav>
