@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Container, Row, Col, Image } from 'react-bootstrap';
 
 const DEFAULT_IMAGE : {
@@ -38,6 +38,10 @@ const MerchGallery = ({ photograph }: { photograph : {
   }
 
   const [selectedPhotograph, setSelectedPhotograph] = useState(photograph[0]);
+
+  useEffect(() => {
+    setSelectedPhotograph(photograph[0]);
+  }, [photograph]);
 
   return (
     <Container fluid>
