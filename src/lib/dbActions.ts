@@ -140,13 +140,18 @@ export async function createUser(credentials: { email: string; password: string 
  * Changes the password of an existing user in the database.
  * @param credentials, an object with the following properties: email, password.
  */
-export async function changePassword(credentials: { email: string; password: string }) {
-  // console.log(`changePassword data: ${JSON.stringify(credentials, null, 2)}`);
-  const password = await hash(credentials.password, 10);
+export async function changePassword(credentials: { email: string; oldpassword: string; password: string }) {
+  const email = credentials.email.trim().toLowerCase();// normalize
+  const hashed = await hash(credentials.password, 10);
+
+  // check first to avoid "Record to update not found"
+  const user = await prisma.user.findUnique({ where: { email } });
+  if (!user) {
+    throw new Error('Account not found.');
+  }
+
   await prisma.user.update({
-    where: { email: credentials.email },
-    data: {
-      password,
-    },
+    where: { email },
+    data: { password: hashed },
   });
 }
