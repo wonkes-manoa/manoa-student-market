@@ -2,8 +2,11 @@ import { Container, Row } from 'react-bootstrap';
 import ListingCard from '@/components/ListingCard';
 import { prisma } from '@/lib/prisma';
 import { ListingCardData } from '@/lib/ListingCardData';
+import { unstable_noStore as noStore } from 'next/cache';
 
 const ListingsPage = async () => {
+  noStore(); // Ensure nothing cached, and all data fetch from database upon every request.
+
   const listings = await prisma.merch.findMany({
     include: {
       Image: true,
