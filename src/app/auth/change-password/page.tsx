@@ -45,13 +45,24 @@ const ChangePassword = () => {
   const onSubmit = async (data: ChangePasswordForm) => {
     const finalEmail = (data.email || email).trim().toLowerCase();
     // console.log(JSON.stringify(data, null, 2));
-    await changePassword({
+    const result = await changePassword({
       email: finalEmail,
       oldpassword: data.oldpassword,
       password: data.password,
     });
     await swal('Password Changed', 'Your password has been changed', 'success', { timer: 2000 });
     reset();
+
+    if (result?.ok) {
+      swal({
+        title: 'Welcome back!!',
+        text: 'You are now logged in.',
+        icon: 'success',
+        timer: 2000,
+      }).then(() => window.location.href = '/list');
+    } else {
+      swal('Login failed!', 'Invalid login credential.', 'error');
+    }
   };
 
   if (status === 'loading') {
@@ -70,15 +81,6 @@ const ChangePassword = () => {
               <Card.Body>
                 <h1 className="text-center">Change Password</h1>
                 <Form onSubmit={handleSubmit(onSubmit)}>
-                  <Form.Group className="form-group">
-                    <Form.Label>Email</Form.Label>
-                    <input
-                      type="email"
-                      {...register('email')}
-                      className={`form-control ${errors.email ? 'is-invalid' : ''}`}
-                    />
-                    <div className="invalid-feedback">{errors.email?.message}</div>
-                  </Form.Group>
                   {/* test */}
                   <Form.Group className="form-group">
                     <Form.Label>Old Password</Form.Label>
