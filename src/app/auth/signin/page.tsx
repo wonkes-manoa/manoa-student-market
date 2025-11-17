@@ -56,6 +56,7 @@ const SignIn = () => {
                     <Form.Label>Password</Form.Label>
                     <input name="password" type="password" className="form-control" />
                   </Form.Group>
+                  <a id="change-password-link" href="/auth/change-password">Forgot Password?</a>
                   <Button
                     type="submit"
                     className="w-100 fw-semibold bg-wonkes-1 border-0 mt-3"
