@@ -59,7 +59,7 @@ const MerchGallery = ({ photograph }: { photograph : {
                 className={
                   `object-fit-cover
                   rounded-2
-                  ${photographData.id === selectedPhotograph.id ? 'border border-3 border-success' : ''}`
+                  ${photographData.id === selectedPhotograph.id ? 'border border-4 border-wonkes-3' : ''}`
                 }
                 onClick={() => setSelectedPhotograph(photographData)}
               />

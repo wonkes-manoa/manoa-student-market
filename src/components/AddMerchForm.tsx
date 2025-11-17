@@ -296,7 +296,7 @@ const AddMerchForm = ({ id } : { id : number }) => {
                     className="form-control"
                   />
                   <Form.Text muted>
-                    You can upload multiple images at once; suggested range is 5-7.
+                    You can upload multiple photos at once; suggested 5-7 square photos.
                     <br />
                     Accepted formats: JPG, JPEG, PNG, WEBP, GIF, BMP, SVG, TIFF.
                   </Form.Text>
@@ -305,7 +305,10 @@ const AddMerchForm = ({ id } : { id : number }) => {
                 {/* Buttons */}
                 <Row className="pt-3">
                   <Col>
-                    <Button type="submit" variant="primary" className="w-100">
+                    <Button
+                      type="submit"
+                      className="w-100 bg-wonkes-1 border-0"
+                    >
                       Submit
                     </Button>
                   </Col>
@@ -313,7 +316,7 @@ const AddMerchForm = ({ id } : { id : number }) => {
                     <Button
                       type="button"
                       onClick={() => reset()}
-                      variant="warning"
+                      variant="danger"
                       className="w-100"
                     >
                       Reset

@@ -103,27 +103,27 @@ a:hover {
 }
 
 .border-wonkes-1 {
-  border-color: var(--theme-color-1);
+  border-color: var(--theme-color-1) !important;
 }
 
 .border-wonkes-2 {
-  border-color: var(--theme-color-2);
+  border-color: var(--theme-color-2) !important;
 }
 
 .border-wonkes-3 {
-  border-color: var(--theme-color-3);
+  border-color: var(--theme-color-3) !important;
 }
 
 .border-wonkes-4 {
-  border-color: var(--theme-color-4);
+  border-color: var(--theme-color-4) !important;
 }
 
 .border-wonkes-5 {
-  border-color: var(--theme-color-5);
+  border-color: var(--theme-color-5) !important;
 }
 
 .border-wonkes-6 {
-  border-color: var(--theme-color-6);
+  border-color: var(--theme-color-6) !important;
 }
 
 .no-link-style {

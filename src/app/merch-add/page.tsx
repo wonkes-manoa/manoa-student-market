@@ -13,9 +13,11 @@ const AddMerch = async () => {
     } | null,
   );
   return (
-    <Container>
-      <AddMerchForm id={3} />
-    </Container>
+    <main className="bg-wonkes-7">
+      <Container>
+        <AddMerchForm id={3} />
+      </Container>
+    </main>
   );
 };
 
