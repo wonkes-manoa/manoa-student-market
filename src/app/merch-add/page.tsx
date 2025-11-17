@@ -13,7 +13,7 @@ const AddMerch = async () => {
     } | null,
   );
   return (
-    <main className="bg-wonkes-7">
+    <main className="flex-grow-1 bg-wonkes-7">
       <Container>
         <AddMerchForm id={3} />
       </Container>
