@@ -30,7 +30,6 @@ const SignUp = () => {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<SignUpForm>({
     resolver: yupResolver(validationSchema),
@@ -91,15 +90,6 @@ const SignUp = () => {
                           className="w-100 fw-semibold bg-wonkes-1 border-0"
                         >
                           Register
-                        </Button>
-                      </Col>
-                      <Col>
-                        <Button
-                          type="button"
-                          onClick={() => reset()}
-                          className="w-100 fw-semibold bg-wonkes-4 border-0 float-end"
-                        >
-                          Reset
                         </Button>
                       </Col>
                     </Row>

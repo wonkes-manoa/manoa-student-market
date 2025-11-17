@@ -10,6 +10,7 @@ import { changePassword } from '@/lib/dbActions';
 import LoadingSpinner from '@/components/LoadingSpinner';
 
 type ChangePasswordForm = {
+  email: string
   oldpassword: string;
   password: string;
   confirmPassword: string;
@@ -21,6 +22,7 @@ const ChangePassword = () => {
   const { data: session, status } = useSession();
   const email = session?.user?.email || '';
   const validationSchema = Yup.object().shape({
+    email: Yup.string().email('Enter a valid email').required('Email is required'),
     oldpassword: Yup.string().required('Password is required'),
     password: Yup.string()
       .required('Password is required')
@@ -41,8 +43,13 @@ const ChangePassword = () => {
   });
 
   const onSubmit = async (data: ChangePasswordForm) => {
+    const finalEmail = (data.email || email).trim().toLowerCase();
     // console.log(JSON.stringify(data, null, 2));
-    await changePassword({ email, ...data });
+    await changePassword({
+      email: finalEmail,
+      oldpassword: data.oldpassword,
+      password: data.password,
+    });
     await swal('Password Changed', 'Your password has been changed', 'success', { timer: 2000 });
     reset();
   };
@@ -63,6 +70,16 @@ const ChangePassword = () => {
               <Card.Body>
                 <h1 className="text-center">Change Password</h1>
                 <Form onSubmit={handleSubmit(onSubmit)}>
+                  <Form.Group className="form-group">
+                    <Form.Label>Email</Form.Label>
+                    <input
+                      type="email"
+                      {...register('email')}
+                      className={`form-control ${errors.email ? 'is-invalid' : ''}`}
+                    />
+                    <div className="invalid-feedback">{errors.email?.message}</div>
+                  </Form.Group>
+                  {/* test */}
                   <Form.Group className="form-group">
                     <Form.Label>Old Password</Form.Label>
                     <input
@@ -100,15 +117,6 @@ const ChangePassword = () => {
                           className="w-100 fw-semibold float-center"
                         >
                           Change
-                        </Button>
-                      </Col>
-                      <Col>
-                        <Button
-                          type="button"
-                          onClick={() => reset()}
-                          className="w-100 fw-semibold bg-wonkes-1 border-0 float-end"
-                        >
-                          Reset
                         </Button>
                       </Col>
                     </Row>
