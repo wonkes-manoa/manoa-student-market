@@ -175,13 +175,17 @@ export async function changePassword(credentials: {
     where: { EmailAddress: username },
   });
   if (!account) {
-    console.log('Receive account is:', account);
-    throw new Error('Account not found');
+    throw new Error('Server did not recognize your account');
   }
 
-  const oldPasswordValid = await compare(credentials.oldpassword, account.Password);
-  if (!oldPasswordValid) {
+  const isOldPasswordValid = await compare(credentials.oldpassword, account.Password);
+  if (!isOldPasswordValid) {
     throw new Error('Old password is incorrect');
+  }
+
+  const isOldNewPwdSame = credentials.oldpassword === credentials.password;
+  if (isOldNewPwdSame) {
+    throw new Error('New password and old password must differ');
   }
 
   const hashedPassword = await hash(credentials.password, 14);
