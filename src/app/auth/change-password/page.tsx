@@ -42,21 +42,24 @@ const ChangePassword = () => {
   });
 
   const onSubmit = async (data: ChangePasswordForm) => {
-    try {
-      await changePassword({
-        username,
-        oldpassword: data.oldpassword,
-        password: data.password,
-      });
+    // Change password.
+    const result = await changePassword({
+      username,
+      oldpassword: data.oldpassword,
+      password: data.password,
+    });
 
-      await swal('Password Changed', 'Your password has been changed', 'success', {
-        timer: 2000,
-      });
-
-      reset();
-    } catch (err: any) {
-      swal('Error', err.message || 'Failed to change password', 'error');
+    // Check change password status.
+    if (!result.ok) {
+      swal('Error', result.message || 'Failed to change password', 'error');
+      return;
     }
+
+    // Congratulations to the user.
+    await swal('Password Changed', 'Your password has been changed', 'success', {
+      timer: 2000,
+    });
+    reset();
   };
 
   if (status === 'loading') {

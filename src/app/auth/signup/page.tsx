@@ -58,18 +58,21 @@ const SignUp = () => {
   });
 
   const onSubmit = async (data: SignUpForm) => {
-    try {
-      // Create account.
-      await createAccount(data);
-      // Login with the new account after creation.
-      await signIn('credentials', {
-        username: data.username,
-        password: data.password,
-        callbackUrl: '/add',
-      });
-    } catch (err: any) {
-      swal('Error', err.message || 'Failed to create account', 'error');
+    // Create account.
+    const result = await createAccount(data);
+
+    // Check account creation status.
+    if (!result.ok) {
+      swal('Error', result.message || 'Failed to create account', 'error');
+      return;
     }
+
+    // Login with new account.
+    await signIn('credentials', {
+      username: data.username,
+      password: data.password,
+      callbackUrl: '/add',
+    });
   };
 
   return (
