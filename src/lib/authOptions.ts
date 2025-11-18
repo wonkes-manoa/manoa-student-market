@@ -46,6 +46,7 @@ const authOptions: NextAuthOptions = {
         return {
           id: `${account.AccountID}`,
           email: account.EmailAddress,
+          username: account.Username,
           randomKey: account.Privilege,
         };
       },

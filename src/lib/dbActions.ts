@@ -7,7 +7,7 @@ import { Stuff,
   MerchMaterial,
   MerchCondition,
   MassUnit } from '@prisma/client';
-import { hash } from 'bcrypt';
+import { compare, hash } from 'bcrypt';
 import { redirect } from 'next/navigation';
 import { prisma } from './prisma';
 
@@ -123,7 +123,7 @@ export async function deleteStuff(id: number) {
 
 /**
  * Creates a user new account in the database.
- * @param credentials, an object contains information required for creating an account.
+ * @param credentials, an object containing information required for creating an account.
  */
 export async function createAccount(credentials: {
   username: string;
@@ -139,7 +139,7 @@ export async function createAccount(credentials: {
   });
 
   if (isUsernameExist) {
-    throw new Error('Username already exists);
+    throw new Error('Username already exists');
   }
   const isEmailExist = await prisma.account.findUnique({
     where: { EmailAddress: credentials.email },
@@ -165,21 +165,31 @@ export async function createAccount(credentials: {
 
 /**
  * Changes the password of an existing user in the database.
- * @param credentials, an object with the following properties: email, password.
+ * @param credentials, an object containing information required for resetting password.
  */
-export async function changePassword(credentials: { email: string; oldpassword: string; password: string }) {
-  const email = credentials.email.trim().toLowerCase();// normalize
-  const hashed = await hash(credentials.password, 10);
-  return { ok: true };
-
-  // check first to avoid "Record to update not found"
-  const user = await prisma.user.findUnique({ where: { email } });
-  if (!user) {
+export async function changePassword(credentials: {
+  username: string;
+  oldpassword: string;
+  password: string;
+}) {
+  const { username } = credentials;
+  const account = await prisma.account.findUnique({
+    where: { Username: username },
+  });
+  if (!account) {
     throw new Error('Account not found');
   }
 
-  await prisma.user.update({
-    where: { email },
-    data: { password: hashed },
+  const oldPasswordValid = await compare(credentials.oldpassword, account.Password);
+  if (!oldPasswordValid) {
+    throw new Error('Old password is incorrect');
+  }
+
+  const hashedPassword = await hash(credentials.password, 14);
+  await prisma.account.update({
+    where: { Username: username },
+    data: { Password: hashedPassword },
   });
+
+  return { ok: true };
 }

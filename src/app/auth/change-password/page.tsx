@@ -18,17 +18,17 @@ type ChangePasswordForm = {
 /** The change password page. */
 const ChangePassword = () => {
   const { data: session, status } = useSession();
-  const email = session?.user?.email || '';
+  const username = session?.user?.name || ''; // Use user.name to store username
 
   const validationSchema = Yup.object().shape({
-    oldpassword: Yup.string().required('Password is required'),
+    oldpassword: Yup.string().required('Old password is required'),
     password: Yup.string()
-      .required('Password is required')
+      .required('New password is required')
       .min(6, 'Password must be at least 6 characters')
       .max(40, 'Password must not exceed 40 characters'),
     confirmPassword: Yup.string()
       .required('Confirm Password is required')
-      .oneOf([Yup.ref('password'), ''], 'Confirm Password does not match'),
+      .oneOf([Yup.ref('password'), ''], 'Passwords do not match'),
   });
 
   const {
@@ -41,16 +41,21 @@ const ChangePassword = () => {
   });
 
   const onSubmit = async (data: ChangePasswordForm) => {
-    // console.log(JSON.stringify(data, null, 2));
-    await changePassword({
-      email,
-      oldpassword: data.oldpassword,
-      password: data.password,
-    });
-    await swal('Password Changed', 'Your password has been changed', 'success', {
-      timer: 2000,
-    });
-    reset();
+    try {
+      await changePassword({
+        username,
+        oldpassword: data.oldpassword,
+        password: data.password,
+      });
+
+      await swal('Password Changed', 'Your password has been changed', 'success', {
+        timer: 2000,
+      });
+
+      reset();
+    } catch (err: any) {
+      swal('Error', err.message || 'Failed to change password', 'error');
+    }
   };
 
   if (status === 'loading') {
