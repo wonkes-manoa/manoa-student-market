@@ -30,7 +30,7 @@ const SignIn = () => {
 
     if (!username || !password) {
       setLoading(false);
-      swal('Missing information', 'Please enter both username and password.', 'warning');
+      swal('Missing information', 'Please enter both username and password', 'warning');
       return;
     }
 
@@ -43,10 +43,10 @@ const SignIn = () => {
     setLoading(false);
 
     if (result?.ok) {
-      swal('Welcome back!', 'You are now logged in.', 'success', { timer: 2000 })
+      swal('Welcome back!', 'You are now logged in', 'success', { timer: 2000 })
         .then(() => window.location.href = '/list');
     } else {
-      swal('Login failed', 'Invalid login credential.', 'error');
+      swal('Login failed', 'Invalid login credential', 'error');
     }
   };
 

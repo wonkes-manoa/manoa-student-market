@@ -20,39 +20,39 @@ type SignUpForm = {
 const SignUp = () => {
   const validationSchema = Yup.object().shape({
     username: Yup.string()
-      .required('Username is required.')
-      .matches(/^[a-zA-Z0-9_@.]+$/, 'Username only allow alphabet letters, Arabic numerals, and underscore.')
-      .min(3, 'Username must be at least 3 characters long.')
-      .max(20, 'Username must not exceed 20 characters long.'),
+      .required('Username is required')
+      .matches(/^[a-zA-Z0-9_@.]+$/, 'Username only allow alphabet letters, Arabic numerals, and _@.')
+      .min(3, 'Username must be at least 3 characters long')
+      .max(20, 'Username must not exceed 20 characters long'),
 
     email: Yup.string()
-      .required('Email address is required.')
-      .email('Email address is invalid.'),
+      .required('Email address is required')
+      .email('Email address is invalid'),
 
     firstName: Yup.string()
-      .required('Legal first name is required.')
+      .required('Legal first name is required')
       .matches(/^[A-Za-z]+$/, 'Only alphabet letters allowed')
-      .max(150, 'Too long. Contact us if you do have a long first name.'),
+      .max(150, 'Too long. Contact us if you do have a long first name'),
 
     middleName: Yup.string()
       .transform((value) => (value === '' ? null : value))
       .nullable()
-      .matches(/^[A-Za-z]*$/, 'Only alphabet letters allowed.')
-      .max(150, 'Too long. Contact us if you do have a long middle name.'),
+      .matches(/^[A-Za-z]*$/, 'Only alphabet letters allowed')
+      .max(150, 'Too long. Contact us if you do have a long middle name'),
 
     lastName: Yup.string()
       .required('Legal last name is required')
-      .matches(/^[A-Za-z]+$/, 'Only alphabet letters allowed.')
-      .max(150, 'Too long. Contact us if you do have a long last name.'),
+      .matches(/^[A-Za-z]+$/, 'Only alphabet letters allowed')
+      .max(150, 'Too long. Contact us if you do have a long last name'),
 
     password: Yup.string()
-      .required('Password is required.')
+      .required('Password is required')
       .min(6, 'Password must be at least 6 characters')
       .max(40, 'Password must not exceed 40 characters'),
 
     confirmPassword: Yup.string()
-      .required('Confirm Password is required.')
-      .oneOf([Yup.ref('password'), ''], 'Confirm Password does not match.'),
+      .required('Confirm Password is required')
+      .oneOf([Yup.ref('password'), ''], 'Confirm Password does not match'),
   });
 
   const {

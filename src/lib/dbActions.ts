@@ -139,14 +139,14 @@ export async function createAccount(credentials: {
   });
 
   if (isUsernameExist) {
-    throw new Error('Username already exists.');
+    throw new Error('Username already exists);
   }
   const isEmailExist = await prisma.account.findUnique({
     where: { EmailAddress: credentials.email },
   });
 
   if (isEmailExist) {
-    throw new Error('Email address already exists.');
+    throw new Error('Email address already exists');
   }
 
   const hashedPassword = await hash(credentials.password, 14);
@@ -175,7 +175,7 @@ export async function changePassword(credentials: { email: string; oldpassword: 
   // check first to avoid "Record to update not found"
   const user = await prisma.user.findUnique({ where: { email } });
   if (!user) {
-    throw new Error('Account not found.');
+    throw new Error('Account not found');
   }
 
   await prisma.user.update({
