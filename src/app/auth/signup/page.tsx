@@ -6,6 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { Card, Col, Container, Button, Form, Row } from 'react-bootstrap';
 import { createAccount } from '@/lib/dbActions';
+import swal from 'sweetalert';
 
 type SignUpForm = {
   username: string;
@@ -57,14 +58,18 @@ const SignUp = () => {
   });
 
   const onSubmit = async (data: SignUpForm) => {
-    // Create account.
-    await createAccount(data);
-    // Login with the new account after creation.
-    await signIn('credentials', {
-      username: data.username,
-      password: data.password,
-      callbackUrl: '/add',
-    });
+    try {
+      // Create account.
+      await createAccount(data);
+      // Login with the new account after creation.
+      await signIn('credentials', {
+        username: data.username,
+        password: data.password,
+        callbackUrl: '/add',
+      });
+    } catch (err: any) {
+      swal('Error', err.message || 'Failed to create account', 'error');
+    }
   };
 
   return (
