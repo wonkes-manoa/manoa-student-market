@@ -1,6 +1,6 @@
 :root {
-  --nat-navbar-bg: #082D0F;
-  --nat-navbar-bg-color: #082D0F;
+  --nat-navbar-bg: #30592e;
+  --nat-navbar-bg-color: #30592e;
   --nat-navbat-text-highlight: khaki;
   --nat-navbar-highlight-text: var(--bs-gray-500);
   --nat-navbar-highlight-bg: lightblue;
@@ -15,12 +15,33 @@
   --theme-color-7: #a8c686;
 }
 
+
 body .navbar {
   --bs-navbar-active-color: var(--nat-navbar-highlight-text);
   --bs-navbar-brand-color: var(--nat-navbar-text-color);
   --bs-navbar-brand-hover-color: var(--nat-navbar-highlight-text);
   --bs-navbar-color: var(--nat-navbar-text-color);
+  --bs-navbar-background-color: var(--nat-navbar-bg-color);
   --bs-navbar-hover-color: var(--nat-navbar-highlight-text);
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.flex-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.box {
+  width: calc(50% - 8px); /* two per row, considering gap */
+  background: #f3f3f3;
+  padding: 20px;
+  border-radius: 8px;
 }
 
 html,
@@ -30,7 +51,7 @@ body {
   height: 100%;
   padding: 0;
   margin: 0;
-  background: fixed center url("/mm2.jpg");
+  background-color: #458441;
   background-size: cover;
   background-repeat: no-repeat;
 }

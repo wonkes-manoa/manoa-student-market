@@ -1,17 +1,12 @@
-import { Col, Container, Image, Row } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 
 /** The Home page. */
 const Home = () => (
   <main>
     <Container id="landing-page" fluid className="py-3">
       <Row className="align-middle text-center">
-        <Col xs={4}>
-          <Image src="next.svg" width="150px" alt="" />
-        </Col>
-
-        <Col xs={8} className="d-flex flex-column justify-content-center">
-          <h1>Welcome to Wonke&apos;s Market!</h1>
-          <p>A place to buy and sell junk!</p>
+        <Col lg={3} className="d-flex justify-content-center mb-3 mb-lg-0">
+          <h1>Welcome to Wonkes!</h1>
         </Col>
       </Row>
     </Container>
