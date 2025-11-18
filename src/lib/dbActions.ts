@@ -125,13 +125,40 @@ export async function deleteStuff(id: number) {
  * Creates a new user in the database.
  * @param credentials, an object with the following properties: email, password.
  */
-export async function createUser(credentials: { email: string; password: string }) {
-  // console.log(`createUser data: ${JSON.stringify(credentials, null, 2)}`);
-  const password = await hash(credentials.password, 10);
-  await prisma.user.create({
+export async function createUser(credentials: {
+  username: string;
+  email: string;
+  firstName: string;
+  middleName?: string | null;
+  lastName: string;
+  password: string;
+  confirmPassword: string;
+}) {
+  const isUsernameExist = await prisma.account.findUnique({
+    where: { Username: credentials.username },
+  });
+
+  if (isUsernameExist) {
+    throw new Error('Username already exists.');
+  }
+  const isEmailExist = await prisma.account.findUnique({
+    where: { EmailAddress: credentials.email },
+  });
+
+  if (isEmailExist) {
+    throw new Error('Email address already exists.');
+  }
+
+  const hashedPassword = await hash(credentials.password, 10);
+
+  await prisma.account.create({
     data: {
-      email: credentials.email,
-      password,
+      Username: credentials.username,
+      Password: hashedPassword,
+      EmailAddress: credentials.email,
+      FirstName: credentials.firstName,
+      MiddleName: credentials.middleName || '',
+      LastName: credentials.lastName,
     },
   });
 }

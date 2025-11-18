@@ -11,7 +11,7 @@ type SignUpForm = {
   username: string;
   email: string;
   firstName: string;
-  middleName?: string;
+  middleName?: string | null;
   lastName: string;
   password: string;
   confirmPassword: string;
@@ -35,6 +35,7 @@ const SignUp = () => {
       .max(150, 'Too long. Contact us if you do have a long first name.'),
 
     middleName: Yup.string()
+      .transform((value) => (value === '' ? null : value))
       .nullable()
       .matches(/^[A-Za-z]*$/, 'Only alphabet letters allowed.')
       .max(150, 'Too long. Contact us if you do have a long middle name.'),
