@@ -61,7 +61,6 @@ async function main() {
         // eslint-disable-next-line no-await-in-loop
         Password: await hash(account.Password, 14),
         FirstName: account.FirstName,
-        MiddleName: account.MiddleName,
         LastName: account.LastName,
       } });
   }

@@ -129,7 +129,6 @@ export async function createAccount(credentials: {
   username: string;
   email: string;
   firstName: string;
-  middleName?: string | null;
   lastName: string;
   password: string;
   confirmPassword: string;
@@ -157,7 +156,6 @@ export async function createAccount(credentials: {
       Password: hashedPassword,
       EmailAddress: credentials.email,
       FirstName: credentials.firstName,
-      MiddleName: credentials.middleName || '',
       LastName: credentials.lastName,
     },
   });

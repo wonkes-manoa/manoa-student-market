@@ -18,7 +18,6 @@
       "Password": "changeme",
       "Privilege": "USER",
       "FirstName": "John",
-      "MiddleName": "",
       "LastName": "Ny"
     },
     {
@@ -27,8 +26,7 @@
       "Password": "changeme",
       "Privilege": "USER",
       "FirstName": "Alpi",
-      "MiddleName": "Bava",
-      "LastName": "Carrie"
+      "LastName": "Bava"
     },
     {
       "EmailAddress": "admin@foo.com",
@@ -36,7 +34,6 @@
       "Password": "changeme",
       "Privilege": "ADMINISTRATOR",
       "FirstName": "Admin",
-      "MiddleName": "",
       "LastName": "IsTrator"
     }
   ],
