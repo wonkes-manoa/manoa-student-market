@@ -38,6 +38,24 @@
       "FirstName": "Carol",
       "MiddleName": "",
       "LastName": "Nguyen"
+    },
+    {
+      "EmailAddress": "john@foo.com",
+      "Username": "john@foo.com",
+      "Password": "changeme",
+      "Privilege": "USER",
+      "FirstName": "John",
+      "MiddleName": "",
+      "LastName": "Ny"
+    },
+    {
+      "EmailAddress": "admin@foo.com",
+      "Username": "admin@foo.com",
+      "Password": "changeme",
+      "Privilege": "ADMINISTRATOR",
+      "FirstName": "Admin",
+      "MiddleName": "",
+      "LastName": "IsTrator"
     }
   ],
 
