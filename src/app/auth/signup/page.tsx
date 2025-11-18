@@ -11,7 +11,6 @@ type SignUpForm = {
   username: string;
   email: string;
   firstName: string;
-  middleName?: string | null;
   lastName: string;
   password: string;
   confirmPassword: string;
@@ -33,12 +32,6 @@ const SignUp = () => {
       .required('Legal first name is required')
       .matches(/^[A-Za-z]+$/, 'Only alphabet letters allowed')
       .max(150, 'Too long. Contact us if you do have a long first name'),
-
-    middleName: Yup.string()
-      .transform((value) => (value === '' ? null : value))
-      .nullable()
-      .matches(/^[A-Za-z]*$/, 'Only alphabet letters allowed')
-      .max(150, 'Too long. Contact us if you do have a long middle name'),
 
     lastName: Yup.string()
       .required('Legal last name is required')
@@ -117,17 +110,6 @@ const SignUp = () => {
                       className={`form-control ${errors.firstName ? 'is-invalid' : ''}`}
                     />
                     <div className="invalid-feedback">{errors.firstName?.message}</div>
-                  </Form.Group>
-
-                  {/* Middle Name (Optional) */}
-                  <Form.Group className="form-group">
-                    <Form.Label>Middle Name (Optional)</Form.Label>
-                    <input
-                      type="text"
-                      {...register('middleName')}
-                      className={`form-control ${errors.middleName ? 'is-invalid' : ''}`}
-                    />
-                    <div className="invalid-feedback">{errors.middleName?.message}</div>
                   </Form.Group>
 
                   {/* Last Name */}
