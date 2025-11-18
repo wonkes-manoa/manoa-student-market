@@ -1,14 +1,16 @@
 'use server';
 
-import { Stuff,
+import { Prisma, Stuff,
   Condition,
   MerchStockStatus,
   LengthUnit,
   MerchMaterial,
   MerchCondition,
-  MassUnit } from '@prisma/client';
+  MassUnit,
+  Role } from '@prisma/client';
 import { hash } from 'bcrypt';
 import { redirect } from 'next/navigation';
+import { randNumber } from '@ngneat/falso';
 import { prisma } from './prisma';
 
 /**
@@ -132,6 +134,29 @@ export async function createUser(credentials: { email: string; password: string 
     data: {
       email: credentials.email,
       password,
+    },
+  });
+}
+/**
+ * Creates a new user in the database.
+ * @param credentials, an object with the following properties: email, password.
+ */
+// eslint-disable-next-line function-paren-newline
+export async function createUserExhaustive(
+  // eslint-disable-next-line max-len
+  credentials: { email: string; password: string; username: string; firstName: string; lastName: string; },
+) {
+  // console.log(`createUser data: ${JSON.stringify(credentials, null, 2)}`);
+  const Password = await hash(credentials.password, 10);
+  await prisma.account.create({
+    data: {
+      EmailAddress: credentials.email,
+      Password,
+      Username: credentials.username,
+      FirstName: credentials.firstName,
+      LastName: credentials.lastName,
+      AccountID: randNumber({ min: 1000, max: 9999 }),
+      Privilege: Role.USER,
     },
   });
 }
