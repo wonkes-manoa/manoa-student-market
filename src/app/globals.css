@@ -80,11 +80,11 @@ a:hover {
 }
 
 .bg-wonkes-1 {
-  background-color: var(--theme-color-1);
+  background-color: var(--theme-color-1) !important;
 }
 
 .bg-wonkes-1:hover {
-  background-color: var(--theme-color-3);
+  background-color: var(--theme-color-3) !important;
 }
 
 .bg-wonkes-1:active {
@@ -92,19 +92,19 @@ a:hover {
 }
 
 .bg-wonkes-2 {
-  background-color: var(--theme-color-2);
+  background-color: var(--theme-color-2) !important;
 }
 
 .bg-wonkes-3 {
-  background-color: var(--theme-color-3);
+  background-color: var(--theme-color-3) !important;
 }
 
 .bg-wonkes-4 {
-  background-color: var(--theme-color-4);
+  background-color: var(--theme-color-4) !important;
 }
 
 .bg-wonkes-4:hover {
-  background-color: var(--theme-color-6);
+  background-color: var(--theme-color-6) !important;
 }
 
 .bg-wonkes-4:active {
@@ -112,15 +112,15 @@ a:hover {
 }
 
 .bg-wonkes-5 {
-  background-color: var(--theme-color-5);
+  background-color: var(--theme-color-5) !important;
 }
 
 .bg-wonkes-6 {
-  background-color: var(--theme-color-6);
+  background-color: var(--theme-color-6) !important;
 }
 
 .bg-wonkes-7 {
-  background-color: var(--theme-color-7);
+  background-color: var(--theme-color-7) !important;
 }
 
 .border-wonkes-1 {
