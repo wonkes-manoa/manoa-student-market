@@ -125,7 +125,6 @@ model Account {
   Password      String
   EmailAddress  String                @unique
   FirstName     String
-  MiddleName    String
   LastName      String
 
   merch         Merch[]
