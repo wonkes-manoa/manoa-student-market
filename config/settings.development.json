@@ -18,7 +18,6 @@
       "Password": "changeme",
       "Privilege": "USER",
       "FirstName": "Alice",
-      "MiddleName": "",
       "LastName": "Lee"
     },
     {
@@ -27,7 +26,6 @@
       "Password": "changeme",
       "Privilege": "USER",
       "FirstName": "Bob",
-      "MiddleName": "J",
       "LastName": "Chen"
     },
     {
@@ -36,7 +34,6 @@
       "Password": "changeme",
       "Privilege": "ADMINISTRATOR",
       "FirstName": "Carol",
-      "MiddleName": "",
       "LastName": "Nguyen"
     }
   ],
