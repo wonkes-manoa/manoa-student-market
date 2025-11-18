@@ -22,7 +22,6 @@ const authOptions: NextAuthOptions = {
           type: 'password' },
       },
       async authorize(credentials) {
-        console.log('F');
         if (!credentials?.username || !credentials.password) {
           console.log('MISSING CREDENTIAL');
           return null;
@@ -66,8 +65,10 @@ const authOptions: NextAuthOptions = {
         ...session,
         user: {
           ...session.user,
-          id: token.id,
-          randomKey: token.randomKey,
+          id: token.id as string,
+          email: token.email as string,
+          username: token.username as string,
+          randomKey: token.randomKey as string,
         },
       };
     },
@@ -78,6 +79,8 @@ const authOptions: NextAuthOptions = {
         return {
           ...token,
           id: u.id,
+          email: u.email,
+          username: u.username,
           randomKey: u.randomKey,
         };
       }

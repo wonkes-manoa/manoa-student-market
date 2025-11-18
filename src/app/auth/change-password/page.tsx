@@ -18,7 +18,8 @@ type ChangePasswordForm = {
 /** The change password page. */
 const ChangePassword = () => {
   const { data: session, status } = useSession();
-  const username = session?.user?.name || ''; // Use user.name to store username
+  const username = session?.user?.username || '';
+  console.log('Session: ', session?.user?.username);
 
   const validationSchema = Yup.object().shape({
     oldpassword: Yup.string().required('Old password is required'),

@@ -174,9 +174,10 @@ export async function changePassword(credentials: {
 }) {
   const { username } = credentials;
   const account = await prisma.account.findUnique({
-    where: { Username: username },
+    where: { EmailAddress: username },
   });
   if (!account) {
+    console.log('Receive account is:', account);
     throw new Error('Account not found');
   }
 
