@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { Card, Col, Container, Button, Form, Row } from 'react-bootstrap';
-import { createUser } from '@/lib/dbActions';
+import { createAccount } from '@/lib/dbActions';
 
 type SignUpForm = {
   username: string;
@@ -21,7 +21,7 @@ const SignUp = () => {
   const validationSchema = Yup.object().shape({
     username: Yup.string()
       .required('Username is required.')
-      .matches(/^[a-zA-Z0-9_]+$/, 'Username only allow alphabet letters, Arabic numerals, and underscore.')
+      .matches(/^[a-zA-Z0-9_@.]+$/, 'Username only allow alphabet letters, Arabic numerals, and underscore.')
       .min(3, 'Username must be at least 3 characters long.')
       .max(20, 'Username must not exceed 20 characters long.'),
 
@@ -65,7 +65,7 @@ const SignUp = () => {
 
   const onSubmit = async (data: SignUpForm) => {
     // Create account.
-    await createUser(data);
+    await createAccount(data);
     // Login with the new account after creation.
     await signIn('credentials', {
       username: data.username,

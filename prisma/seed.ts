@@ -18,7 +18,7 @@ const prisma = new PrismaClient();
 
 async function main() {
   console.log('Seeding the database');
-  const password = await hash('changeme', 10);
+  const password = await hash('changeme', 14);
   config.defaultAccounts.forEach(async (account) => {
     const role = account.role as Role || Role.USER;
     console.log(`  Creating user: ${account.email} with role: ${role}`);
@@ -58,7 +58,8 @@ async function main() {
         Privilege: privilege,
         EmailAddress: account.EmailAddress,
         Username: account.Username,
-        Password: account.Password,
+        // eslint-disable-next-line no-await-in-loop
+        Password: await hash(account.Password, 14),
         FirstName: account.FirstName,
         MiddleName: account.MiddleName,
         LastName: account.LastName,

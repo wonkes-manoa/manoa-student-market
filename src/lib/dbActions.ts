@@ -122,10 +122,10 @@ export async function deleteStuff(id: number) {
 }
 
 /**
- * Creates a new user in the database.
- * @param credentials, an object with the following properties: email, password.
+ * Creates a user new account in the database.
+ * @param credentials, an object contains information required for creating an account.
  */
-export async function createUser(credentials: {
+export async function createAccount(credentials: {
   username: string;
   email: string;
   firstName: string;
@@ -149,7 +149,7 @@ export async function createUser(credentials: {
     throw new Error('Email address already exists.');
   }
 
-  const hashedPassword = await hash(credentials.password, 10);
+  const hashedPassword = await hash(credentials.password, 14);
 
   await prisma.account.create({
     data: {
