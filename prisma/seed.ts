@@ -12,7 +12,7 @@ import {
 import { hash } from 'bcrypt';
 import path from 'path';
 import fs from 'fs/promises';
-import * as config from '../config/settings.development.json';
+import config from '../config/settings.development.json';
 
 const prisma = new PrismaClient();
 
@@ -50,6 +50,7 @@ async function main() {
   }
   for (const account of config.defaultAccount) {
     const privilege = account.Privilege as AccountPrivilege || AccountPrivilege.USER;
+    console.log(`  Adding user: ${JSON.stringify(account)}`);
     // eslint-disable-next-line no-await-in-loop
     await prisma.account.upsert({
       where: { AccountID: config.defaultAccount.indexOf(account) + 1 },
@@ -60,7 +61,6 @@ async function main() {
         Username: account.Username,
         Password: account.Password,
         FirstName: account.FirstName,
-        MiddleName: account.MiddleName,
         LastName: account.LastName,
       } });
   }
@@ -72,6 +72,7 @@ async function main() {
     const massUnit = merch.MUnit as MassUnit || MassUnit.GRAM;
     const material = merch.Material as MerchMaterial || MerchMaterial.ALUMINUM;
     const condition = merch.Condition as MerchCondition || MerchCondition.NEW;
+    console.log(`  Adding merch: ${JSON.stringify(merch)}`);
     // eslint-disable-next-line no-await-in-loop
     await prisma.merch.upsert({
       where: { MerchID: config.defaultMerch.indexOf(merch) + 1 },

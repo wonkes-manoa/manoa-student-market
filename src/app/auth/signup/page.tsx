@@ -5,10 +5,13 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { Card, Col, Container, Button, Form, Row } from 'react-bootstrap';
-import { createUser } from '@/lib/dbActions';
+import { createUserExhaustive } from '@/lib/dbActions';
 
 type SignUpForm = {
   email: string;
+  username: string;
+  firstName: string;
+  lastName: string;
   password: string;
   confirmPassword: string;
   // acceptTerms: boolean;
@@ -18,6 +21,9 @@ type SignUpForm = {
 const SignUp = () => {
   const validationSchema = Yup.object().shape({
     email: Yup.string().required('Email is required').email('Email is invalid'),
+    username: Yup.string().default(() => 'Username'),
+    firstName: Yup.string().default(() => 'FirstName'),
+    lastName: Yup.string().default(() => 'LastName'),
     password: Yup.string()
       .required('Password is required')
       .min(6, 'Password must be at least 6 characters')
@@ -37,9 +43,9 @@ const SignUp = () => {
 
   const onSubmit = async (data: SignUpForm) => {
     // console.log(JSON.stringify(data, null, 2));
-    await createUser(data);
+    await createUserExhaustive(data);
     // After creating, signIn with redirect to the add page
-    await signIn('credentials', { callbackUrl: '/add', ...data });
+    await signIn('credentials', { callbackUrl: '/add', email: data.email, password: data.password });
   };
 
   return (
@@ -63,7 +69,30 @@ const SignUp = () => {
                     />
                     <div className="invalid-feedback">{errors.email?.message}</div>
                   </Form.Group>
-
+                  <Form.Group className="form-group">
+                    <Form.Label>Username</Form.Label>
+                    <input
+                      type="text"
+                      {...register('username')}
+                    />
+                    <div className="invalid-feedback">{errors.email?.message}</div>
+                  </Form.Group>
+                  <Form.Group className="form-group">
+                    <Form.Label>First Name</Form.Label>
+                    <input
+                      type="text"
+                      {...register('firstName')}
+                    />
+                    <div className="invalid-feedback">{errors.email?.message}</div>
+                  </Form.Group>
+                  <Form.Group className="form-group">
+                    <Form.Label>Last Name</Form.Label>
+                    <input
+                      type="text"
+                      {...register('lastName')}
+                    />
+                    <div className="invalid-feedback">{errors.email?.message}</div>
+                  </Form.Group>
                   <Form.Group className="form-group">
                     <Form.Label>Password</Form.Label>
                     <input
