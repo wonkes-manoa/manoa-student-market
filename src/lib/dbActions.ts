@@ -138,14 +138,14 @@ export async function createAccount(credentials: {
   });
 
   if (isUsernameExist) {
-    throw new Error('Username already exists');
+    return { ok: false, message: 'Username already exists' };
   }
   const isEmailExist = await prisma.account.findUnique({
     where: { EmailAddress: credentials.email },
   });
 
   if (isEmailExist) {
-    throw new Error('Email address already exists');
+    return { ok: false, message: 'Email address already exists' };
   }
 
   const hashedPassword = await hash(credentials.password, 14);
@@ -159,6 +159,8 @@ export async function createAccount(credentials: {
       LastName: credentials.lastName,
     },
   });
+
+  return { ok: true };
 }
 
 /**
@@ -175,17 +177,17 @@ export async function changePassword(credentials: {
     where: { EmailAddress: username },
   });
   if (!account) {
-    throw new Error('Server did not recognize your account');
+    return { ok: false, message: 'Server did not recognize your account' };
   }
 
   const isOldPasswordValid = await compare(credentials.oldpassword, account.Password);
   if (!isOldPasswordValid) {
-    throw new Error('Old password is incorrect');
+    return { ok: false, message: 'Old password is incorrect' };
   }
 
   const isOldNewPwdSame = credentials.oldpassword === credentials.password;
   if (isOldNewPwdSame) {
-    throw new Error('New password and old password must differ');
+    return { ok: false, message: 'New password and old password must differ' };
   }
 
   const hashedPassword = await hash(credentials.password, 14);
