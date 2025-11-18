@@ -12,13 +12,13 @@ import {
 import { hash } from 'bcrypt';
 import path from 'path';
 import fs from 'fs/promises';
-import config from '../config/settings.development.json';
+import * as config from '../config/settings.development.json';
 
 const prisma = new PrismaClient();
 
 async function main() {
   console.log('Seeding the database');
-  const password = await hash('changeme', 10);
+  const password = await hash('changeme', 14);
   config.defaultAccounts.forEach(async (account) => {
     const role = account.role as Role || Role.USER;
     console.log(`  Creating user: ${account.email} with role: ${role}`);
@@ -50,7 +50,6 @@ async function main() {
   }
   for (const account of config.defaultAccount) {
     const privilege = account.Privilege as AccountPrivilege || AccountPrivilege.USER;
-    console.log(`  Adding user: ${JSON.stringify(account)}`);
     // eslint-disable-next-line no-await-in-loop
     await prisma.account.upsert({
       where: { AccountID: config.defaultAccount.indexOf(account) + 1 },
@@ -59,8 +58,10 @@ async function main() {
         Privilege: privilege,
         EmailAddress: account.EmailAddress,
         Username: account.Username,
-        Password: account.Password,
+        // eslint-disable-next-line no-await-in-loop
+        Password: await hash(account.Password, 14),
         FirstName: account.FirstName,
+        MiddleName: account.MiddleName,
         LastName: account.LastName,
       } });
   }
@@ -72,7 +73,6 @@ async function main() {
     const massUnit = merch.MUnit as MassUnit || MassUnit.GRAM;
     const material = merch.Material as MerchMaterial || MerchMaterial.ALUMINUM;
     const condition = merch.Condition as MerchCondition || MerchCondition.NEW;
-    console.log(`  Adding merch: ${JSON.stringify(merch)}`);
     // eslint-disable-next-line no-await-in-loop
     await prisma.merch.upsert({
       where: { MerchID: config.defaultMerch.indexOf(merch) + 1 },

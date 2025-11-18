@@ -1,16 +1,14 @@
 'use server';
 
-import { Prisma, Stuff,
+import { Stuff,
   Condition,
   MerchStockStatus,
   LengthUnit,
   MerchMaterial,
   MerchCondition,
-  MassUnit,
-  Role } from '@prisma/client';
-import { hash } from 'bcrypt';
+  MassUnit } from '@prisma/client';
+import { compare, hash } from 'bcrypt';
 import { redirect } from 'next/navigation';
-import { randNumber } from '@ngneat/falso';
 import { prisma } from './prisma';
 
 /**
@@ -124,60 +122,75 @@ export async function deleteStuff(id: number) {
 }
 
 /**
- * Creates a new user in the database.
- * @param credentials, an object with the following properties: email, password.
+ * Creates a user new account in the database.
+ * @param credentials, an object containing information required for creating an account.
  */
-export async function createUser(credentials: { email: string; password: string }) {
-  // console.log(`createUser data: ${JSON.stringify(credentials, null, 2)}`);
-  const password = await hash(credentials.password, 10);
-  await prisma.user.create({
-    data: {
-      email: credentials.email,
-      password,
-    },
+export async function createAccount(credentials: {
+  username: string;
+  email: string;
+  firstName: string;
+  middleName?: string | null;
+  lastName: string;
+  password: string;
+  confirmPassword: string;
+}) {
+  const isUsernameExist = await prisma.account.findUnique({
+    where: { Username: credentials.username },
   });
-}
-/**
- * Creates a new user in the database.
- * @param credentials, an object with the following properties: email, password.
- */
-// eslint-disable-next-line function-paren-newline
-export async function createUserExhaustive(
-  // eslint-disable-next-line max-len
-  credentials: { email: string; password: string; username: string; firstName: string; lastName: string; },
-) {
-  // console.log(`createUser data: ${JSON.stringify(credentials, null, 2)}`);
-  const Password = await hash(credentials.password, 10);
+
+  if (isUsernameExist) {
+    throw new Error('Username already exists');
+  }
+  const isEmailExist = await prisma.account.findUnique({
+    where: { EmailAddress: credentials.email },
+  });
+
+  if (isEmailExist) {
+    throw new Error('Email address already exists');
+  }
+
+  const hashedPassword = await hash(credentials.password, 14);
+
   await prisma.account.create({
     data: {
-      EmailAddress: credentials.email,
-      Password,
       Username: credentials.username,
+      Password: hashedPassword,
+      EmailAddress: credentials.email,
       FirstName: credentials.firstName,
+      MiddleName: credentials.middleName || '',
       LastName: credentials.lastName,
-      AccountID: randNumber({ min: 1000, max: 9999 }),
-      Privilege: Role.USER,
     },
   });
 }
 
 /**
  * Changes the password of an existing user in the database.
- * @param credentials, an object with the following properties: email, password.
+ * @param credentials, an object containing information required for resetting password.
  */
-export async function changePassword(credentials: { email: string; oldpassword: string; password: string }) {
-  const email = credentials.email.trim().toLowerCase();// normalize
-  const hashed = await hash(credentials.password, 10);
-  return { ok: true };
-
-  // check first to avoid "Record to update not found"
-  const user = await prisma.user.findUnique({ where: { email } });
-  if (!user) {
-    throw new Error('Account not found.');
+export async function changePassword(credentials: {
+  username: string;
+  oldpassword: string;
+  password: string;
+}) {
+  const { username } = credentials;
+  const account = await prisma.account.findUnique({
+    where: { EmailAddress: username },
+  });
+  if (!account) {
+    console.log('Receive account is:', account);
+    throw new Error('Account not found');
   }
 
-  await prisma.user.update({
-    where: { email },
-    data: { password: hashed },
+  const oldPasswordValid = await compare(credentials.oldpassword, account.Password);
+  if (!oldPasswordValid) {
+    throw new Error('Old password is incorrect');
+  }
+
+  const hashedPassword = await hash(credentials.password, 14);
+  await prisma.account.update({
+    where: { Username: username },
+    data: { Password: hashedPassword },
   });
+
+  return { ok: true };
 }
