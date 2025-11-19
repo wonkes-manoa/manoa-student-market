@@ -25,7 +25,7 @@ const NavBar: React.FC = () => {
     >
       <Container>
         <Navbar.Brand
-          href="/listing-card"
+          href="/listings-view"
           className="fw-bold text-light"
           style={{ letterSpacing: '0.5px' }}
         >
@@ -48,16 +48,6 @@ const NavBar: React.FC = () => {
             {username && (
               <>
                 <Nav.Link
-                  id="listing-card-nav"
-                  href="/listing-card"
-                  key="listing-card"
-                  active={pathname === '/listing-card'}
-                  className="text-light"
-                >
-                  View Sales
-                </Nav.Link>
-
-                <Nav.Link
                   id="my-store-nav"
                   href="/my-store"
                   key="my-store"
@@ -66,13 +56,22 @@ const NavBar: React.FC = () => {
                 >
                   My Store
                 </Nav.Link>
-
                 <Nav.Link
-                  href="/merch-add"
-                  active={pathname === '/merch-add'}
+                  id="listings-view-nav"
+                  href="/listings-view"
+                  key="listings-view"
+                  active={pathname === '/listings-view'}
                   className="text-light"
                 >
-                  Add Merch
+                  View Listings
+                </Nav.Link>
+
+                <Nav.Link
+                  href="/listings-add"
+                  active={pathname === '/listings-add'}
+                  className="text-light"
+                >
+                  Add Listing
                 </Nav.Link>
               </>
             )}
