@@ -1,71 +1,143 @@
-/* eslint-disable react/jsx-indent, @typescript-eslint/indent */
-
 'use client';
 
 import { useSession } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
-import { BoxArrowRight, Lock, PersonFill, PersonPlusFill } from 'react-bootstrap-icons';
+import {
+  BoxArrowRight,
+  Lock,
+  PersonFill,
+  PersonPlusFill,
+} from 'react-bootstrap-icons';
 
 const NavBar: React.FC = () => {
   const { data: session } = useSession();
-  const currentUser = session?.user?.email;
-  const userWithRole = session?.user as { email: string; randomKey: string };
-  const role = userWithRole?.randomKey;
-  const pathName = usePathname();
+  const pathname = usePathname();
+
+  const username = session?.user?.username;
+  const role = session?.user?.randomKey; // ADMINISTRATOR or USER
+
   return (
-    <Navbar bg="dark" expand="lg">
+    <Navbar
+      expand="lg"
+      className="bg-wonkes-4 border-bottom border-wonkes-7 shadow-sm"
+      variant="dark"
+    >
       <Container>
-        <Navbar.Brand href="/">Wonke&apos;s Market</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto justify-content-start">
-            {currentUser
-              ? [
-                  <Nav.Link id="add-stuff-nav" href="/add" key="add" active={pathName === '/add'}>
-                    Add Stuff
-                  </Nav.Link>,
-                  <Nav.Link
-                    id="listing-card-nav"
-                    href="/listing-card"
-                    key="listing-card"
-                    active={pathName === '/listing-card'}
-                  >
-                    List Stuff
-                  </Nav.Link>,
-                ]
-              : ''}
-            {currentUser && role === 'ADMIN' ? (
-              <Nav.Link id="admin-stuff-nav" href="/admin" key="admin" active={pathName === '/admin'}>
-                Admin
-              </Nav.Link>
-            ) : (
-              ''
-            )}
-            <Nav.Link id="support-nav" href="/support" key="support" active={pathName === '/support'}>
+        <Navbar.Brand
+          href="/"
+          className="fw-bold text-light"
+          style={{ letterSpacing: '0.5px' }}
+        >
+          Wonkes Market
+        </Navbar.Brand>
+
+        <Navbar.Toggle aria-controls="wonkes-navbar" />
+
+        <Navbar.Collapse id="wonkes-navbar">
+          <Nav className="me-auto">
+
+            <Nav.Link
+              href="/support"
+              active={pathname === '/support'}
+              className="text-light"
+            >
               Support
             </Nav.Link>
+
+            {username && (
+              <>
+                <Nav.Link
+                  id="listing-card-nav"
+                  href="/listing-card"
+                  key="listing-card"
+                  active={pathname === '/listing-card'}
+                  className="text-light"
+                >
+                  View Sales
+                </Nav.Link>
+
+                <Nav.Link
+                  id="my-store-nav"
+                  href="/"
+                  key="my-store"
+                  active={pathname === '/'}
+                  className="text-light"
+                >
+                  My Store
+                </Nav.Link>
+
+                <Nav.Link
+                  href="/merch-add"
+                  active={pathname === '/merch-add'}
+                  className="text-light"
+                >
+                  Add Merch
+                </Nav.Link>
+              </>
+            )}
+
+            {username && role === 'ADMINISTRATOR' && (
+              <Nav.Link
+                id="admin-stuff-nav"
+                href="/admin"
+                key="admin"
+                active={pathname === '/admin'}
+                className="text-light"
+              >
+                Admin Home
+              </Nav.Link>
+            )}
           </Nav>
+
           <Nav>
-            {session ? (
-              <NavDropdown id="login-dropdown" title={currentUser}>
-                <NavDropdown.Item id="login-dropdown-sign-out" href="/api/auth/signout">
-                  <BoxArrowRight />
-                  Sign Out
-                </NavDropdown.Item>
-                <NavDropdown.Item id="login-dropdown-change-password" href="/auth/change-password">
+            {username ? (
+              <NavDropdown
+                id="login-dropdown"
+                title={<span className="text-light">{username}</span>}
+                menuVariant="light"
+                className="text-light"
+              >
+                <NavDropdown.Item
+                  href="/auth/change-password"
+                  className="bg-wonkes-4 text-light"
+                >
                   <Lock />
+                  {' '}
                   Change Password
+                </NavDropdown.Item>
+
+                <NavDropdown.Item
+                  href="/auth/signout"
+                  className="bg-wonkes-4 text-light"
+                >
+                  <BoxArrowRight />
+                  {' '}
+                  Sign Out
                 </NavDropdown.Item>
               </NavDropdown>
             ) : (
-              <NavDropdown id="login-dropdown" title="Login">
-                <NavDropdown.Item id="login-dropdown-sign-in" href="/auth/signin">
+              <NavDropdown
+                id="login-dropdown"
+                title={<span className="text-light">Login</span>}
+              >
+                <NavDropdown.Item
+                  id="login-dropdown-sign-in"
+                  href="/auth/signin"
+                  className="bg-wonkes-4 text-light"
+                >
                   <PersonFill />
+                  {' '}
                   Sign in
                 </NavDropdown.Item>
-                <NavDropdown.Item id="login-dropdown-sign-up" href="/auth/signup">
+
+                <NavDropdown.Item
+                  id="login-dropdown-sign-up"
+                  href="/auth/signup"
+                  className="bg-wonkes-4 text-light"
+                >
                   <PersonPlusFill />
+                  {' '}
                   Sign up
                 </NavDropdown.Item>
               </NavDropdown>

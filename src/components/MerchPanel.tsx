@@ -33,8 +33,8 @@ const MerchPanel = ({ merch }: { merch : Merch }) => (
         </Button>
       </Col>
       <Col xs={12} md={6}>
-        <Button variant="danger" className="w-100 fw-semibold">
-          Message Seller Now
+        <Button href="/listing-card" variant="danger" className="w-100 fw-semibold">
+          Return to Listings
         </Button>
       </Col>
     </Row>

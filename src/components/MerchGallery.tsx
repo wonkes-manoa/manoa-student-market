@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Container, Row, Col, Image } from 'react-bootstrap';
 
 export function getMerchImage(merchID : number) {
@@ -45,6 +45,10 @@ const MerchGallery = ({ photograph }: { photograph : {
 
   const [selectedPhotograph, setSelectedPhotograph] = useState(photograph[0]);
 
+  useEffect(() => {
+    setSelectedPhotograph(photograph[0]);
+  }, [photograph]);
+
   return (
     <Container fluid>
       <Container className="ratio ratio-1x1" fluid style={{ maxWidth: '600px' }}>
@@ -65,7 +69,7 @@ const MerchGallery = ({ photograph }: { photograph : {
                 className={
                   `object-fit-cover
                   rounded-2
-                  ${photographData.id === selectedPhotograph.id ? 'border border-3 border-success' : ''}`
+                  ${photographData.id === selectedPhotograph.id ? 'border border-4 border-wonkes-3' : ''}`
                 }
                 onClick={() => setSelectedPhotograph(photographData)}
               />

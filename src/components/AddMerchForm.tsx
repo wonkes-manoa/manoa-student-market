@@ -13,6 +13,7 @@ import { AddMerchSchema } from '@/lib/validationSchemas';
 import MerchGallery from '@/components/MerchGallery';
 import { Maybe } from 'yup';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
+import { useState } from 'react';
 
 const onSubmit = async (data: {
   AccountID: number,
@@ -76,9 +77,23 @@ const onSubmit = async (data: {
 
 const AddMerchForm = ({ id } : { id : number }) => {
   const router = useRouter();
+  const [previewImages, setPreviewImages] = useState<string[]>([]);
   const { data: session, status } = useSession();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const currentUser = session?.user?.email || '';
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { files } = event.target;
+    if (!files || files.length === 0) {
+      setPreviewImages([]);
+      return;
+    }
+    const previews: string[] = [];
+    for (const file of files) {
+      const url = URL.createObjectURL(file); // temporary preview URL
+      previews.push(url);
+    }
+    setPreviewImages(previews);
+  };
   const {
     register,
     handleSubmit,
@@ -108,7 +123,13 @@ const AddMerchForm = ({ id } : { id : number }) => {
       <Row className="justify-content-center g-4">
         {/* LEFT COLUMN - image preview */}
         <Col xs={12} md={6} className="d-flex justify-content-center">
-          <MerchGallery photograph={[]} />
+          <MerchGallery photograph={previewImages.map((url, index) => ({
+            id: index,
+            mimeType: '',
+            base64: '',
+            url,
+          }))}
+          />
         </Col>
 
         {/* RIGHT COLUMN - form fields */}
@@ -294,9 +315,10 @@ const AddMerchForm = ({ id } : { id : number }) => {
                     accept="image/*"
                     {...register('Image')}
                     className="form-control"
+                    onChange={handleImageChange}
                   />
                   <Form.Text muted>
-                    You can upload multiple images at once; suggested range is 5-7.
+                    You can upload multiple photos at once; suggested 5-7 square photos.
                     <br />
                     Accepted formats: JPG, JPEG, PNG, WEBP, GIF, BMP, SVG, TIFF.
                   </Form.Text>
@@ -305,7 +327,10 @@ const AddMerchForm = ({ id } : { id : number }) => {
                 {/* Buttons */}
                 <Row className="pt-3">
                   <Col>
-                    <Button type="submit" variant="primary" className="w-100">
+                    <Button
+                      type="submit"
+                      className="w-100 bg-wonkes-1 border-0"
+                    >
                       Submit
                     </Button>
                   </Col>
@@ -313,7 +338,7 @@ const AddMerchForm = ({ id } : { id : number }) => {
                     <Button
                       type="button"
                       onClick={() => reset()}
-                      variant="warning"
+                      variant="danger"
                       className="w-100"
                     >
                       Reset

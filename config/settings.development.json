@@ -13,31 +13,28 @@
 
   "defaultAccount": [
     {
-      "EmailAddress": "alice@example.com",
-      "Username": "ecila",
+      "EmailAddress": "john@foo.com",
+      "Username": "john@foo.com",
       "Password": "changeme",
       "Privilege": "USER",
-      "FirstName": "Alice",
-      "MiddleName": "",
-      "LastName": "Lee"
+      "FirstName": "John",
+      "LastName": "Ny"
     },
     {
-      "EmailAddress": "bob@example.com",
-      "Username": "bobb",
+      "EmailAddress": "abc@foo.com",
+      "Username": "abc@foo.com",
       "Password": "changeme",
       "Privilege": "USER",
-      "FirstName": "Bob",
-      "MiddleName": "J",
-      "LastName": "Chen"
+      "FirstName": "Alpi",
+      "LastName": "Bava"
     },
     {
-      "EmailAddress": "carol@example.com",
-      "Username": "cutelittlecarrot",
+      "EmailAddress": "admin@foo.com",
+      "Username": "admin@foo.com",
       "Password": "changeme",
       "Privilege": "ADMINISTRATOR",
-      "FirstName": "Carol",
-      "MiddleName": "",
-      "LastName": "Nguyen"
+      "FirstName": "Admin",
+      "LastName": "IsTrator"
     }
   ],
 
