@@ -72,11 +72,11 @@ footer, footer a {
 }
 
 a {
-  color: var(--theme-color-3);
+  color: var(--theme-color-3) !important;
 }
 
 a:hover {
-  color: var(--theme-color-5);
+  color: var(--theme-color-5) !important;
 }
 
 .bg-wonkes-1 {
