@@ -5,7 +5,7 @@ import { ListingCardData } from '@/lib/ListingCardData';
 import { unstable_noStore as noStore } from 'next/cache';
 
 /** The user list page. */
-const MyStore = async () => {
+const MyStorePage = async () => (
   <Container id="listing-page" fluid className="py-3">
     <Row className="align-middle text-center">
       <Col xs={8} className="d-flex flex-column justify-content-center">
@@ -40,7 +40,7 @@ const MyStore = async () => {
               ))}
             </Row>
           </div>
-  </Container>;
+  </Container>
 
 
 
@@ -84,6 +84,6 @@ const MyStore = async () => {
   //     </Row>
   //   </Container>
   // );
-};
+            );
 
-export default MyStore;
+export default MyStorePage;
