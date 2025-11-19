@@ -1,11 +1,11 @@
-import { Col, Container, Row } from 'react-bootstrap';
-import ListingCard from '@/components/ListingCard';
-import { prisma } from '@/lib/prisma';
-import { ListingCardData } from '@/lib/ListingCardData';
-import { unstable_noStore as noStore } from 'next/cache';
+import { Col, Container, Row, Button } from 'react-bootstrap';
+// import ListingCard from '@/components/ListingCard';
+// import { prisma } from '@/lib/prisma';
+// import { ListingCardData } from '@/lib/ListingCardData';
+// import { unstable_noStore as noStore } from 'next/cache';
 
 /** The user list page. */
-const MyStore = async () => {
+const MyStorePage = async () => (
   <Container id="listing-page" fluid className="py-3">
     <Row className="align-middle text-center">
       <Col xs={8} className="d-flex flex-column justify-content-center">
@@ -14,55 +14,48 @@ const MyStore = async () => {
       <Col>
         <h5>Filter by:</h5>
         <Container className="btn-group">
-          <a href="/" className="btn btn-primary">Open Listings</a>
-          <a href="/" className="btn btn-default">Archived</a>
+          <a href="/" className="btn btn-primary">
+            Open Listings
+          </a>
+          <a href="/" className="btn btn-default">
+            Archived
+          </a>
         </Container>
-
       </Col>
     </Row>
     <Row />
-    {' '}
     {/* Empty row for spacing */}
-  </Container>;
-  noStore(); // Ensure nothing cached, and all data fetch from database upon every request.
-
-  const listings = await prisma.merch.findMany({
-    include: {
-      Image: true,
-      seller: { select: { Username: true } }, // include username
-    },
-  });
-
-  listings.sort((a, b) => a.MerchID - b.MerchID);
-
-  return (
-    <Container className="py-4">
-      <h1 className="mb-4 fw-semibold">Marketplace</h1>
-
-      <Row xs={1} md={3} className="g-4">
-        {listings.map((merch) => {
-          const cardData: ListingCardData = {
-            Image: merch.Image,
-            Name: merch.Name,
-            Price: merch.Price,
-            Condition: merch.Condition,
-            PostTime: merch.PostTime,
-            seller: {
-              Username: merch.seller.Username,
-            },
-            MerchID: merch.MerchID,
-          };
-
-          return (
-            <ListingCard
-              key={merch.MerchID}
-              merch={cardData}
-            />
-          );
-        })}
+    <div className="pb-5">
+      <Row className="g-3">
+        {
+          // Create a stable list of boxes with deterministic ids so we don't use the array index as key
+          Array.from({ length: 9 })
+            .map((_, i) => ({
+              id: `box-${i + 1}`,
+              title: `Box ${i + 1}`,
+              body: `Placeholder content for box ${i + 1}.`,
+            }))
+            .map((box) => (
+              <Col key={box.id} md={4} sm={6} xs={12}>
+                <div
+                  className="bg-light rounded text-black p-2 d-flex flex-column"
+                  style={{ minHeight: '140px', maxWidth: '100%' }}
+                >
+                  <h5 className="text-center mb-2">{box.title}</h5>
+                  <p className="flex-grow-1 small mb-2">{box.body}</p>
+                  <Button
+                    size="sm"
+                    className="d-block mx-auto bg-success text-black"
+                  >
+                    Learn More
+                  </Button>
+                </div>
+              </Col>
+            ))
+        }
       </Row>
-    </Container>
-  );
-};
+    </div>
+  </Container>
+);
 
-export default MyStore;
+export default MyStorePage;
