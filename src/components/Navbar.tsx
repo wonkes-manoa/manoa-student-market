@@ -59,9 +59,9 @@ const NavBar: React.FC = () => {
 
                 <Nav.Link
                   id="my-store-nav"
-                  href="/"
+                  href="/my-store"
                   key="my-store"
-                  active={pathname === '/'}
+                  active={pathname === '/my-store'}
                   className="text-light"
                 >
                   My Store

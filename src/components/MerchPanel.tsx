@@ -1,7 +1,7 @@
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import { Merch } from '@prisma/client';
 
-const MerchPanel = ({ merch }: { merch : Merch }) => (
+const MerchPanel = ({ merch, usage }: { merch : Merch, usage: string }) => (
   <Container fluid>
 
     <Row className="mb-3">
@@ -25,18 +25,35 @@ const MerchPanel = ({ merch }: { merch : Merch }) => (
       </Col>
     </Row>
 
-    <Row className="g-2">
-      <Col xs={12} md={6}>
-        <Button variant="warning" className="w-100 fw-semibold">
-          Get Seller&apos;s Contact
-        </Button>
-      </Col>
-      <Col xs={12} md={6}>
-        <Button href="/listing-card" variant="danger" className="w-100 fw-semibold">
-          Return to Listings
-        </Button>
-      </Col>
-    </Row>
+    {(usage && usage === 'admin'
+      && (
+      <Row className="g-2">
+        <Col xs={12} md={6}>
+          <Button variant="warning" className="w-100 fw-semibold">
+            Edit
+          </Button>
+        </Col>
+        <Col xs={12} md={6}>
+          <Button href="/listing-card" variant="danger" className="w-100 fw-semibold">
+            Mark as Sold
+          </Button>
+        </Col>
+      </Row>
+      ))
+      || (
+      <Row className="g-2">
+        <Col xs={12} md={6}>
+          <Button variant="warning" className="w-100 fw-semibold">
+            Get Seller&apos;s Contact
+          </Button>
+        </Col>
+        <Col xs={12} md={6}>
+          <Button href="/listing-card" variant="danger" className="w-100 fw-semibold">
+            Return to Listings
+          </Button>
+        </Col>
+      </Row>
+      )}
 
     <Row className="mt-4 small text-muted">
       <Col>
@@ -56,12 +73,29 @@ const MerchPanel = ({ merch }: { merch : Merch }) => (
             ${merch.Height} ${merch.HUnit.toLowerCase()}
           `}
         </p>
-        <p className="mb-0">
+        <p className="mb-1">
           {`
             Weight:
             ${merch.Mass} ${merch.MUnit.toLowerCase()}
           `}
         </p>
+        {usage && usage === 'admin'
+          && (
+            <>
+              <p className="mb-1">
+                {`
+                  Stock status:
+                  ${merch.StockStatus.toLowerCase().replace('_', ' ')}
+                `}
+              </p>
+              <p className="mb-0">
+                {`
+                  Posted time:
+                  ${merch.PostTime.toTimeString()}
+                `}
+              </p>
+            </>
+          )}
       </Col>
     </Row>
   </Container>

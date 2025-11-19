@@ -51,7 +51,7 @@ const MerchGallery = ({ photograph }: { photograph : {
 
   return (
     <Container fluid>
-      <Container className="ratio ratio-1x1" fluid style={{ maxWidth: '600px' }}>
+      <Container className="ms-0 ratio ratio-1x1" fluid style={{ maxWidth: '600px' }}>
         <Image
           src={parseImageSource(selectedPhotograph)}
           alt=""

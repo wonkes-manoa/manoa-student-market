@@ -12,11 +12,7 @@ type MerchImageData = {
   base64: string;
 };
 
-type Props = {
-  merch: Merch;
-};
-
-const MerchDetail = ({ merch }: Props) => {
+const MerchDetail = ({ merch, usage }: { merch: Merch, usage: string }) => {
   const [images, setImages] = useState<MerchImageData[]>([]);
 
   const fallbackImage = useMemo(
@@ -60,7 +56,7 @@ const MerchDetail = ({ merch }: Props) => {
           )}
         </Col>
         <Col md={6}>
-          <MerchPanel merch={merch} />
+          <MerchPanel merch={merch} usage={usage} />
         </Col>
       </Row>
     </Container>
