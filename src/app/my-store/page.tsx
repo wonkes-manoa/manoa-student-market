@@ -1,5 +1,5 @@
 import MerchDetail from '@/components/MerchDetail';
-import { Container } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 import { getServerSession } from 'next-auth';
 import { notFound } from 'next/navigation';
 import authOptions from '@/lib/authOptions';
@@ -30,29 +30,23 @@ export default async function MyStorePage() {
     );
   }
 
+  const rows = [];
+  for (let i = 0; i < merch.length; i += 2) {
+    rows.push(merch.slice(i, i + 2));
+  }
+
   return (
     <Container className="mt-5">
-      <div
-        className="d-grid"
-        style={{
-          gridTemplateColumns: 'repeat(auto-fill, minmax(450px, 1fr))',
-          gap: '2rem',
-        }}
-      >
-        {merch.map((m) => (
-          <div
-            key={m.MerchID}
-            style={{
-              transform: 'scale(0.5)',
-              transformOrigin: 'top left',
-              width: '200%', // compensates for scale(0.4) width shrink
-              height: '200%', // compensates for scale(0.4) height shrink
-            }}
-          >
-            <MerchDetail merch={m} usage="admin" />
-          </div>
-        ))}
-      </div>
+      {rows.map((row) => (
+        <Row key={row[0].MerchID} className="g-4 mb-3">
+          {row.map((m) => (
+            <Col key={m.MerchID} md={6} className="my-3">
+              <MerchDetail merch={m} usage="admin" />
+            </Col>
+          ))}
+          {row.length === 1 && <Col md={6} />}
+        </Row>
+      ))}
     </Container>
   );
 }
