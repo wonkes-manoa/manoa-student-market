@@ -71,11 +71,11 @@ footer, footer a {
   background-color: aliceblue;
 }
 
-a {
+.link-wonkes {
   color: var(--theme-color-3) !important;
 }
 
-a:hover {
+.link-wonkes:hover {
   color: var(--theme-color-5) !important;
 }
 

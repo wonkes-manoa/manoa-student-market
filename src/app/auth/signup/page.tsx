@@ -171,7 +171,7 @@ const SignUp = () => {
 
               <Card.Footer>
                 Already have an account?&nbsp;
-                <a id="login-link" href="/auth/signin">Login</a>
+                <a id="login-link" className="link-wonkes" href="/auth/signin">Login</a>
               </Card.Footer>
             </Card>
           </Col>

@@ -82,7 +82,7 @@ const SignIn = () => {
               <Card.Footer>
                 Don&apos;t have an account?
                 {' '}
-                <a href="/auth/signup">Sign up</a>
+                <a className="link-wonkes" href="/auth/signup">Sign up</a>
               </Card.Footer>
             </Card>
           </Col>
