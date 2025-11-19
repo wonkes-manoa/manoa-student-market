@@ -79,12 +79,12 @@ const NavBar: React.FC = () => {
             {username && role === 'ADMINISTRATOR' && (
               <Nav.Link
                 id="admin-stuff-nav"
-                href="/admin"
+                href="/admin-merch-management"
                 key="admin"
-                active={pathname === '/admin'}
+                active={pathname === '/admin-merch-management'}
                 className="text-light"
               >
-                Admin Home
+                Admin Merch Management
               </Nav.Link>
             )}
           </Nav>
