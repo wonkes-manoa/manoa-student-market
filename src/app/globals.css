@@ -1,6 +1,6 @@
 :root {
-  --nat-navbar-bg: #082D0F;
-  --nat-navbar-bg-color: #082D0F;
+  --nat-navbar-bg: #30592e;
+  --nat-navbar-bg-color: #30592e;
   --nat-navbat-text-highlight: khaki;
   --nat-navbar-highlight-text: var(--bs-gray-500);
   --nat-navbar-highlight-bg: lightblue;
@@ -15,12 +15,33 @@
   --theme-color-7: #a8c686;
 }
 
+
 body .navbar {
   --bs-navbar-active-color: var(--nat-navbar-highlight-text);
   --bs-navbar-brand-color: var(--nat-navbar-text-color);
   --bs-navbar-brand-hover-color: var(--nat-navbar-highlight-text);
   --bs-navbar-color: var(--nat-navbar-text-color);
+  --bs-navbar-background-color: var(--nat-navbar-bg-color);
   --bs-navbar-hover-color: var(--nat-navbar-highlight-text);
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.flex-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.box {
+  width: calc(50% - 8px); /* two per row, considering gap */
+  background: #f3f3f3;
+  padding: 20px;
+  border-radius: 8px;
 }
 
 html,
@@ -30,7 +51,7 @@ body {
   height: 100%;
   padding: 0;
   margin: 0;
-  background: fixed center url("/mm2.jpg");
+  background-color: #458441;
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -50,20 +71,20 @@ footer, footer a {
   background-color: aliceblue;
 }
 
-a {
-  color: var(--theme-color-3);
+.link-wonkes {
+  color: var(--theme-color-3) !important;
 }
 
-a:hover {
-  color: var(--theme-color-5);
+.link-wonkes:hover {
+  color: var(--theme-color-5) !important;
 }
 
 .bg-wonkes-1 {
-  background-color: var(--theme-color-1);
+  background-color: var(--theme-color-1) !important;
 }
 
 .bg-wonkes-1:hover {
-  background-color: var(--theme-color-3);
+  background-color: var(--theme-color-3) !important;
 }
 
 .bg-wonkes-1:active {
@@ -71,19 +92,19 @@ a:hover {
 }
 
 .bg-wonkes-2 {
-  background-color: var(--theme-color-2);
+  background-color: var(--theme-color-2) !important;
 }
 
 .bg-wonkes-3 {
-  background-color: var(--theme-color-3);
+  background-color: var(--theme-color-3) !important;
 }
 
 .bg-wonkes-4 {
-  background-color: var(--theme-color-4);
+  background-color: var(--theme-color-4) !important;
 }
 
 .bg-wonkes-4:hover {
-  background-color: var(--theme-color-6);
+  background-color: var(--theme-color-6) !important;
 }
 
 .bg-wonkes-4:active {
@@ -91,39 +112,39 @@ a:hover {
 }
 
 .bg-wonkes-5 {
-  background-color: var(--theme-color-5);
+  background-color: var(--theme-color-5) !important;
 }
 
 .bg-wonkes-6 {
-  background-color: var(--theme-color-6);
+  background-color: var(--theme-color-6) !important;
 }
 
 .bg-wonkes-7 {
-  background-color: var(--theme-color-7);
+  background-color: var(--theme-color-7) !important;
 }
 
 .border-wonkes-1 {
-  border-color: var(--theme-color-1);
+  border-color: var(--theme-color-1) !important;
 }
 
 .border-wonkes-2 {
-  border-color: var(--theme-color-2);
+  border-color: var(--theme-color-2) !important;
 }
 
 .border-wonkes-3 {
-  border-color: var(--theme-color-3);
+  border-color: var(--theme-color-3) !important;
 }
 
 .border-wonkes-4 {
-  border-color: var(--theme-color-4);
+  border-color: var(--theme-color-4) !important;
 }
 
 .border-wonkes-5 {
-  border-color: var(--theme-color-5);
+  border-color: var(--theme-color-5) !important;
 }
 
 .border-wonkes-6 {
-  border-color: var(--theme-color-6);
+  border-color: var(--theme-color-6) !important;
 }
 
 .no-link-style {

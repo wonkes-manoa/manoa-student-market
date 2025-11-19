@@ -22,7 +22,7 @@ const ListingCard = ({ merch }: { merch: ListingCardData }) => {
   return (
     <Col>
       <Link
-        href={`/merch-detail/${merch.MerchID}`}
+        href={`/listings-view/${merch.MerchID}`}
         className="no-link-style"
       >
         <Card className="h-100 shadow-sm border-0 rounded-4 overflow-hidden">

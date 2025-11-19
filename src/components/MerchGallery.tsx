@@ -1,9 +1,15 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Container, Row, Col, Image } from 'react-bootstrap';
 
-const DEFAULT_IMAGE : {
+export function getMerchImage(merchID : number) {
+  return fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/download/merch-images?merchID=${merchID}`, {
+    cache: 'no-store',
+  }).then(result => result.json());
+}
+
+export const DEFAULT_IMAGE : {
   id: number,
   mimeType: string,
   base64: string;
@@ -15,17 +21,17 @@ const DEFAULT_IMAGE : {
   url: '/merch-photo/no-image-available.png',
 };
 
-const parseImageSource = (image : {
+export function parseImageSource(image : {
   id: number,
   mimeType: string,
   base64: string,
   url?: string,
-}) => {
+}) {
   if (image.base64 && image.base64.length > 0) {
     return `data:${image.mimeType};base64,${image.base64}`;
   }
   return image.url;
-};
+}
 
 const MerchGallery = ({ photograph }: { photograph : {
   id: number,
@@ -39,9 +45,13 @@ const MerchGallery = ({ photograph }: { photograph : {
 
   const [selectedPhotograph, setSelectedPhotograph] = useState(photograph[0]);
 
+  useEffect(() => {
+    setSelectedPhotograph(photograph[0]);
+  }, [photograph]);
+
   return (
     <Container fluid>
-      <Container className="ratio ratio-1x1" fluid style={{ maxWidth: '600px' }}>
+      <Container className="ms-0 ratio ratio-1x1" fluid style={{ maxWidth: '600px' }}>
         <Image
           src={parseImageSource(selectedPhotograph)}
           alt=""
@@ -59,7 +69,7 @@ const MerchGallery = ({ photograph }: { photograph : {
                 className={
                   `object-fit-cover
                   rounded-2
-                  ${photographData.id === selectedPhotograph.id ? 'border border-3 border-success' : ''}`
+                  ${photographData.id === selectedPhotograph.id ? 'border border-4 border-wonkes-3' : ''}`
                 }
                 onClick={() => setSelectedPhotograph(photographData)}
               />

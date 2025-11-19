@@ -23,13 +23,13 @@ export const AddMerchSchema = Yup.object({
     .oneOf(Object.keys(MerchStockStatus) as (keyof typeof MerchStockStatus)[])
     .required(),
   Price: Yup.number()
-    .typeError('Please enter a price.')
-    .positive('Price shall be positive.')
-    .required('Please enter a price.'),
+    .typeError('Please enter a price')
+    .positive('Price shall be positive')
+    .required('Please enter a price'),
   Name: Yup.string()
-    .required('Provide a merch name.'),
+    .required('Provide a merch name'),
   Description: Yup.string()
-    .required('Describe your merch.'),
+    .required('Describe your merch'),
   Image: Yup.mixed<FileList>()
     .test('fileType', 'Invalid file type', (value) => {
       if (!value || value.length === 0) return true; // allow empty (optional)
@@ -41,20 +41,20 @@ export const AddMerchSchema = Yup.object({
     })
     .notRequired(),
   Length: Yup.number()
-    .typeError('Please enter a length.')
-    .min(0, 'No negative length.')
+    .typeError('Please enter a length')
+    .min(0, 'No negative length')
     .required(),
   Width: Yup.number()
-    .typeError('Please enter a width.')
-    .min(0, 'No negative width.')
+    .typeError('Please enter a width')
+    .min(0, 'No negative width')
     .required(),
   Height: Yup.number()
-    .typeError('Please enter a height.')
-    .min(0, 'No negative height.')
+    .typeError('Please enter a height')
+    .min(0, 'No negative height')
     .required(),
   Mass: Yup.number()
-    .typeError('Please enter a length.')
-    .min(0, 'No negative mass.')
+    .typeError('Please enter a mass')
+    .min(0, 'No negative mass')
     .required(),
   LUnit: Yup.string()
     .oneOf(Object.keys(LengthUnit) as (keyof typeof LengthUnit)[])
