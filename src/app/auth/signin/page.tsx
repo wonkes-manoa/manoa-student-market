@@ -44,7 +44,7 @@ const SignIn = () => {
 
     if (result?.ok) {
       swal('Welcome back!', 'You are now logged in', 'success', { timer: 2000 })
-        .then(() => window.location.href = '/list');
+        .then(() => window.location.href = '/listing-card');
     } else {
       swal('Login failed', 'Invalid login credential', 'error');
     }
