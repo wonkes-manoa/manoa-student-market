@@ -62,7 +62,7 @@ const MyStore = async () => {
           );
         })}
       </Row>
-    </Container>
+    </Container> 
   );
 };
 
