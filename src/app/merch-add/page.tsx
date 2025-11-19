@@ -12,10 +12,16 @@ const AddMerch = async () => {
       user: { email: string; id: string; randomKey: string };
     } | null,
   );
+  const accountId = Number(session?.user?.id);
+
+  if (!accountId || Number.isNaN(accountId)) {
+    throw new Error("Could not determine current user's account ID.");
+  }
+
   return (
     <main className="flex-grow-1 bg-wonkes-7">
       <Container>
-        <AddMerchForm id={3} />
+        <AddMerchForm id={accountId} />
       </Container>
     </main>
   );
