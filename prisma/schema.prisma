@@ -12,9 +12,10 @@ datasource db {
   provider  = "postgresql"
   // for local development
   // url      = env("postgresql://postgres:2501000303@localhost:5432/localServer?schema=public")
-  url       = env("DATABASE_URL")  // for Vercel
-  // url       = env("POSTGRES_PRISMA_URL")
-  // directUrl = env("POSTGRES_URL_NON_POOLING")
+  // url       = env("DATABASE_URL")
+  // for Vercel
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
 
