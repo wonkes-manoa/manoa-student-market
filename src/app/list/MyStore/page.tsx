@@ -33,13 +33,13 @@ const MyStorePage = async () => (
             .map((_, i) => ({
               id: `box-${i + 1}`,
               title: `Box ${i + 1}`,
-              body: `Placeholder content for box ${i + 1}.`,
+              body: `Listing ${i + 1}.`,
             }))
             .map((box) => (
               <Col key={box.id} md={4} sm={6} xs={12}>
                 <div
                   className="bg-light rounded text-black p-2 d-flex flex-column"
-                  style={{ minHeight: '140px', maxWidth: '100%' }}
+                  style={{ minHeight: '140px', maxWidth: '50%' }}
                 >
                   <h5 className="text-center mb-2">{box.title}</h5>
                   <p className="flex-grow-1 small mb-2">{box.body}</p>
@@ -47,7 +47,7 @@ const MyStorePage = async () => (
                     size="sm"
                     className="d-block mx-auto bg-success text-black"
                   >
-                    Learn More
+                    Button
                   </Button>
                 </div>
               </Col>
