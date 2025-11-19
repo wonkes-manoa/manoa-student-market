@@ -6,26 +6,25 @@ import { unstable_noStore as noStore } from 'next/cache';
 
 /** The user list page. */
 const MyStore = async () => {
+  <Container id="listing-page" fluid className="py-3">
+    <Row className="align-middle text-center">
+      <Col xs={8} className="d-flex flex-column justify-content-center">
+        <h1>Your Listings</h1>
+      </Col>
+      <Col>
+        <h5>Filter by:</h5>
+        <Container className="btn-group">
+          <a href="/" className="btn btn-primary">Open Listings</a>
+          <a href="/" className="btn btn-default">Archived</a>
+        </Container>
 
-    <Container id="listing-page" fluid className="py-3">
-      <Row className="align-middle text-center">
-        <Col xs={8} className="d-flex flex-column justify-content-center">
-          <h1>Your Listings</h1>
-        </Col>
-        <Col>
-          <h5>Filter by:</h5>
-          <Container className="btn-group">
-          <a href="#" className="btn btn-primary">Open Listings</a>
-          <a href="#" className="btn btn-default">Archived</a>
-          </Container>
-
-        </Col>
-      </Row>
-      <Row />
-      {' '}
-      {/* Empty row for spacing */}
-    </Container>
-      noStore(); // Ensure nothing cached, and all data fetch from database upon every request.
+      </Col>
+    </Row>
+    <Row />
+    {' '}
+    {/* Empty row for spacing */}
+  </Container>;
+  noStore(); // Ensure nothing cached, and all data fetch from database upon every request.
 
   const listings = await prisma.merch.findMany({
     include: {
@@ -62,7 +61,7 @@ const MyStore = async () => {
           );
         })}
       </Row>
-    </Container> 
+    </Container>
   );
 };
 
