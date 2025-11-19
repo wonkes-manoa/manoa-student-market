@@ -1,49 +1,37 @@
-import { Container, Row } from 'react-bootstrap';
-import ListingCard from '@/components/ListingCard';
+import { Container } from 'react-bootstrap';
 import { prisma } from '@/lib/prisma';
-import { ListingCardData } from '@/lib/ListingCardData';
-import { unstable_noStore as noStore } from 'next/cache';
+import { getServerSession } from 'next-auth';
+import authOptions from '@/lib/authOptions';
+import { loggedInProtectedPage } from '@/lib/page-protection';
+import ListingsClient from './ListingsClient';
 
-const ListingsPage = async () => {
-  noStore(); // Ensure nothing cached, and all data fetch from database upon every request.
-
+export default async function ListingsPage() {
+  const session = await getServerSession(authOptions);
+  loggedInProtectedPage(
+    session as {
+      user: { email: string; id: string; randomKey: string };
+      // eslint-disable-next-line @typescript-eslint/comma-dangle
+    } | null,
+  );
   const listings = await prisma.merch.findMany({
     include: {
       Image: true,
-      seller: { select: { Username: true } }, // include username
+      seller: { select: { Username: true } },
+    },
+    orderBy: {
+      MerchID: 'asc',
     },
   });
 
-  listings.sort((a, b) => a.MerchID - b.MerchID);
-
   return (
-    <Container className="py-4">
-      <h1 className="mb-4 fw-semibold">Marketplace</h1>
-
-      <Row xs={1} md={3} className="g-4">
-        {listings.map((merch) => {
-          const cardData: ListingCardData = {
-            Image: merch.Image,
-            Name: merch.Name,
-            Price: merch.Price,
-            Condition: merch.Condition,
-            PostTime: merch.PostTime,
-            seller: {
-              Username: merch.seller.Username,
-            },
-            MerchID: merch.MerchID,
-          };
-
-          return (
-            <ListingCard
-              key={merch.MerchID}
-              merch={cardData}
-            />
-          );
-        })}
-      </Row>
+    <Container id="support" className="py-4 text-center">
+      <h1 className="mb-4 fw-semibold">View Listings</h1>
+      <p>
+        View listings that others made. Search through items using search
+        bar or scroll through offers below!
+      </p>
+      {/* Pass server-fetched data to client component */}
+      <ListingsClient initialListings={listings} />
     </Container>
   );
-};
-
-export default ListingsPage;
+}
