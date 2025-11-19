@@ -15,11 +15,11 @@ const LandingPage = () => (
           for campus dorming, classes, and school life!
         </p>
         <div className="d-flex gap-3">
-          <Button href="/auth/signin" variant="dark">
-            Log In
+          <Button href="/auth/signin" className="bg-wonkes-1 border-0">
+            Log in
           </Button>
-          <Button href="/auth/signin" variant="light">
-            Sign Up
+          <Button href="/auth/signup" variant="light">
+            Sign up
           </Button>
         </div>
       </Col>
