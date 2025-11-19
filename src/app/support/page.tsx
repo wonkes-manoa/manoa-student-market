@@ -1,4 +1,4 @@
-import { Button, Col, Container, Row } from 'react-bootstrap';
+import { Button, Col, Container, Row, Image } from 'react-bootstrap';
 import { ArrowRepeat, Globe, Star } from 'react-bootstrap-icons';
 import AccordionFAQ from './AccordionFAQ';
 
@@ -44,20 +44,19 @@ const SupportPage = async () => (
           <Col md={5} className="pe-5">
             <h3>Connect with Students</h3>
             <p className="text-muted mt-2 mb-5">
-              Enim cupiditate quis ut id aut sed omnis et.
-              Sit qui labore dolores cupiditate iste repellendus.
+              Meet new people who are willing to buy/sell items.
+              Connect through our website!
             </p>
 
             <h3>Buy and Sell Your Junk</h3>
             <p className="text-muted mt-2 mb-5">
-              Enim cupiditate quis ut id aut sed omnis et.
-              Sit qui labore dolores cupiditate iste repellendus.
+              Buy items you need for college and items you don&apos;t
+              want. All with just a click of a button!
             </p>
 
             <h3>Favorite Your Trusted Vendor</h3>
             <p className="text-muted mt-2">
-              Enim cupiditate quis ut id aut sed omnis et.
-              Sit qui labore dolores cupiditate iste repellendus.
+              This is yet to be implemented. Update on this soon!
             </p>
           </Col>
 
@@ -65,9 +64,56 @@ const SupportPage = async () => (
       </Container>
       <hr />
 
-      <Container className="px-5">
+      <Container className="d-flex flex-column px-5">
         <h2>Webpage Info</h2>
-        <p>TBD (Images of Websites needed)</p>
+        <u>View Listings</u>
+        - use search bar to find the items you need!
+        <Row>
+          <Col>
+            <Image
+              src="View-Listings-1.png"
+              alt="View Listings (1) Page"
+              fluid
+              rounded
+              style={{ width: '75%', maxWidth: '350px' }}
+            />
+          </Col>
+          <Col>
+            <Image
+              src="View-Listings-2.png"
+              alt="View Listings (2) Page"
+              fluid
+              rounded
+              style={{ width: '75%', maxWidth: '350px' }}
+            />
+          </Col>
+        </Row>
+        - click the item you are interested in!
+        <Image
+          src="View-Merch.png"
+          alt="View Single Listing Page"
+          fluid
+          rounded
+          style={{ width: '75%', maxWidth: '350px' }}
+        />
+
+        <u>Add Listings</u>
+        - Add your items you want to get rid of!
+        <Image
+          src="Add-Listings.png"
+          alt="Add Listings Page"
+          fluid
+          rounded
+          style={{ width: '75%', maxWidth: '350px' }}
+        />
+        <u>View Listings</u>
+        <Image
+          src="View-Listings-1.png"
+          alt="View Listings Page"
+          fluid
+          rounded
+          style={{ width: '75%', maxWidth: '350px' }}
+        />
       </Container>
 
       <hr />

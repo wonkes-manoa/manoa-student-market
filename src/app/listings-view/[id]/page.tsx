@@ -1,4 +1,4 @@
-import MerchDetail from '@/components/MerchDetail';
+import MerchDetail from '@/app/listings-view/[id]/MerchDetail';
 import { Container } from 'react-bootstrap';
 import { Merch } from '@prisma/client';
 import { getServerSession } from 'next-auth';

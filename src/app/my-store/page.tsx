@@ -1,4 +1,4 @@
-import MerchDetail from '@/components/MerchDetail';
+import MerchDetail from '@/app/listings-view/[id]/MerchDetail';
 import { Col, Container, Row } from 'react-bootstrap';
 import { getServerSession } from 'next-auth';
 import { notFound } from 'next/navigation';
