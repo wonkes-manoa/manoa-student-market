@@ -26,8 +26,8 @@ export default async function MerchDetailPage({ params }: { params: { id: string
     );
   }
   return (
-    <Container className="mt-5">
-      <MerchDetail merch={merch} />
+    <Container className="my-5">
+      <MerchDetail merch={merch} usage="" />
     </Container>
   );
 }

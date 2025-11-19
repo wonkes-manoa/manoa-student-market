@@ -59,9 +59,9 @@ const NavBar: React.FC = () => {
 
                 <Nav.Link
                   id="my-store-nav"
-                  href="/"
+                  href="/my-store"
                   key="my-store"
-                  active={pathname === '/'}
+                  active={pathname === '/my-store'}
                   className="text-light"
                 >
                   My Store
@@ -119,7 +119,7 @@ const NavBar: React.FC = () => {
             ) : (
               <NavDropdown
                 id="login-dropdown"
-                title={<span className="text-light">Login</span>}
+                title={<span className="text-light">Log in</span>}
               >
                 <NavDropdown.Item
                   id="login-dropdown-sign-in"
@@ -128,7 +128,7 @@ const NavBar: React.FC = () => {
                 >
                   <PersonFill />
                   {' '}
-                  Sign in
+                  Log in
                 </NavDropdown.Item>
 
                 <NavDropdown.Item
