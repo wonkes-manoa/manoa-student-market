@@ -44,20 +44,19 @@ const SupportPage = async () => (
           <Col md={5} className="pe-5">
             <h3>Connect with Students</h3>
             <p className="text-muted mt-2 mb-5">
-              Enim cupiditate quis ut id aut sed omnis et.
-              Sit qui labore dolores cupiditate iste repellendus.
+              Meet new people who are willing to buy/sell items.
+              Connect through our website!
             </p>
 
             <h3>Buy and Sell Your Junk</h3>
             <p className="text-muted mt-2 mb-5">
-              Enim cupiditate quis ut id aut sed omnis et.
-              Sit qui labore dolores cupiditate iste repellendus.
+              Buy items you need for college and items you don&apos;t
+              want. All with just a click of a button!
             </p>
 
             <h3>Favorite Your Trusted Vendor</h3>
             <p className="text-muted mt-2">
-              Enim cupiditate quis ut id aut sed omnis et.
-              Sit qui labore dolores cupiditate iste repellendus.
+              This is yet to be implemented. Update on this soon!
             </p>
           </Col>
 

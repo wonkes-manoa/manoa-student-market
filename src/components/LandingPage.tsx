@@ -49,8 +49,8 @@ const LandingPage = () => (
           <Card.Body>
             <Card.Title>Connect with Students</Card.Title>
             <Card.Text className="text-muted">
-              Enim cupiditate quis ut id aut sed omnis et. Sit qui labore
-              dolores cupiditate iste repellendus.
+              Meet new people who are willing to buy/sell items.
+              Connect through our website!
             </Card.Text>
           </Card.Body>
         </Card>
@@ -65,8 +65,8 @@ const LandingPage = () => (
           <Card.Body>
             <Card.Title>Buy and Sell Your Junk</Card.Title>
             <Card.Text className="text-muted">
-              Enim cupiditate quis ut id aut sed omnis et. Sit qui labore
-              dolores cupiditate iste repellendus.
+              Buy items you need for college and items you don&apos;t
+              want. All with just a click of a button!
             </Card.Text>
           </Card.Body>
         </Card>
@@ -81,8 +81,7 @@ const LandingPage = () => (
           <Card.Body>
             <Card.Title>Favorite Your Trusted Vendor</Card.Title>
             <Card.Text className="text-muted">
-              Enim cupiditate quis ut id aut sed omnis et. Sit qui labore
-              dolores cupiditate iste repellendus.
+              This is yet to be implemented. Update on this soon!
             </Card.Text>
           </Card.Body>
         </Card>
