@@ -10,37 +10,43 @@ const authOptions: NextAuthOptions = {
   },
   providers: [
     CredentialsProvider({
-      name: 'Email and Password',
+      name: 'Username and Password',
       credentials: {
-        email: {
-          label: 'Email',
-          type: 'email',
+        username: {
+          label: 'Username',
+          type: 'text',
           placeholder: 'john@foo.com',
         },
-        password: { label: 'Password', type: 'password' },
+        password: {
+          label: 'Password',
+          type: 'password' },
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials.password) {
+        if (!credentials?.username || !credentials.password) {
+          console.log('MISSING CREDENTIAL');
           return null;
         }
-        const user = await prisma.user.findUnique({
+        console.log('BEGIN QUERY');
+        const account = await prisma.account.findUnique({
           where: {
-            email: credentials.email,
+            Username: credentials.username,
           },
         });
-        if (!user) {
+        console.log('QUERY SUCCESS');
+        if (!account) {
           return null;
         }
 
-        const isPasswordValid = await compare(credentials.password, user.password);
+        const isPasswordValid = await compare(credentials.password, account.Password);
         if (!isPasswordValid) {
           return null;
         }
-
+        console.log('PASSED CREDENTIAL CHECKS');
         return {
-          id: `${user.id}`,
-          email: user.email,
-          randomKey: user.role,
+          id: `${account.AccountID}`,
+          email: account.EmailAddress,
+          username: account.Username,
+          randomKey: account.Privilege,
         };
       },
     }),
@@ -59,8 +65,10 @@ const authOptions: NextAuthOptions = {
         ...session,
         user: {
           ...session.user,
-          id: token.id,
-          randomKey: token.randomKey,
+          id: token.id as string,
+          email: token.email as string,
+          username: token.username as string,
+          randomKey: token.randomKey as string,
         },
       };
     },
@@ -71,6 +79,8 @@ const authOptions: NextAuthOptions = {
         return {
           ...token,
           id: u.id,
+          email: u.email,
+          username: u.username,
           randomKey: u.randomKey,
         };
       }

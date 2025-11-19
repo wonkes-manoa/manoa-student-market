@@ -13,31 +13,28 @@
 
   "defaultAccount": [
     {
-      "EmailAddress": "alice@example.com",
-      "Username": "ecila",
+      "EmailAddress": "john@foo.com",
+      "Username": "john@foo.com",
       "Password": "changeme",
       "Privilege": "USER",
-      "FirstName": "Alice",
-      "MiddleName": "",
-      "LastName": "Lee"
+      "FirstName": "John",
+      "LastName": "Ny"
     },
     {
-      "EmailAddress": "bob@example.com",
-      "Username": "bobb",
+      "EmailAddress": "abc@foo.com",
+      "Username": "abc@foo.com",
       "Password": "changeme",
       "Privilege": "USER",
-      "FirstName": "Bob",
-      "MiddleName": "J",
-      "LastName": "Chen"
+      "FirstName": "Alpi",
+      "LastName": "Bava"
     },
     {
-      "EmailAddress": "carol@example.com",
-      "Username": "cutelittlecarrot",
+      "EmailAddress": "admin@foo.com",
+      "Username": "admin@foo.com",
       "Password": "changeme",
       "Privilege": "ADMINISTRATOR",
-      "FirstName": "Carol",
-      "MiddleName": "",
-      "LastName": "Nguyen"
+      "FirstName": "Admin",
+      "LastName": "IsTrator"
     }
   ],
 
@@ -48,7 +45,6 @@
       "Price": 29.99,
       "Name": "Wireless Mouse",
       "Description": "A comfortable wireless mouse with 1600 DPI precision and 2.4GHz USB receiver.",
-      "Image": ["1-1.jpg", "1-2.jpg"],
       "Length": 11.0,
       "Width": 6.0,
       "Height": 4.0,
@@ -66,7 +62,6 @@
       "Price": 59.99,
       "Name": "Bluetooth Headphones",
       "Description": "Over-ear wireless headphones with noise cancellation and 20-hour battery life.",
-      "Image": ["2-1.jpg"],
       "Length": 18.0,
       "Width": 15.0,
       "Height": 8.0,
@@ -84,7 +79,6 @@
       "Price": 249.0,
       "Name": "Office Chair",
       "Description": "Ergonomic mesh office chair with adjustable height and lumbar support.",
-      "Image": [],
       "Length": 60.0,
       "Width": 60.0,
       "Height": 110.0,
@@ -102,7 +96,6 @@
       "Price": 999.0,
       "Name": "Gaming Laptop",
       "Description": "High-performance gaming laptop with Intel i7, RTX 4070, and 16GB RAM.",
-      "Image": ["4-1.jpg", "4-2.jpg",  "4-3.jpg",  "4-4.jpg",  "4-5.jpg",  "4-6.jpg",  "4-7.jpg"],
       "Length": 36.0,
       "Width": 25.0,
       "Height": 2.5,
@@ -120,7 +113,6 @@
       "Price": 79.99,
       "Name": "Smart Lamp",
       "Description": "Touch-controlled LED smart lamp with adjustable brightness and color temperature.",
-      "Image": ["5-1.jpg", "5-2.jpg", "5-3.jpg"],
       "Length": 14.0,
       "Width": 14.0,
       "Height": 40.0,
@@ -131,6 +123,74 @@
       "MUnit": "KILOGRAM",
       "Material": "ALUMINUM",
       "Condition": "EXCELLENT"
+    }
+  ],
+
+  "defaultMerchImages": [
+    {
+      "MerchID": 1,
+      "FileName": "1-1.jpg",
+      "MIMEType": "image/jpg"
+    },
+    {
+      "MerchID": 1,
+      "FileName": "1-2.jpg",
+      "MIMEType": "image/jpg"
+    },
+    {
+      "MerchID": 2,
+      "FileName": "2-1.jpg",
+      "MIMEType": "image/jpg"
+    },
+    {
+      "MerchID": 4,
+      "FileName": "4-1.jpg",
+      "MIMEType": "image/jpg"
+    },
+    {
+      "MerchID": 4,
+      "FileName": "4-2.jpg",
+      "MIMEType": "image/jpg"
+    },
+    {
+      "MerchID": 4,
+      "FileName": "4-3.jpg",
+      "MIMEType": "image/jpg"
+    },
+    {
+      "MerchID": 4,
+      "FileName": "4-4.jpg",
+      "MIMEType": "image/jpg"
+    },
+    {
+      "MerchID": 4,
+      "FileName": "4-5.jpg",
+      "MIMEType": "image/jpg"
+    },
+    {
+      "MerchID": 4,
+      "FileName": "4-6.jpg",
+      "MIMEType": "image/jpg"
+    },
+    {
+      "MerchID": 4,
+      "FileName": "4-7.jpg",
+      "MIMEType": "image/jpg"
+    },
+    {
+      "MerchID": 5,
+      "FileName": "5-1.jpg",
+      "MIMEType": "image/jpg"
+    },
+    {
+      "MerchID": 5,
+      "FileName": "5-2.jpg",
+      "MIMEType": "image/jpg"
+    },
+    {
+      "MerchID": 5,
+      "FileName": "5-3.jpg",
+      "MIMEType": "image/jpg"
     }
   ]
 }

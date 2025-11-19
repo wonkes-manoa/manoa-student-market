@@ -1,9 +1,67 @@
 'use server';
 
-import { Stuff, Condition } from '@prisma/client';
-import { hash } from 'bcrypt';
+import { Stuff,
+  Condition,
+  MerchStockStatus,
+  LengthUnit,
+  MerchMaterial,
+  MerchCondition,
+  MassUnit } from '@prisma/client';
+import { compare, hash } from 'bcrypt';
 import { redirect } from 'next/navigation';
 import { prisma } from './prisma';
+
+/**
+ * Adds a new merch to the database.
+ * @param merch, an object that specify the detail of the merch to add.
+ */
+export async function addMerch(merch: {
+  AccountID: number,
+  StockStatus: string,
+  Price: number,
+  Name: string,
+  Description: string,
+  Length: number,
+  Width: number,
+  Height: number,
+  Mass: number,
+  LUnit: string,
+  WUnit: string,
+  HUnit: string,
+  MUnit: string,
+  Material: string,
+  Condition: string,
+}) {
+  const stockStatus = merch.StockStatus as MerchStockStatus;
+  const lengthUnit = merch.LUnit as LengthUnit;
+  const widthUnit = merch.WUnit as LengthUnit;
+  const heightUnit = merch.HUnit as LengthUnit;
+  const massUnit = merch.MUnit as MassUnit;
+  const material = merch.Material as MerchMaterial;
+  const condition = merch.Condition as MerchCondition;
+
+  const newMerch = await prisma.merch.create({
+    data: {
+      AccountID: merch.AccountID,
+      StockStatus: stockStatus,
+      Price: merch.Price,
+      Name: merch.Name,
+      Description: merch.Description,
+      Length: merch.Length,
+      Width: merch.Width,
+      Height: merch.Height,
+      Mass: merch.Mass,
+      LUnit: lengthUnit,
+      WUnit: widthUnit,
+      HUnit: heightUnit,
+      MUnit: massUnit,
+      Material: material,
+      Condition: condition,
+    },
+  });
+
+  return newMerch;
+}
 
 /**
  * Adds a new stuff to the database.
@@ -64,31 +122,79 @@ export async function deleteStuff(id: number) {
 }
 
 /**
- * Creates a new user in the database.
- * @param credentials, an object with the following properties: email, password.
+ * Creates a user new account in the database.
+ * @param credentials, an object containing information required for creating an account.
  */
-export async function createUser(credentials: { email: string; password: string }) {
-  // console.log(`createUser data: ${JSON.stringify(credentials, null, 2)}`);
-  const password = await hash(credentials.password, 10);
-  await prisma.user.create({
+export async function createAccount(credentials: {
+  username: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  password: string;
+  confirmPassword: string;
+}) {
+  const isUsernameExist = await prisma.account.findUnique({
+    where: { Username: credentials.username },
+  });
+
+  if (isUsernameExist) {
+    return { ok: false, message: 'Username already exists' };
+  }
+  const isEmailExist = await prisma.account.findUnique({
+    where: { EmailAddress: credentials.email },
+  });
+
+  if (isEmailExist) {
+    return { ok: false, message: 'Email address already exists' };
+  }
+
+  const hashedPassword = await hash(credentials.password, 14);
+
+  await prisma.account.create({
     data: {
-      email: credentials.email,
-      password,
+      Username: credentials.username,
+      Password: hashedPassword,
+      EmailAddress: credentials.email,
+      FirstName: credentials.firstName,
+      LastName: credentials.lastName,
     },
   });
+
+  return { ok: true };
 }
 
 /**
  * Changes the password of an existing user in the database.
- * @param credentials, an object with the following properties: email, password.
+ * @param credentials, an object containing information required for resetting password.
  */
-export async function changePassword(credentials: { email: string; password: string }) {
-  // console.log(`changePassword data: ${JSON.stringify(credentials, null, 2)}`);
-  const password = await hash(credentials.password, 10);
-  await prisma.user.update({
-    where: { email: credentials.email },
-    data: {
-      password,
-    },
+export async function changePassword(credentials: {
+  username: string;
+  oldpassword: string;
+  password: string;
+}) {
+  const { username } = credentials;
+  const account = await prisma.account.findUnique({
+    where: { Username: username },
   });
+  if (!account) {
+    return { ok: false, message: 'Server did not recognize your account' };
+  }
+
+  const isOldPasswordValid = await compare(credentials.oldpassword, account.Password);
+  if (!isOldPasswordValid) {
+    return { ok: false, message: 'Old password is incorrect' };
+  }
+
+  const isOldNewPwdSame = credentials.oldpassword === credentials.password;
+  if (isOldNewPwdSame) {
+    return { ok: false, message: 'New password and old password must differ' };
+  }
+
+  const hashedPassword = await hash(credentials.password, 14);
+  await prisma.account.update({
+    where: { Username: username },
+    data: { Password: hashedPassword },
+  });
+
+  return { ok: true };
 }

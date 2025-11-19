@@ -1,37 +1,77 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Container, Row, Col, Image } from 'react-bootstrap';
 
-const MerchGallery = ({ photograph }: { photograph : string[] }) => {
-  const albumPath : string = '/merch-photo/';
-  if (photograph.length === 0) {
-    photograph.push('no-image-available.png');
+export function getMerchImage(merchID : number) {
+  return fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/download/merch-images?merchID=${merchID}`, {
+    cache: 'no-store',
+  }).then(result => result.json());
+}
+
+export const DEFAULT_IMAGE : {
+  id: number,
+  mimeType: string,
+  base64: string;
+  url?: string;
+} = {
+  id: -1,
+  mimeType: 'image/png',
+  base64: '',
+  url: '/merch-photo/no-image-available.png',
+};
+
+export function parseImageSource(image : {
+  id: number,
+  mimeType: string,
+  base64: string,
+  url?: string,
+}) {
+  if (image.base64 && image.base64.length > 0) {
+    return `data:${image.mimeType};base64,${image.base64}`;
   }
+  return image.url;
+}
+
+const MerchGallery = ({ photograph }: { photograph : {
+  id: number,
+  mimeType: string,
+  base64: string,
+  url?: string,
+}[] }) => {
+  if (photograph.length === 0) {
+    photograph.push(DEFAULT_IMAGE);
+  }
+
   const [selectedPhotograph, setSelectedPhotograph] = useState(photograph[0]);
+
+  useEffect(() => {
+    setSelectedPhotograph(photograph[0]);
+  }, [photograph]);
+
   return (
     <Container fluid>
       <Container className="ratio ratio-1x1" fluid style={{ maxWidth: '600px' }}>
         <Image
-          src={albumPath + selectedPhotograph}
+          src={parseImageSource(selectedPhotograph)}
           alt=""
           className="object-fit-cover rounded-2"
         />
       </Container>
       <Container className="pt-2" fluid>
         <Row>
-          {photograph.map((photographURL) => (
-            <Col className="ratio ratio-1x1 px-0" style={{ maxWidth: '120px' }}>
+          {photograph.map((photographData) => (
+            <Col className="ratio ratio-1x1 px-0" key={photographData.id} style={{ maxWidth: '120px' }}>
               <Image
-                key={photographURL}
-                src={albumPath + photographURL}
+                key={photographData.id}
+                src={parseImageSource(photographData)}
                 alt=""
                 className={
                   `object-fit-cover
                   rounded-2
-                  ${photographURL === selectedPhotograph ? 'border border-3 border-success' : ''}`
+                  ${photographData.id === selectedPhotograph.id ? 'border border-4 border-wonkes-3' : ''}`
                 }
-                onClick={() => setSelectedPhotograph(photographURL)}
+                onClick={() => setSelectedPhotograph(photographData)}
               />
             </Col>
           ))}

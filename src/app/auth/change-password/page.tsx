@@ -13,22 +13,23 @@ type ChangePasswordForm = {
   oldpassword: string;
   password: string;
   confirmPassword: string;
-  // acceptTerms: boolean;
 };
 
 /** The change password page. */
 const ChangePassword = () => {
   const { data: session, status } = useSession();
-  const email = session?.user?.email || '';
+  const username = session?.user?.username || '';
+  console.log('Session: ', session?.user?.username);
+
   const validationSchema = Yup.object().shape({
-    oldpassword: Yup.string().required('Password is required'),
+    oldpassword: Yup.string().required('Old password is required'),
     password: Yup.string()
-      .required('Password is required')
+      .required('New password is required')
       .min(6, 'Password must be at least 6 characters')
       .max(40, 'Password must not exceed 40 characters'),
     confirmPassword: Yup.string()
       .required('Confirm Password is required')
-      .oneOf([Yup.ref('password'), ''], 'Confirm Password does not match'),
+      .oneOf([Yup.ref('password'), ''], 'Passwords do not match'),
   });
 
   const {
@@ -41,9 +42,23 @@ const ChangePassword = () => {
   });
 
   const onSubmit = async (data: ChangePasswordForm) => {
-    // console.log(JSON.stringify(data, null, 2));
-    await changePassword({ email, ...data });
-    await swal('Password Changed', 'Your password has been changed', 'success', { timer: 2000 });
+    // Change password.
+    const result = await changePassword({
+      username,
+      oldpassword: data.oldpassword,
+      password: data.password,
+    });
+
+    // Check change password status.
+    if (!result.ok) {
+      swal('Error', result.message || 'Failed to change password', 'error');
+      return;
+    }
+
+    // Congratulations to the user.
+    await swal('Password Changed', 'Your password has been changed', 'success', {
+      timer: 2000,
+    });
     reset();
   };
 
@@ -52,16 +67,19 @@ const ChangePassword = () => {
   }
 
   return (
-    <main>
+    <main
+      className="flex-grow-1 d-flex align-items-center bg-wonkes-7"
+      style={{ minHeight: '70vh' }}
+    >
       <Container>
         <Row className="justify-content-center">
           <Col xs={5}>
-            <h1 className="text-center">Change Password</h1>
             <Card>
               <Card.Body>
+                <h1 className="text-center">Change Password</h1>
                 <Form onSubmit={handleSubmit(onSubmit)}>
                   <Form.Group className="form-group">
-                    <Form.Label>Old Passord</Form.Label>
+                    <Form.Label>Old Password</Form.Label>
                     <input
                       type="password"
                       {...register('oldpassword')}
@@ -79,6 +97,7 @@ const ChangePassword = () => {
                     />
                     <div className="invalid-feedback">{errors.password?.message}</div>
                   </Form.Group>
+
                   <Form.Group className="form-group">
                     <Form.Label>Confirm Password</Form.Label>
                     <input
@@ -88,16 +107,16 @@ const ChangePassword = () => {
                     />
                     <div className="invalid-feedback">{errors.confirmPassword?.message}</div>
                   </Form.Group>
+
                   <Form.Group className="form-group py-3">
                     <Row>
                       <Col>
-                        <Button type="submit" className="btn btn-primary">
+                        <Button
+                          variant="danger"
+                          type="submit"
+                          className="w-100 fw-semibold float-center"
+                        >
                           Change
-                        </Button>
-                      </Col>
-                      <Col>
-                        <Button type="button" onClick={() => reset()} className="btn btn-warning float-right">
-                          Reset
                         </Button>
                       </Col>
                     </Row>
