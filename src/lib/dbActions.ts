@@ -174,7 +174,7 @@ export async function changePassword(credentials: {
 }) {
   const { username } = credentials;
   const account = await prisma.account.findUnique({
-    where: { EmailAddress: username },
+    where: { Username: username },
   });
   if (!account) {
     return { ok: false, message: 'Server did not recognize your account' };
