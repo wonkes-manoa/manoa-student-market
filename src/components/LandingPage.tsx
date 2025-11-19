@@ -59,7 +59,7 @@ const LandingPage = () => (
         <Card className="border-0 text-center">
           <Card.Img
             variant="top"
-            src="/placeholder.jpg"
+            src="/View-Listings-1.png"
             alt="Image of Listings Page"
           />
           <Card.Body>

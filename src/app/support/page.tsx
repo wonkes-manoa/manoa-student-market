@@ -1,4 +1,4 @@
-import { Button, Col, Container, Row } from 'react-bootstrap';
+import { Button, Col, Container, Row, Image } from 'react-bootstrap';
 import { ArrowRepeat, Globe, Star } from 'react-bootstrap-icons';
 import AccordionFAQ from './AccordionFAQ';
 
@@ -65,9 +65,56 @@ const SupportPage = async () => (
       </Container>
       <hr />
 
-      <Container className="px-5">
+      <Container className="d-flex flex-column px-5">
         <h2>Webpage Info</h2>
-        <p>TBD (Images of Websites needed)</p>
+        <u>View Listings</u>
+        - use search bar to find the items you need!
+        <Row>
+          <Col>
+            <Image
+              src="View-Listings-1.png"
+              alt="View Listings (1) Page"
+              fluid
+              rounded
+              style={{ width: '75%', maxWidth: '350px' }}
+            />
+          </Col>
+          <Col>
+            <Image
+              src="View-Listings-2.png"
+              alt="View Listings (2) Page"
+              fluid
+              rounded
+              style={{ width: '75%', maxWidth: '350px' }}
+            />
+          </Col>
+        </Row>
+        - click the item you are interested in!
+        <Image
+          src="View-Merch.png"
+          alt="View Single Listing Page"
+          fluid
+          rounded
+          style={{ width: '75%', maxWidth: '350px' }}
+        />
+
+        <u>Add Listings</u>
+        - Add your items you want to get rid of!
+        <Image
+          src="Add-Listings.png"
+          alt="Add Listings Page"
+          fluid
+          rounded
+          style={{ width: '75%', maxWidth: '350px' }}
+        />
+        <u>View Listings</u>
+        <Image
+          src="View-Listings-1.png"
+          alt="View Listings Page"
+          fluid
+          rounded
+          style={{ width: '75%', maxWidth: '350px' }}
+        />
       </Container>
 
       <hr />
