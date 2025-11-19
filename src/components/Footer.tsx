@@ -32,6 +32,11 @@ const Footer = () => (
               Contact Wonkes
             </a>
           </p>
+          <p className="mb-0 small">
+            <a href="/list/MyStore" className="text-decoration-none text-wonkes-3">
+              My Page
+            </a> {/* Delete this href when my-page can display test user's cards */}
+          </p>
         </Col>
 
         {/* Column 3 — Useful Links */}
