@@ -61,7 +61,7 @@ const Footer = () => (
 
           <p className="mb-1 small">
             <a
-              href="https://github.com/wonkes-manoa"
+              href="https://github.com/wonkes-manoa/manoa-student-market"
               className="text-decoration-none text-wonkes-3"
             >
               Wonkes Project Repository
