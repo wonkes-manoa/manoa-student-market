@@ -36,15 +36,6 @@ const NavBar: React.FC = () => {
 
         <Navbar.Collapse id="wonkes-navbar">
           <Nav className="me-auto">
-
-            <Nav.Link
-              href="/support"
-              active={pathname === '/support'}
-              className="text-light"
-            >
-              Support
-            </Nav.Link>
-
             {username && (
               <>
                 <Nav.Link
@@ -87,6 +78,14 @@ const NavBar: React.FC = () => {
                 Admin Merch Management
               </Nav.Link>
             )}
+
+            <Nav.Link
+              href="/support"
+              active={pathname === '/support'}
+              className="text-light"
+            >
+              Support
+            </Nav.Link>
           </Nav>
 
           <Nav>
