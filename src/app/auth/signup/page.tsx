@@ -71,7 +71,7 @@ const SignUp = () => {
     await signIn('credentials', {
       username: data.username,
       password: data.password,
-      callbackUrl: '/add',
+      callbackUrl: '/listings-view',
     });
   };
 
