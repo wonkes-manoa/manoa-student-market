@@ -396,6 +396,16 @@ const AddMerchForm = ({ id } : { id : number }) => {
                   </Form.Text>
                 </Form.Group>
 
+                <Form.Text muted>
+                  <span className="text-danger">*</span>
+                  &nbsp;
+                  are required fields.
+                  <br />
+                  <span className="text-primary">*</span>
+                  &nbsp;
+                  are required fields if you filled out the numeric field.
+                </Form.Text>
+
                 {/* Buttons */}
                 <Row className="pt-3">
                   <Col>
