@@ -383,7 +383,7 @@ const AddMerchForm = ({ id } : { id : number }) => {
                   <input
                     type="file"
                     multiple
-                    accept="image/*"
+                    accept="image/jpeg, image/png"
                     {...register('Image')}
                     className={`form-control ${errors.Image ? 'is-invalid' : ''}`}
                     onChange={handleImageChange}
