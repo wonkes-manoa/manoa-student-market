@@ -20,7 +20,10 @@ export const AddMerchSchema = Yup.object({
   AccountID: Yup.number()
     .required(),
   StockStatus: Yup.string()
-    .oneOf(Object.keys(MerchStockStatus) as (keyof typeof MerchStockStatus)[])
+    .oneOf(
+      Object.keys(MerchStockStatus) as (keyof typeof MerchStockStatus)[],
+      'Should people see your merch right after you add it?',
+    )
     .required(),
   Price: Yup.number()
     .typeError('Please enter a price')
@@ -32,7 +35,7 @@ export const AddMerchSchema = Yup.object({
     .required('Describe your merch'),
   Image: Yup.mixed<FileList>()
     .test('fileType', 'Invalid file type', (value) => {
-      if (!value || value.length === 0) return true; // allow empty (optional)
+      if (!value || value.length === 0) return false; // Disallow empty field.
       for (let i = 0; i < value.length; i++) {
         const file = value[i];
         if (!file.type.startsWith('image/')) return false;
@@ -69,9 +72,9 @@ export const AddMerchSchema = Yup.object({
     .oneOf(Object.keys(MassUnit) as (keyof typeof MassUnit)[])
     .required(),
   Material: Yup.string()
-    .oneOf(Object.keys(MerchMaterial) as (keyof typeof MerchMaterial)[])
+    .oneOf(Object.keys(MerchMaterial) as (keyof typeof MerchMaterial)[], 'Specify the main material of your merch')
     .required(),
   Condition: Yup.string()
-    .oneOf(Object.keys(MerchCondition) as (keyof typeof MerchCondition)[])
+    .oneOf(Object.keys(MerchCondition) as (keyof typeof MerchCondition)[], 'Specify how is your merch now')
     .required(),
 });

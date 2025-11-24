@@ -101,13 +101,6 @@ const AddMerchForm = ({ id } : { id : number }) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      LUnit: 'CENTIMETER',
-      WUnit: 'CENTIMETER',
-      HUnit: 'CENTIMETER',
-      MUnit: 'KILOGRAM',
-      StockStatus: 'ON_STOCK',
-      Material: 'PLASTIC',
-      Condition: 'GOOD',
     },
     resolver: yupResolver(AddMerchSchema),
   });
@@ -192,6 +185,9 @@ const AddMerchForm = ({ id } : { id : number }) => {
                     {...register('StockStatus')}
                     className={errors.StockStatus ? 'is-invalid' : ''}
                   >
+                    <option key="--" value="--">
+                      --
+                    </option>
                     {Object.keys(MerchStockStatus).map((key) => (
                       <option key={key} value={key}>
                         {key.charAt(0).toUpperCase() + key.slice(1).toLowerCase().replaceAll('_', ' ')}
@@ -215,6 +211,9 @@ const AddMerchForm = ({ id } : { id : number }) => {
                       <div className="invalid-feedback">{errors.Length?.message}</div>
                     </Form.Group>
                     <Form.Select {...register('LUnit')} className="mb-3">
+                      <option key="--" value="--">
+                        --
+                      </option>
                       {Object.keys(LengthUnit).map((key) => (
                         <option key={key} value={key}>
                           {key.charAt(0).toUpperCase() + key.slice(1).toLowerCase().replaceAll('_', ' ')}
@@ -235,6 +234,9 @@ const AddMerchForm = ({ id } : { id : number }) => {
                       <div className="invalid-feedback">{errors.Width?.message}</div>
                     </Form.Group>
                     <Form.Select {...register('WUnit')} className="mb-3">
+                      <option key="--" value="--">
+                        --
+                      </option>
                       {Object.keys(LengthUnit).map((key) => (
                         <option key={key} value={key}>
                           {key.charAt(0).toUpperCase() + key.slice(1).toLowerCase().replaceAll('_', ' ')}
@@ -257,6 +259,9 @@ const AddMerchForm = ({ id } : { id : number }) => {
                       <div className="invalid-feedback">{errors.Height?.message}</div>
                     </Form.Group>
                     <Form.Select {...register('HUnit')} className="mb-3">
+                      <option key="--" value="--">
+                        --
+                      </option>
                       {Object.keys(LengthUnit).map((key) => (
                         <option key={key} value={key}>
                           {key.charAt(0).toUpperCase() + key.slice(1).toLowerCase().replaceAll('_', ' ')}
@@ -277,6 +282,9 @@ const AddMerchForm = ({ id } : { id : number }) => {
                       <div className="invalid-feedback">{errors.Mass?.message}</div>
                     </Form.Group>
                     <Form.Select {...register('MUnit')} className="mb-3">
+                      <option key="--" value="--">
+                        --
+                      </option>
                       {Object.keys(MassUnit).map((key) => (
                         <option key={key} value={key}>
                           {key.charAt(0).toUpperCase() + key.slice(1).toLowerCase().replaceAll('_', ' ')}
@@ -296,6 +304,9 @@ const AddMerchForm = ({ id } : { id : number }) => {
                     {...register('Material')}
                     className={errors.Material ? 'is-invalid' : ''}
                   >
+                    <option key="--" value="--">
+                      --
+                    </option>
                     {Object.keys(MerchMaterial).map((key) => (
                       <option key={key} value={key}>
                         {key.charAt(0).toUpperCase() + key.slice(1).toLowerCase().replaceAll('_', ' ')}
@@ -315,6 +326,9 @@ const AddMerchForm = ({ id } : { id : number }) => {
                     {...register('Condition')}
                     className={errors.Condition ? 'is-invalid' : ''}
                   >
+                    <option key="--" value="--">
+                      --
+                    </option>
                     {Object.keys(MerchCondition).map((key) => (
                       <option key={key} value={key}>
                         {key.charAt(0).toUpperCase() + key.slice(1).toLowerCase().replaceAll('_', ' ')}
