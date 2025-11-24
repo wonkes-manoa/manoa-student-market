@@ -22,11 +22,11 @@ const onSubmit = async (data: {
   Name: string;
   Description: string;
   Image?: Maybe<FileList | undefined>;
-  Length: number;
+  Length?: number | null;
   Width: number;
   Height: number;
   Mass: number;
-  LUnit: string;
+  LUnit?: string | null;
   WUnit: string;
   HUnit: string;
   MUnit: string;
@@ -201,7 +201,10 @@ const AddMerchForm = ({ id } : { id : number }) => {
                 <Row>
                   <Col>
                     <Form.Group className="mb-3">
-                      <Form.Label>Length</Form.Label>
+                      <Form.Label>
+                        Length
+                        <span className="text-primary">*</span>
+                      </Form.Label>
                       <input
                         type="number"
                         step="0.01"
@@ -210,7 +213,7 @@ const AddMerchForm = ({ id } : { id : number }) => {
                       />
                       <div className="invalid-feedback">{errors.Length?.message}</div>
                     </Form.Group>
-                    <Form.Select {...register('LUnit')} className="mb-3">
+                    <Form.Select {...register('LUnit')} className={errors.Length ? 'is-invalid mb-3' : 'mb-3'}>
                       <option key="--" value="--">
                         --
                       </option>
@@ -224,7 +227,10 @@ const AddMerchForm = ({ id } : { id : number }) => {
 
                   <Col>
                     <Form.Group className="mb-3">
-                      <Form.Label>Width</Form.Label>
+                      <Form.Label>
+                        Width
+                        <span className="text-primary">*</span>
+                      </Form.Label>
                       <input
                         type="number"
                         step="0.01"
@@ -249,7 +255,10 @@ const AddMerchForm = ({ id } : { id : number }) => {
                 <Row>
                   <Col>
                     <Form.Group className="mb-3">
-                      <Form.Label>Height</Form.Label>
+                      <Form.Label>
+                        Height
+                        <span className="text-primary">*</span>
+                      </Form.Label>
                       <input
                         type="number"
                         step="0.01"
@@ -272,7 +281,10 @@ const AddMerchForm = ({ id } : { id : number }) => {
 
                   <Col>
                     <Form.Group className="mb-3">
-                      <Form.Label>Mass</Form.Label>
+                      <Form.Label>
+                        Mass
+                        <span className="text-primary">*</span>
+                      </Form.Label>
                       <input
                         type="number"
                         step="0.01"

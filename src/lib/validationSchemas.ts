@@ -46,7 +46,8 @@ export const AddMerchSchema = Yup.object({
   Length: Yup.number()
     .typeError('Please enter a length')
     .min(0, 'No negative length')
-    .required(),
+    .nullable()
+    .transform((value, originalValue) => (originalValue === '' ? null : value)),
   Width: Yup.number()
     .typeError('Please enter a width')
     .min(0, 'No negative width')
@@ -60,8 +61,15 @@ export const AddMerchSchema = Yup.object({
     .min(0, 'No negative mass')
     .required(),
   LUnit: Yup.string()
-    .oneOf(Object.keys(LengthUnit) as (keyof typeof LengthUnit)[])
-    .required(),
+    .when('Length', {
+      is: (val: any) => val !== undefined && val !== null && val !== '' && !Number.isNaN(val),
+      then: (schema) => schema.oneOf(
+        Object.keys(LengthUnit) as (keyof typeof LengthUnit)[],
+      )
+        .required('What is the unit for the length?'),
+      otherwise: (schema) => schema.notRequired().transform(() => null),
+    })
+    .nullable(),
   WUnit: Yup.string()
     .oneOf(Object.keys(LengthUnit) as (keyof typeof LengthUnit)[])
     .required(),
