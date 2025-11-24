@@ -141,7 +141,10 @@ const AddMerchForm = ({ id } : { id : number }) => {
                 <input type="hidden" {...register('AccountID')} value={id} />
                 {/* Name */}
                 <Form.Group className="mb-3">
-                  <Form.Label>Name</Form.Label>
+                  <Form.Label>
+                    Name
+                    <span className="text-danger">*</span>
+                  </Form.Label>
                   <input
                     type="text"
                     {...register('Name')}
@@ -152,7 +155,10 @@ const AddMerchForm = ({ id } : { id : number }) => {
 
                 {/* Description */}
                 <Form.Group className="mb-3">
-                  <Form.Label>Description</Form.Label>
+                  <Form.Label>
+                    Description
+                    <span className="text-danger">*</span>
+                  </Form.Label>
                   <textarea
                     {...register('Description')}
                     rows={3}
@@ -163,7 +169,10 @@ const AddMerchForm = ({ id } : { id : number }) => {
 
                 {/* Price */}
                 <Form.Group className="mb-3">
-                  <Form.Label>Price</Form.Label>
+                  <Form.Label>
+                    Price
+                    <span className="text-danger">*</span>
+                  </Form.Label>
                   <input
                     type="number"
                     step="0.01"
@@ -175,7 +184,10 @@ const AddMerchForm = ({ id } : { id : number }) => {
 
                 {/* Stock Status */}
                 <Form.Group className="mb-3">
-                  <Form.Label>Stock Status</Form.Label>
+                  <Form.Label>
+                    Stock Status
+                    <span className="text-danger">*</span>
+                  </Form.Label>
                   <Form.Select
                     {...register('StockStatus')}
                     className={errors.StockStatus ? 'is-invalid' : ''}
@@ -276,7 +288,10 @@ const AddMerchForm = ({ id } : { id : number }) => {
 
                 {/* Material */}
                 <Form.Group className="mb-3">
-                  <Form.Label>Material</Form.Label>
+                  <Form.Label>
+                    Material
+                    <span className="text-danger">*</span>
+                  </Form.Label>
                   <Form.Select
                     {...register('Material')}
                     className={errors.Material ? 'is-invalid' : ''}
@@ -292,7 +307,10 @@ const AddMerchForm = ({ id } : { id : number }) => {
 
                 {/* Condition */}
                 <Form.Group className="mb-3">
-                  <Form.Label>Condition</Form.Label>
+                  <Form.Label>
+                    Condition
+                    <span className="text-danger">*</span>
+                  </Form.Label>
                   <Form.Select
                     {...register('Condition')}
                     className={errors.Condition ? 'is-invalid' : ''}
@@ -308,7 +326,10 @@ const AddMerchForm = ({ id } : { id : number }) => {
 
                 {/* Upload images */}
                 <Form.Group className="mb-4">
-                  <Form.Label>Upload Images</Form.Label>
+                  <Form.Label>
+                    Upload Images
+                    <span className="text-danger">*</span>
+                  </Form.Label>
                   <input
                     type="file"
                     multiple
