@@ -23,13 +23,13 @@ const onSubmit = async (data: {
   Description: string;
   Image?: Maybe<FileList | undefined>;
   Length?: number | null;
-  Width: number;
-  Height: number;
-  Mass: number;
+  Width?: number | null;
+  Height?: number | null;
+  Mass?: number | null;
   LUnit?: string | null;
-  WUnit: string;
-  HUnit: string;
-  MUnit: string;
+  WUnit?: string | null;
+  HUnit?: string | null;
+  MUnit?: string | null;
   Material: string;
   Condition: string;
 }, router: AppRouterInstance) => {
@@ -213,16 +213,22 @@ const AddMerchForm = ({ id } : { id : number }) => {
                       />
                       <div className="invalid-feedback">{errors.Length?.message}</div>
                     </Form.Group>
-                    <Form.Select {...register('LUnit')} className={errors.Length ? 'is-invalid mb-3' : 'mb-3'}>
-                      <option key="--" value="--">
-                        --
-                      </option>
-                      {Object.keys(LengthUnit).map((key) => (
-                        <option key={key} value={key}>
-                          {key.charAt(0).toUpperCase() + key.slice(1).toLowerCase().replaceAll('_', ' ')}
+                    <Form.Group className="mb-3">
+                      <Form.Select
+                        {...register('LUnit')}
+                        className={errors.LUnit ? 'is-invalid' : ''}
+                      >
+                        <option key="--" value="--">
+                          --
                         </option>
-                      ))}
-                    </Form.Select>
+                        {Object.keys(LengthUnit).map((key) => (
+                          <option key={key} value={key}>
+                            {key.charAt(0).toUpperCase() + key.slice(1).toLowerCase().replaceAll('_', ' ')}
+                          </option>
+                        ))}
+                      </Form.Select>
+                      <div className="invalid-feedback">{errors.LUnit?.message}</div>
+                    </Form.Group>
                   </Col>
 
                   <Col>
@@ -239,16 +245,22 @@ const AddMerchForm = ({ id } : { id : number }) => {
                       />
                       <div className="invalid-feedback">{errors.Width?.message}</div>
                     </Form.Group>
-                    <Form.Select {...register('WUnit')} className="mb-3">
-                      <option key="--" value="--">
-                        --
-                      </option>
-                      {Object.keys(LengthUnit).map((key) => (
-                        <option key={key} value={key}>
-                          {key.charAt(0).toUpperCase() + key.slice(1).toLowerCase().replaceAll('_', ' ')}
+                    <Form.Group className="mb-3">
+                      <Form.Select
+                        {...register('WUnit')}
+                        className={errors.WUnit ? 'is-invalid' : ''}
+                      >
+                        <option key="--" value="--">
+                          --
                         </option>
-                      ))}
-                    </Form.Select>
+                        {Object.keys(LengthUnit).map((key) => (
+                          <option key={key} value={key}>
+                            {key.charAt(0).toUpperCase() + key.slice(1).toLowerCase().replaceAll('_', ' ')}
+                          </option>
+                        ))}
+                      </Form.Select>
+                      <div className="invalid-feedback">{errors.WUnit?.message}</div>
+                    </Form.Group>
                   </Col>
                 </Row>
 
@@ -267,16 +279,22 @@ const AddMerchForm = ({ id } : { id : number }) => {
                       />
                       <div className="invalid-feedback">{errors.Height?.message}</div>
                     </Form.Group>
-                    <Form.Select {...register('HUnit')} className="mb-3">
-                      <option key="--" value="--">
-                        --
-                      </option>
-                      {Object.keys(LengthUnit).map((key) => (
-                        <option key={key} value={key}>
-                          {key.charAt(0).toUpperCase() + key.slice(1).toLowerCase().replaceAll('_', ' ')}
+                    <Form.Group className="mb-3">
+                      <Form.Select
+                        {...register('HUnit')}
+                        className={errors.HUnit ? 'is-invalid' : ''}
+                      >
+                        <option key="--" value="--">
+                          --
                         </option>
-                      ))}
-                    </Form.Select>
+                        {Object.keys(LengthUnit).map((key) => (
+                          <option key={key} value={key}>
+                            {key.charAt(0).toUpperCase() + key.slice(1).toLowerCase().replaceAll('_', ' ')}
+                          </option>
+                        ))}
+                      </Form.Select>
+                      <div className="invalid-feedback">{errors.HUnit?.message}</div>
+                    </Form.Group>
                   </Col>
 
                   <Col>
@@ -293,16 +311,22 @@ const AddMerchForm = ({ id } : { id : number }) => {
                       />
                       <div className="invalid-feedback">{errors.Mass?.message}</div>
                     </Form.Group>
-                    <Form.Select {...register('MUnit')} className="mb-3">
-                      <option key="--" value="--">
-                        --
-                      </option>
-                      {Object.keys(MassUnit).map((key) => (
-                        <option key={key} value={key}>
-                          {key.charAt(0).toUpperCase() + key.slice(1).toLowerCase().replaceAll('_', ' ')}
+                    <Form.Group className="mb-3">
+                      <Form.Select
+                        {...register('MUnit')}
+                        className={errors.MUnit ? 'is-invalid' : ''}
+                      >
+                        <option key="--" value="--">
+                          --
                         </option>
-                      ))}
-                    </Form.Select>
+                        {Object.keys(MassUnit).map((key) => (
+                          <option key={key} value={key}>
+                            {key.charAt(0).toUpperCase() + key.slice(1).toLowerCase().replaceAll('_', ' ')}
+                          </option>
+                        ))}
+                      </Form.Select>
+                      <div className="invalid-feedback">{errors.MUnit?.message}</div>
+                    </Form.Group>
                   </Col>
                 </Row>
 
@@ -361,13 +385,14 @@ const AddMerchForm = ({ id } : { id : number }) => {
                     multiple
                     accept="image/*"
                     {...register('Image')}
-                    className="form-control"
+                    className={`form-control ${errors.Image ? 'is-invalid' : ''}`}
                     onChange={handleImageChange}
                   />
+                  <div className="invalid-feedback">{errors.Image?.message}</div>
                   <Form.Text muted>
-                    You can upload multiple photos at once; suggested 5-7 square photos.
+                    Upload 1-9 photos. You can upload multiple photos at once. Square photos fits better.
                     <br />
-                    Accepted formats: JPG, JPEG, PNG, WEBP, GIF, BMP, SVG, TIFF.
+                    Accepted formats: JPG (JPEG), PNG.
                   </Form.Text>
                 </Form.Group>
 

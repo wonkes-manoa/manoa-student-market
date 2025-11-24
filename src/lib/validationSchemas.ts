@@ -34,15 +34,21 @@ export const AddMerchSchema = Yup.object({
   Description: Yup.string()
     .required('Describe your merch'),
   Image: Yup.mixed<FileList>()
-    .test('fileType', 'Invalid file type', (value) => {
-      if (!value || value.length === 0) return false; // Disallow empty field.
-      for (let i = 0; i < value.length; i++) {
-        const file = value[i];
-        if (!file.type.startsWith('image/')) return false;
+    .test('minFiles', 'At least one photo is required', (value) => value && value.length >= 1)
+    .test('maxFiles', 'You can upload at most 9 photos', (value) => value && value.length <= 9)
+    .test('validFileTypes', 'Only JPG and PNG formats are allowed', (value) => {
+      if (!value) {
+        return false;
       }
+      for (let i = 0; i < value.length; ++i) {
+        const file = value[i];
+        if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
+          return false;
+        }
+      }
+
       return true;
-    })
-    .notRequired(),
+    }),
   Length: Yup.number()
     .typeError('Please enter a length')
     .min(0, 'No negative length')
@@ -51,34 +57,62 @@ export const AddMerchSchema = Yup.object({
   Width: Yup.number()
     .typeError('Please enter a width')
     .min(0, 'No negative width')
-    .required(),
+    .nullable()
+    .transform((value, originalValue) => (originalValue === '' ? null : value)),
   Height: Yup.number()
     .typeError('Please enter a height')
     .min(0, 'No negative height')
-    .required(),
+    .nullable()
+    .transform((value, originalValue) => (originalValue === '' ? null : value)),
   Mass: Yup.number()
     .typeError('Please enter a mass')
     .min(0, 'No negative mass')
-    .required(),
+    .nullable()
+    .transform((value, originalValue) => (originalValue === '' ? null : value)),
   LUnit: Yup.string()
     .when('Length', {
       is: (val: any) => val !== undefined && val !== null && val !== '' && !Number.isNaN(val),
       then: (schema) => schema.oneOf(
         Object.keys(LengthUnit) as (keyof typeof LengthUnit)[],
+        'What is the unit for the length?',
       )
         .required('What is the unit for the length?'),
       otherwise: (schema) => schema.notRequired().transform(() => null),
     })
     .nullable(),
   WUnit: Yup.string()
-    .oneOf(Object.keys(LengthUnit) as (keyof typeof LengthUnit)[])
-    .required(),
+    .when('Width', {
+      is: (val: any) => val !== undefined && val !== null && val !== '' && !Number.isNaN(val),
+      then: (schema) => schema.oneOf(
+        Object.keys(LengthUnit) as (keyof typeof LengthUnit)[],
+        'What is the unit for the weight?',
+      )
+        .required('What is the unit for the weight?'),
+      otherwise: (schema) => schema.notRequired().transform(() => null),
+    })
+    .nullable(),
   HUnit: Yup.string()
-    .oneOf(Object.keys(LengthUnit) as (keyof typeof LengthUnit)[])
-    .required(),
+    .when('Height', {
+      is: (val: any) => val !== undefined && val !== null && val !== '' && !Number.isNaN(val),
+      then: (schema) => schema.oneOf(
+        Object.keys(LengthUnit) as (keyof typeof LengthUnit)[],
+        'What is the unit for the height?',
+      )
+        .required('What is the unit for the height?'),
+      otherwise: (schema) => schema.notRequired().transform(() => null),
+    })
+    .nullable(),
   MUnit: Yup.string()
-    .oneOf(Object.keys(MassUnit) as (keyof typeof MassUnit)[])
-    .required(),
+    .when('Mass', {
+      is: (val: any) => val !== undefined && val !== null && val !== '' && !Number.isNaN(val),
+      then: (schema) => schema.oneOf(
+        Object.keys(MassUnit) as (keyof typeof MassUnit)[],
+        'What is the unit for the mass?',
+      )
+        .required('What is the unit for the mass?'),
+      otherwise: (schema) => schema.notRequired().transform(() => null),
+    })
+    .nullable(),
   Material: Yup.string()
     .oneOf(Object.keys(MerchMaterial) as (keyof typeof MerchMaterial)[], 'Specify the main material of your merch')
     .required(),
