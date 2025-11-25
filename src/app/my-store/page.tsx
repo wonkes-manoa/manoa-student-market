@@ -30,11 +30,6 @@ export default async function MyStorePage() {
     );
   }
 
-  const rows = [];
-  for (let i = 0; i < merch.length; i += 2) {
-    rows.push(merch.slice(i, i + 2));
-  }
-
   return (
     <Container className="mt-5 mb-4">
       {merch.map((m) => (

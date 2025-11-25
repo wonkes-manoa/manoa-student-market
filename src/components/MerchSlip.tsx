@@ -3,6 +3,7 @@
 import { useEffect, useState, useMemo } from 'react';
 import MerchGallery from '@/components/MerchGallery';
 import MerchPanel from '@/components/MerchPanel';
+import MerchManage from '@/components/MerchManage';
 import { Container, Row, Col } from 'react-bootstrap';
 import type { Merch } from '@prisma/client';
 
@@ -33,7 +34,6 @@ const MerchDetail = ({ merch, usage }: { merch: Merch, usage: string }) => {
         });
         const data: MerchImageData[] = await res.json();
 
-        // If there are images, take all, not just the first one. Otherwise use fallback.
         setImages(data.length > 0 ? data : [fallbackImage]);
       } catch (error) {
         console.error('Failed to fetch merch images', error);
@@ -44,7 +44,7 @@ const MerchDetail = ({ merch, usage }: { merch: Merch, usage: string }) => {
   }, [fallbackImage, merch.MerchID]);
 
   return (
-    <Container className="bg-white py-4 rounded-4" fluid>
+    <Container className="bg-white py-4 rounded-4 overflow-hidden" fluid>
       <Row>
         <Col md={4}>
           {images.length > 0 ? (
@@ -59,7 +59,7 @@ const MerchDetail = ({ merch, usage }: { merch: Merch, usage: string }) => {
           <MerchPanel merch={merch} usage={usage} />
         </Col>
         <Col md={4}>
-          <MerchPanel merch={merch} usage={usage} />
+          <MerchManage merch={merch} />
         </Col>
       </Row>
     </Container>
