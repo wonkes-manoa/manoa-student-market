@@ -1,10 +1,10 @@
-import MerchDetail from '@/components/MerchDetail';
 import { Col, Container, Row } from 'react-bootstrap';
 import { getServerSession } from 'next-auth';
 import { notFound } from 'next/navigation';
 import authOptions from '@/lib/authOptions';
 import { loggedInProtectedPage } from '@/lib/page-protection';
 import { prisma } from '@/lib/prisma';
+import MerchSlip from '@/components/MerchSlip';
 
 export default async function MyStorePage() {
   // Protect the page, only logged in users can access it.
@@ -36,15 +36,12 @@ export default async function MyStorePage() {
   }
 
   return (
-    <Container className="mt-5">
-      {rows.map((row) => (
-        <Row key={row[0].MerchID} className="g-4 mb-3">
-          {row.map((m) => (
-            <Col key={m.MerchID} md={6} className="my-3">
-              <MerchDetail merch={m} usage="admin" />
-            </Col>
-          ))}
-          {row.length === 1 && <Col md={6} />}
+    <Container className="mt-5 mb-4">
+      {merch.map((m) => (
+        <Row className="mb-4">
+          <Col>
+            <MerchSlip key={m.MerchID} merch={m} usage="admin" />
+          </Col>
         </Row>
       ))}
     </Container>

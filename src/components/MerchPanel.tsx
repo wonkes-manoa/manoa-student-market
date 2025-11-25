@@ -50,18 +50,7 @@ const MerchPanel = ({ merch, usage }: { merch : Merch, usage: string }) => {
 
       {(usage && usage === 'admin'
         && (
-        <Row className="g-2">
-          <Col xs={12} md={6}>
-            <Button variant="warning" className="w-100 fw-semibold">
-              Edit
-            </Button>
-          </Col>
-          <Col xs={12} md={6}>
-            <Button href="/listing-card" variant="danger" className="w-100 fw-semibold">
-              Mark as Sold
-            </Button>
-          </Col>
-        </Row>
+        <Row className="g-2" />
         ))
         || (
         <Row className="g-2">
