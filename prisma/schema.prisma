@@ -123,7 +123,7 @@ model Account {
   Privilege     AccountPrivilege              @default(USER)
   Username      String                @unique
   Password      String
-  EmailAddress  String                @unique
+  EmailAddress  String                @unique @db.Citext
   FirstName     String
   LastName      String
 
