@@ -26,8 +26,15 @@ const SignUp = () => {
       .max(20, 'Username must not exceed 20 characters long'),
 
     email: Yup.string()
-      .required('Email address is required')
-      .email('Email address is invalid'),
+      .trim()
+      .transform((v) => (typeof v === 'string' ? v.toLowerCase() : v))
+      .required('A valid @hawaii.edu email address is required')
+      .email('Enter a valid @hawaii.edu email address')
+      .test(
+        'hawaii-edu-domain',
+        'Only @hawaii.edu email addresses are accepted',
+        (value) => typeof value === 'string' && value.endsWith('@hawaii.edu'),
+      ),
 
     firstName: Yup.string()
       .required('Legal first name is required')
