@@ -13,7 +13,7 @@ const ListingCard = ({ merch } : { merch : ListingCardData }) => (
     >
       <Card className="h-100 shadow-sm border-0 rounded-4 overflow-hidden">
         <div className="position-relative bg-light" style={{ height: '220px' }}>
-          <MerchImageSingle merchID={merch.MerchID} imageID={merch.Image[0] ? merch.Image[0].ImageID : undefined} />
+          <MerchImageSingle merchID={merch.MerchID} imageID={merch.Image[0]?.ImageID} />
         </div>
 
         <Card.Body className="p-3">
