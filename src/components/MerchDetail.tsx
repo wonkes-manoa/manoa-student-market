@@ -6,7 +6,7 @@ import MerchPanel from '@/components/MerchPanel';
 import { Container, Row, Col } from 'react-bootstrap';
 import type { Merch } from '@prisma/client';
 
-type MerchImageData = {
+export type MerchImageData = {
   id: number;
   mimeType: string;
   base64: string;
