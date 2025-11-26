@@ -21,7 +21,7 @@ export default async function MyStorePage() {
       AccountID: accountID,
     },
     include: {
-      Image: true,
+      Image: false, // We'll fetch images later by merch ID.
     },
   });
   if (!merch) {
