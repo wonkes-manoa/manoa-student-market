@@ -33,6 +33,7 @@ const onSubmit = async (data: {
   Material: string;
   Condition: string;
 }, router: AppRouterInstance) => {
+  console.log('A');
   const editedMerch = await editMerch({
     MerchID: data.MerchID,
     StockStatus: data.StockStatus,
@@ -143,7 +144,7 @@ const EditMerchForm = ({ merch } : { merch : Merch }) => {
         <Col xs={12} md={6}>
           <Card className="shadow-sm">
             <Card.Body>
-              <h2 className="text-center mb-4">Add Merchandise</h2>
+              <h2 className="text-center mb-4">Edit Merchandise</h2>
               <Form onSubmit={handleSubmit((data) => onSubmit(data, router))}>
                 <input type="hidden" {...register('MerchID')} value={merch.MerchID} />
                 {/* Name */}
@@ -437,7 +438,7 @@ const EditMerchForm = ({ merch } : { merch : Merch }) => {
                       variant="danger"
                       className="w-100"
                     >
-                      Reset
+                      Recover
                     </Button>
                   </Col>
                 </Row>

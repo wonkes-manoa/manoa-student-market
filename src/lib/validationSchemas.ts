@@ -24,7 +24,7 @@ export const AddMerchSchema = Yup.object({
       Object.keys(MerchStockStatus) as (keyof typeof MerchStockStatus)[],
       'Should people see your merch right after you add it?',
     )
-    .required(),
+    .required('Should people see your merch right after you add it?'),
   Price: Yup.number()
     .typeError('Please enter a price')
     .positive('Price shall be positive')
@@ -129,7 +129,7 @@ export const EditMerchSchema = Yup.object({
       Object.keys(MerchStockStatus) as (keyof typeof MerchStockStatus)[],
       'Should people see your merch right after you add it?',
     )
-    .required(),
+    .required('Should people see your merch right after you add it?'),
   Price: Yup.number()
     .typeError('Please enter a price')
     .positive('Price shall be positive')
