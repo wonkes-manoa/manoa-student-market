@@ -1,43 +1,42 @@
 'use client';
 
-import { Image } from 'react-bootstrap';
-import type { FC } from 'react';
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import { getMerchImagesByMerchID, MerchImage, parseImageSource } from '@/lib/merchImage';
 
-type Props = {
-  image?: {
-    id: number;
-    mimeType: string;
-    base64: string;
-    url?: string;
-  };
-};
+interface Props {
+  merchID: number;
+  // eslint-disable-next-line react/require-default-props
+  imageID?: number;
+}
 
-const defaultImage = {
-  id: -1,
-  mimeType: 'image/png',
-  base64: '',
-  url: '/merch-photo/no-image-available.png',
-};
+export default function MerchImageSingle({ merchID, imageID }: Props) {
+  const [image, setImage] = useState<MerchImage | null>(null);
 
-const MerchImageSingle: FC<Props> = ({
-  image = defaultImage,
-}: Props) => {
-  const src = image.base64 && image.base64.length > 0
-    ? `data:${image.mimeType};base64,${image.base64}`
-    : image.url || '/merch-photo/no-image-available.png';
+  useEffect(() => {
+    async function fetchImages() : Promise<void> {
+      const merchImage : MerchImage[] = await getMerchImagesByMerchID(merchID, true);
+      if (imageID) {
+        const found = merchImage.find((i) => i.id === imageID);
+        setImage(found ?? null);
+      } else {
+        setImage(merchImage[0] ?? null);
+      }
+    }
+    fetchImages();
+  }, [merchID, imageID]);
+
+  // Loading state.
+  if (!image) {
+    return <div className="w-100 h-100 bg-light" />;
+  }
 
   return (
     <Image
-      src={src}
+      src={parseImageSource(image)}
       alt=""
-      className="w-100 h-100"
-      style={{ objectFit: 'contain' }}
+      fill
+      className="object-fit-cover"
     />
   );
-};
-
-MerchImageSingle.defaultProps = {
-  image: defaultImage,
-};
-
-export default MerchImageSingle;
+}

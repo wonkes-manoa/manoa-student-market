@@ -15,7 +15,7 @@ export async function GET(req: NextRequest) {
     Data: any;
   }) => ({
     id: image.ImageID,
-    mimeType: image.MIMEType,
+    mimeType: image.MIMEType || 'image/jpeg',
     base64: Buffer.from(image.Data).toString('base64'),
   }));
 

@@ -1,8 +1,9 @@
-import { MerchImage } from '@prisma/client';
-
 export type ListingCardData = {
   MerchID: number;
-  Image: MerchImage[];
+  Image: {
+    ImageID: number;
+    MIMEType: string;
+  }[]
   Name: string;
   Price: number;
   seller: {

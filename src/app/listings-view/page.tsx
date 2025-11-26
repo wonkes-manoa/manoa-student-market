@@ -15,7 +15,10 @@ export default async function ListingsPage() {
   );
   const listings = await prisma.merch.findMany({
     include: {
-      Image: true,
+      Image: {
+        select: { ImageID: true, MIMEType: true }, // We'll load image itself later.
+        take: 1,
+      },
       seller: { select: { Username: true } },
     },
     orderBy: {
