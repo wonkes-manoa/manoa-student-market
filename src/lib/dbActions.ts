@@ -64,6 +64,58 @@ export async function addMerch(merch: {
 }
 
 /**
+ * Edits a given merch in the database.
+ * @param merch, an object that specify the detail of the merch to edit.
+ */
+export async function editMerch(merch: {
+  MerchID: number,
+  StockStatus: string,
+  Price: number,
+  Name: string,
+  Description: string,
+  Length?: number | null,
+  Width?: number | null,
+  Height?: number | null,
+  Mass?: number | null,
+  LUnit?: string | null,
+  WUnit?: string | null,
+  HUnit?: string | null,
+  MUnit?: string | null,
+  Material: string,
+  Condition: string,
+}) {
+  const stockStatus = merch.StockStatus as MerchStockStatus;
+  const lengthUnit = merch.LUnit as LengthUnit;
+  const widthUnit = merch.WUnit as LengthUnit;
+  const heightUnit = merch.HUnit as LengthUnit;
+  const massUnit = merch.MUnit as MassUnit;
+  const material = merch.Material as MerchMaterial;
+  const condition = merch.Condition as MerchCondition;
+
+  const editedMerch = await prisma.merch.update({
+    where: { MerchID: merch.MerchID },
+    data: {
+      StockStatus: stockStatus,
+      Price: merch.Price,
+      Name: merch.Name,
+      Description: merch.Description,
+      Length: merch.Length,
+      Width: merch.Width,
+      Height: merch.Height,
+      Mass: merch.Mass,
+      LUnit: lengthUnit,
+      WUnit: widthUnit,
+      HUnit: heightUnit,
+      MUnit: massUnit,
+      Material: material,
+      Condition: condition,
+    },
+  });
+
+  return editedMerch;
+}
+
+/**
  * Adds a new stuff to the database.
  * @param stuff, an object with the following properties: name, quantity, owner, condition.
  */
