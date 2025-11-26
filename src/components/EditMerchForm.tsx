@@ -13,7 +13,8 @@ import { EditMerchSchema } from '@/lib/validationSchemas';
 import MerchGallery from '@/components/MerchGallery';
 import { Maybe } from 'yup';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { getMerchImagesByMerchID, MerchImage } from '@/lib/merchImage';
 
 const onSubmit = async (data: {
   MerchID: number,
@@ -78,7 +79,14 @@ const onSubmit = async (data: {
 
 const EditMerchForm = ({ merch } : { merch : Merch }) => {
   const router = useRouter();
-  const [previewImages, setPreviewImages] = useState<string[]>([]);
+  const [previewImages, setPreviewImages] = useState<MerchImage[]>([]);
+  useEffect(() => {
+    async function fetchImages() : Promise<void> {
+      setPreviewImages(await getMerchImagesByMerchID(merch.MerchID, true));
+    }
+    fetchImages();
+  }, [merch.MerchID]);
+  const initialImages = previewImages;
   const { data: session, status } = useSession();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const currentUser = session?.user?.email || '';
@@ -88,10 +96,16 @@ const EditMerchForm = ({ merch } : { merch : Merch }) => {
       setPreviewImages([]);
       return;
     }
-    const previews: string[] = [];
+    const previews : MerchImage[] = [];
+    let index : number = 0;
     for (const file of files) {
       const url = URL.createObjectURL(file); // temporary preview URL
-      previews.push(url);
+      previews.push({
+        id: ++index,
+        mimeType: '',
+        base64: '',
+        url,
+      });
     }
     setPreviewImages(previews);
   };
@@ -131,13 +145,7 @@ const EditMerchForm = ({ merch } : { merch : Merch }) => {
       <Row className="justify-content-center g-4">
         {/* LEFT COLUMN - image preview */}
         <Col xs={12} md={6} className="d-flex justify-content-center">
-          <MerchGallery photograph={previewImages.map((url, index) => ({
-            id: index,
-            mimeType: '',
-            base64: '',
-            url,
-          }))}
-          />
+          <MerchGallery photograph={previewImages} />
         </Col>
 
         {/* RIGHT COLUMN - form fields */}
@@ -434,7 +442,10 @@ const EditMerchForm = ({ merch } : { merch : Merch }) => {
                   <Col>
                     <Button
                       type="button"
-                      onClick={() => reset()}
+                      onClick={() => {
+                        reset();
+                        setPreviewImages(initialImages);
+                      }}
                       variant="danger"
                       className="w-100"
                     >
