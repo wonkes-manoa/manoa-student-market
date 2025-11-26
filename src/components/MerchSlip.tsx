@@ -1,47 +1,22 @@
 'use client';
 
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import MerchGallery from '@/components/MerchGallery';
 import MerchPanel from '@/components/MerchPanel';
 import MerchManage from '@/components/MerchManage';
 import { Container, Row, Col } from 'react-bootstrap';
 import type { Merch } from '@prisma/client';
+import { getMerchImagesByMerchID, MerchImage } from '@/lib/merchImage';
 
-type MerchImageData = {
-  id: number;
-  mimeType: string;
-  base64: string;
-};
-
-const MerchDetail = ({ merch, usage }: { merch: Merch, usage: string }) => {
-  const [images, setImages] = useState<MerchImageData[]>([]);
-
-  const fallbackImage = useMemo(
-    () => ({
-      id: -1,
-      mimeType: 'image/png',
-      base64: '',
-      url: '/merch-photo/no-image-available.png',
-    }),
-    [],
-  );
+const MerchSlip = ({ merch, usage }: { merch: Merch, usage: string }) => {
+  const [images, setImages] = useState<MerchImage[]>([]);
 
   useEffect(() => {
-    const fetchImages = async () => {
-      try {
-        const res = await fetch(`/api/download/merch-images?merchID=${merch.MerchID}`, {
-          cache: 'no-store',
-        });
-        const data: MerchImageData[] = await res.json();
-
-        setImages(data.length > 0 ? data : [fallbackImage]);
-      } catch (error) {
-        console.error('Failed to fetch merch images', error);
-        setImages([fallbackImage]);
-      }
-    };
+    async function fetchImages() : Promise<void> {
+      setImages(await getMerchImagesByMerchID(merch.MerchID, true));
+    }
     fetchImages();
-  }, [fallbackImage, merch.MerchID]);
+  }, [merch.MerchID]);
 
   return (
     <Container className="bg-white py-4 rounded-4 overflow-hidden" fluid>
@@ -66,4 +41,4 @@ const MerchDetail = ({ merch, usage }: { merch: Merch, usage: string }) => {
   );
 };
 
-export default MerchDetail;
+export default MerchSlip;

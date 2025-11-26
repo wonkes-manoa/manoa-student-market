@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { getMerchImagesByMerchID, MerchImage, parseImageSource } from '@/lib/merchImage';
 
 interface Props {
   merchID: number;
@@ -10,42 +11,29 @@ interface Props {
 }
 
 export default function MerchImageSingle({ merchID, imageID }: Props) {
-  const [base64, setBase64] = useState<string | null>(null);
+  const [image, setImage] = useState<MerchImage | null>(null);
 
   useEffect(() => {
-    if (!imageID) {
-      return;
-    }
-    const loadImage = async () => {
-      const res = await fetch(`/api/download/merch-images?merchID=${merchID}`);
-      const data = await res.json();
-      if (data.length > 0) {
-        setBase64(`data:${data[0].mimeType};base64,${data[0].base64}`);
+    async function fetchImages() : Promise<void> {
+      const merchImage : MerchImage[] = await getMerchImagesByMerchID(merchID, true);
+      if (imageID) {
+        const found = merchImage.find((i) => i.id === imageID);
+        setImage(found ?? null);
+      } else {
+        setImage(merchImage[0] ?? null);
       }
-    };
-    loadImage();
-  }, [imageID, merchID]);
-
-  // Fallback.
-  if (!imageID) {
-    return (
-      <Image
-        src="/merch-photo/no-image-available.png"
-        alt=""
-        className="object-fit-cover"
-        fill
-      />
-    );
-  }
+    }
+    fetchImages();
+  }, [merchID, imageID]);
 
   // Loading state.
-  if (!base64) {
+  if (!image) {
     return <div className="w-100 h-100 bg-light" />;
   }
 
   return (
     <Image
-      src={base64}
+      src={parseImageSource(image)}
       alt=""
       fill
       className="object-fit-cover"

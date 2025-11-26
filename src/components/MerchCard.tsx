@@ -1,13 +1,13 @@
 import { Merch } from '@prisma/client';
 import { Card, Row, Col, Container, Image } from 'react-bootstrap';
-import { DEFAULT_IMAGE, getMerchImage, parseImageSource } from '@/components/MerchGallery';
+import { getMerchImagesByMerchID, DEFAULT_IMAGE, parseImageSource } from '@/lib/merchImage';
 
 const MerchCard = async ({ merch } : { merch : Merch }) => {
   const merchImages: {
     id: number;
     mimeType: string;
     base64: string;
-  }[] = await getMerchImage(merch.MerchID);
+  }[] = await getMerchImagesByMerchID(merch.MerchID, true);
   if (merchImages.length === 0) {
     merchImages.push(DEFAULT_IMAGE);
   }
