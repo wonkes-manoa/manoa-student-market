@@ -13,7 +13,7 @@ import { EditMerchSchema } from '@/lib/validationSchemas';
 import MerchGallery from '@/components/MerchGallery';
 import { Maybe } from 'yup';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { getMerchImagesByMerchID, MerchImage } from '@/lib/merchImage';
 
 const onSubmit = async (data: {
@@ -34,7 +34,7 @@ const onSubmit = async (data: {
   Material: string;
   Condition: string;
 }, router: AppRouterInstance) => {
-  console.log('A');
+  console.log('Q');
   const editedMerch = await editMerch({
     MerchID: data.MerchID,
     StockStatus: data.StockStatus,
@@ -87,35 +87,18 @@ const onSubmit = async (data: {
 const EditMerchForm = ({ merch } : { merch : Merch }) => {
   const router = useRouter();
   const [previewImages, setPreviewImages] = useState<MerchImage[]>([]);
+  const initialImages = useRef<MerchImage[]>([]);
   useEffect(() => {
     async function fetchImages() : Promise<void> {
-      setPreviewImages(await getMerchImagesByMerchID(merch.MerchID, true));
+      const oldImages = await getMerchImagesByMerchID(merch.MerchID, true);
+      initialImages.current = oldImages;
+      setPreviewImages(oldImages);
     }
     fetchImages();
   }, [merch.MerchID]);
-  const initialImages : MerchImage[] = previewImages;
   const { data: session, status } = useSession();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const currentUser = session?.user?.email || '';
-  const handleImageChange = (event : React.ChangeEvent<HTMLInputElement>) => {
-    const { files } = event.target;
-    if (!files || files.length === 0) {
-      setPreviewImages([]);
-      return;
-    }
-    const previews : MerchImage[] = [];
-    let index : number = 0;
-    for (const file of files) {
-      const url = URL.createObjectURL(file); // temporary preview URL
-      previews.push({
-        id: ++index,
-        mimeType: '',
-        base64: '',
-        url,
-      });
-    }
-    setPreviewImages(previews);
-  };
   const {
     register,
     handleSubmit,
@@ -123,6 +106,7 @@ const EditMerchForm = ({ merch } : { merch : Merch }) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
+      MerchID: merch.MerchID,
       Name: merch.Name,
       Description: merch.Description,
       Price: merch.Price,
@@ -146,6 +130,32 @@ const EditMerchForm = ({ merch } : { merch : Merch }) => {
   if (status === 'unauthenticated') {
     redirect('/auth/signin');
   }
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { files } = event.target;
+
+    if (!files || files.length === 0) {
+      // User cleared images
+      setPreviewImages(initialImages.current);
+      return;
+    }
+
+    const previews: MerchImage[] = Array.from(files).map((file, index) => ({
+      id: index + 1,
+      mimeType: file.type,
+      base64: '',
+      url: URL.createObjectURL(file),
+    }));
+
+    setPreviewImages(previews);
+  };
+  const handleRecover = () => {
+    reset();
+    setPreviewImages(initialImages.current);
+    const input = document.querySelector('input[type="file"]') as HTMLInputElement;
+    if (input) {
+      input.value = '';
+    }
+  };
 
   return (
     <Container className="py-3">
@@ -449,10 +459,7 @@ const EditMerchForm = ({ merch } : { merch : Merch }) => {
                   <Col>
                     <Button
                       type="button"
-                      onClick={() => {
-                        reset();
-                        setPreviewImages(initialImages);
-                      }}
+                      onClick={handleRecover}
                       variant="danger"
                       className="w-100"
                     >

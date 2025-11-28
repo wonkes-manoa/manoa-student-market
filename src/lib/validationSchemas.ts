@@ -139,18 +139,30 @@ export const EditMerchSchema = Yup.object({
   Description: Yup.string()
     .required('Describe your merch'),
   Image: Yup.mixed<FileList>()
-    .test('maxFiles', 'You can upload at most 9 photos', (value) => value && value.length <= 9)
-    .test('validFileTypes', 'Only JPG and PNG formats are allowed', (value) => {
+    .test('maxFiles', 'You can upload at most 9 photos', (value) => {
+      // value might be undefined after calling reset(), allow value being undefined in this case
+      console.log('A');
       if (!value) {
-        return false;
+        return true;
       }
-      for (let i = 0; i < value.length; ++i) {
+      return value.length <= 9;
+    })
+    .test('fileType', 'Invalid file type', (value) => {
+      // value might be undefined after calling reset(), allow value being undefined in this case
+      console.log('B');
+      if (!value) {
+        console.log('K');
+        console.log(value);
+        return true;
+      }
+      console.log('C');
+      for (let i = 0; i < value.length; i++) {
         const file = value[i];
-        if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
+        if (!['image/jpeg', 'image/png'].includes(file.type)) {
           return false;
         }
       }
-
+      console.log('D');
       return true;
     }),
   Length: Yup.number()
