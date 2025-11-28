@@ -1,18 +1,10 @@
 'use client';
 
-import { useSession } from 'next-auth/react';
-import { redirect } from 'next/navigation';
 import { Col, Container, Row, Image, Button, Card } from 'react-bootstrap';
+import GuestOnly from '@/components/GuestOnly';
 
-const LandingPage = () => {
-  const { data: session } = useSession();
-  const username = session?.user?.username;
-
-  if (username) {
-    redirect('/listings-view');
-  }
-
-  return (
+const LandingPage = () => (
+  <GuestOnly>
     <Container id="landing-page" fluid className="py-3 bg-wonkes-7">
       <Row className="align-items-center py-5">
         <Col
@@ -98,7 +90,7 @@ const LandingPage = () => {
         </Col>
       </Row>
     </Container>
-  );
-};
+  </GuestOnly>
+);
 
 export default LandingPage;
