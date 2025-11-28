@@ -28,7 +28,7 @@ const Footer = () => (
             </a>
           </p>
           <p className="mb-0 small">
-            <a href="/" className="text-decoration-none text-wonkes-3">
+            <a href="/support" className="text-decoration-none text-wonkes-3">
               Contact Wonkes
             </a>
           </p>
