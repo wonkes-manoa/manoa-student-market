@@ -63,7 +63,7 @@ const Footer = () => (
           </p>
 
           <p className="mb-0 small">
-            <a href="/terms" className="text-decoration-none text-wonkes-3">
+            <a href="/coming-soon" className="text-decoration-none text-wonkes-3">
               Terms &amp; Academic Use
             </a>
           </p>
