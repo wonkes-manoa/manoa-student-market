@@ -12,8 +12,8 @@ export default function AuthOnly({ children }: { children: React.ReactNode }) {
     return null;
   }
 
-  if (status === 'authenticated') {
-    router.replace('/listings-view');
+  if (status === 'unauthenticated') {
+    router.replace('/');
     return null;
   }
 
