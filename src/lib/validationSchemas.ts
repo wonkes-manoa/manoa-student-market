@@ -139,7 +139,6 @@ export const EditMerchSchema = Yup.object({
   Description: Yup.string()
     .required('Describe your merch'),
   Image: Yup.mixed<FileList>()
-    .test('minFiles', 'At least one photo is required', (value) => value && value.length >= 1)
     .test('maxFiles', 'You can upload at most 9 photos', (value) => value && value.length <= 9)
     .test('validFileTypes', 'Only JPG and PNG formats are allowed', (value) => {
       if (!value) {

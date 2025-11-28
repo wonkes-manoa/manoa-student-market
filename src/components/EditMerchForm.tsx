@@ -54,18 +54,25 @@ const onSubmit = async (data: {
   });
   const images = data.Image;
   if (images && images.length > 0) {
+    // Delete existing images.
+    await fetch(`/api/delete/merch-images?merchID=${editedMerch.MerchID}`, {
+      method: 'DELETE',
+    });
+
+    // Gather new image data.
     const uploadData = new FormData();
     uploadData.append('MerchID', String(editedMerch.MerchID));
-
     for (const image of images) {
       uploadData.append('Image', image);
     }
 
+    // Upload new images.
     const result = await fetch('/api/upload/merch-images', {
       method: 'POST',
       body: uploadData,
     });
 
+    // Notice failure if upload failed.
     if (!result.ok) {
       console.error('Image upload failed');
     }
@@ -86,11 +93,11 @@ const EditMerchForm = ({ merch } : { merch : Merch }) => {
     }
     fetchImages();
   }, [merch.MerchID]);
-  const initialImages = previewImages;
+  const initialImages : MerchImage[] = previewImages;
   const { data: session, status } = useSession();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const currentUser = session?.user?.email || '';
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = (event : React.ChangeEvent<HTMLInputElement>) => {
     const { files } = event.target;
     if (!files || files.length === 0) {
       setPreviewImages([]);
