@@ -9,7 +9,6 @@ import { Stuff,
   MassUnit } from '@prisma/client';
 import { compare, hash } from 'bcrypt';
 import { redirect } from 'next/navigation';
-import { sendEmail } from '@/lib/email';
 import { prisma } from './prisma';
 
 /**
@@ -235,32 +234,46 @@ export async function sendPasswordResetPasscode({ username, email } : {
 
   // Prepare passcode.
   let done : boolean = false;
-  let iteration = 0;
-  let passcode : string = '';
-  let hashedPasscode = '';
+  let iteration : number = 0;
+  const passcode : string = '';
   /* eslint-disable no-await-in-loop */
   while (!done) {
     ++iteration;
-    passcode = Math.floor(100000 + Math.random() * 900000).toString(); // 6-digit code, 900000 possibilities.
-    hashedPasscode = await hash(passcode, 14);
+    done = true;
+    // 6-digit code, 900000 possibilities.
+    const passCodeCandidate = Math.floor(100000 + Math.random() * 900000).toString();
     const unlucky = await prisma.account.findMany({
-      where: { PwdResetCode: { not: null } },
+      where: {
+        PwdResetCode: { not: null },
+        PwdRstCdExp: { gt: new Date() },
+      },
     });
-    if (!unlucky || unlucky.every((account) => !compare(passcode, account.PwdResetCode || ''))) {
-      await prisma.account.update({
-        where: { Username: username, EmailAddress: email },
-        data: { PwdResetCode: hashedPasscode, PwdRstCdExp: new Date(Date.now() + 10 * 60 * 1000) },
-        // Passcode expires in 10 minutes.
-      });
-      done = true;
+    for (const acc of unlucky) {
+      if (acc.PwdResetCode) {
+        const collide = await compare(passCodeCandidate, acc.PwdResetCode);
+        if (collide) {
+          done = false;
+          break;
+        }
+      }
     }
-    // Return if collide for more than 10 times.
-    if (!done && iteration > 10) {
-      return { ok: false };
+    // Return if collide for more than 50 times.
+    if (!done && iteration > 50) {
+      console.error('Failed to generate unique passcode for 51 attempts');
+      return { ok: false, message: 'An internal error occurred, try again later' };
     }
   }
   /* eslint-enable no-await-in-loop */
 
+  // Write passcode into database.
+  await prisma.account.update({
+    where: { Username: username, EmailAddress: email },
+    data: { PwdResetCode: await hash(passcode, 14), PwdRstCdExp: new Date(Date.now() + 10 * 60 * 1000) },
+    // Passcode expires in 10 minutes.
+  });
+
+  console.log(`Your passcode is ${passcode}. If you did not expect this email, you may safely ignore it.`);
+  /*
   // Send passcode to user.
   async function handleSendEmail() {
     await sendEmail({
@@ -270,6 +283,7 @@ export async function sendPasswordResetPasscode({ username, email } : {
     });
   }
   await handleSendEmail();
+  */
 
   // Done.
   return { ok: true };
@@ -291,13 +305,14 @@ export async function changePasswordByPasscode({ passcode, password } : {
   });
 
   if (!account) {
-    return { ok: false, message: 'Passcode is invalid or has expired' };
+    return { ok: false, message: 'An internal error occurred, please try again later.' };
   }
 
+  /* eslint-disable no-await-in-loop */
   for (let index = 0; index < account.length; ++index) {
     if (await compare(passcode, account[index].PwdResetCode || '')) {
       await prisma.account.update({
-        where: { AccountID: account[0].AccountID },
+        where: { AccountID: account[index].AccountID },
         data: {
           Password: await hash(password, 14),
           PwdResetCode: null,
@@ -307,6 +322,7 @@ export async function changePasswordByPasscode({ passcode, password } : {
       return { ok: true };
     }
   }
+  /* eslint-enable no-await-in-loop */
 
   return { ok: false, message: 'Passcode is invalid or has expired' };
 }
