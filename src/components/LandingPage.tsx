@@ -6,24 +6,40 @@ import RevealOnScroll from '@/components/Animations';
 
 const LandingPage = () => (
   <GuestOnly>
-    <Container id="landing-page" fluid className="py-3 bg-wonkes-7">
+    <Container
+      id="landing-page"
+      fluid
+      className="py-3 bg-wonkes-7"
+    >
       <Row className="align-items-center py-5">
         <Col
           md={6}
           className="d-flex flex-column justify-content-center align-items-center text-center"
           style={{ paddingLeft: '160px' }}
         >
-          <RevealOnScroll className="" delay="0s">
+          <RevealOnScroll
+            className="w-100 d-flex flex-column justify-content-center align-items-center text-center"
+            delay="0s"
+          >
             <h1>Welcome to Wonkes!</h1>
+
             <p>
               A Manoa-run marketplace where you can buy/sell items students need
               for campus dorming, classes, and school life!
             </p>
-            <div className="d-flex gap-3">
-              <Button href="/auth/signin" className="bg-wonkes-1 border-0">
+
+            <div className="d-flex gap-3 justify-content-center">
+              <Button
+                href="/auth/signin"
+                className="bg-wonkes-1 border-0"
+              >
                 Log in
               </Button>
-              <Button href="/auth/signup" variant="light">
+
+              <Button
+                href="/auth/signup"
+                variant="light"
+              >
                 Sign up
               </Button>
             </div>
@@ -45,9 +61,11 @@ const LandingPage = () => (
       </Row>
 
       <Row className="py-5">
-
         <Col sm={6} md={4}>
-          <RevealOnScroll className="" delay="0s">
+          <RevealOnScroll
+            className=""
+            delay="0s"
+          >
             <Card className="border-0 text-center">
               <Card.Img
                 variant="top"
@@ -57,16 +75,23 @@ const LandingPage = () => (
               <Card.Body>
                 <Card.Title>Connect with Students</Card.Title>
                 <Card.Text className="text-muted">
-                  Meet new people who are willing to buy/sell items.
-                  Connect through our website!
+                  Meet new people who are willing to buy/sell items. Connect
+                  through our website!
                 </Card.Text>
               </Card.Body>
             </Card>
           </RevealOnScroll>
         </Col>
 
-        <Col sm={6} md={4} className="text-center gap-3">
-          <RevealOnScroll className="" delay="0.15s">
+        <Col
+          sm={6}
+          md={4}
+          className="text-center gap-3"
+        >
+          <RevealOnScroll
+            className=""
+            delay="0.15s"
+          >
             <Card className="border-0 text-center">
               <Card.Img
                 variant="top"
@@ -76,16 +101,23 @@ const LandingPage = () => (
               <Card.Body>
                 <Card.Title>Buy and Sell Your Junk</Card.Title>
                 <Card.Text className="text-muted">
-                  Buy items you need for college and items you don't
-                  want. All with just a click of a button!
+                  Buy items you need for college and items you don&apos;t want. All
+                  with just a click of a button!
                 </Card.Text>
               </Card.Body>
             </Card>
           </RevealOnScroll>
         </Col>
 
-        <Col sm={6} md={4} className="text-center">
-          <RevealOnScroll className="" delay="0.3s">
+        <Col
+          sm={6}
+          md={4}
+          className="text-center"
+        >
+          <RevealOnScroll
+            className=""
+            delay="0.3s"
+          >
             <Card className="border-0 text-center">
               <Card.Img
                 variant="top"

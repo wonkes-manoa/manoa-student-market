@@ -28,14 +28,13 @@ export default function RevealOnScroll({
             node.style.setProperty('--delay', delay);
             node.classList.add('visible');
 
-            // 🔥 FIX: Make sure the card becomes visible immediately
             node.style.opacity = '1';
 
             observer.unobserve(node);
           }
         });
       },
-      { threshold: 0.1 }, // LOWER threshold = actually fires
+      { threshold: 0.1 },
     );
 
     observer.observe(node);
