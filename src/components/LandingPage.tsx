@@ -13,19 +13,21 @@ const LandingPage = () => (
           className="d-flex flex-column justify-content-center align-items-center text-center"
           style={{ paddingLeft: '160px' }}
         >
-          <h1>Welcome to Wonkes!</h1>
-          <p>
-            A Manoa-run marketplace where you can buy/sell items students need
-            for campus dorming, classes, and school life!
-          </p>
-          <div className="d-flex gap-3">
-            <Button href="/auth/signin" className="bg-wonkes-1 border-0">
-              Log in
-            </Button>
-            <Button href="/auth/signup" variant="light">
-              Sign up
-            </Button>
-          </div>
+          <RevealOnScroll className="" delay="0s">
+            <h1>Welcome to Wonkes!</h1>
+            <p>
+              A Manoa-run marketplace where you can buy/sell items students need
+              for campus dorming, classes, and school life!
+            </p>
+            <div className="d-flex gap-3">
+              <Button href="/auth/signin" className="bg-wonkes-1 border-0">
+                Log in
+              </Button>
+              <Button href="/auth/signup" variant="light">
+                Sign up
+              </Button>
+            </div>
+          </RevealOnScroll>
         </Col>
 
         <Col
