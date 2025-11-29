@@ -9,6 +9,7 @@ import { Stuff,
   MassUnit } from '@prisma/client';
 import { compare, hash } from 'bcrypt';
 import { redirect } from 'next/navigation';
+import { sendEmail } from '@/lib/email';
 import { prisma } from './prisma';
 
 /**
@@ -213,6 +214,101 @@ export async function createAccount(credentials: {
   });
 
   return { ok: true };
+}
+
+/**
+ * Check if an account match the specified information, and send that account's owner a passcode for resetting password.
+ * @param username, username of the account to send whose owner a passcode
+ * @param email, email of the account to send whose owner a passcode
+ */
+export async function sendPasswordResetPasscode({ username, email } : {
+  username : string;
+  email : string;
+}) {
+  // Validate information.
+  const account = await prisma.account.findFirst({
+    where: { Username: username, EmailAddress: email },
+  });
+  if (!account) {
+    return { ok: false, message: 'Account not found, please double check what you entered' };
+  }
+
+  // Prepare passcode.
+  let done : boolean = false;
+  let iteration = 0;
+  let passcode : string = '';
+  let hashedPasscode = '';
+  /* eslint-disable no-await-in-loop */
+  while (!done) {
+    ++iteration;
+    passcode = Math.floor(100000 + Math.random() * 900000).toString(); // 6-digit code, 900000 possibilities.
+    hashedPasscode = await hash(passcode, 14);
+    const unlucky = await prisma.account.findMany({
+      where: { PwdResetCode: { not: null } },
+    });
+    if (!unlucky || unlucky.every((account) => !compare(passcode, account.PwdResetCode || ''))) {
+      await prisma.account.update({
+        where: { Username: username, EmailAddress: email },
+        data: { PwdResetCode: hashedPasscode, PwdRstCdExp: new Date(Date.now() + 10 * 60 * 1000) },
+        // Passcode expires in 10 minutes.
+      });
+      done = true;
+    }
+    // Return if collide for more than 10 times.
+    if (!done && iteration > 10) {
+      return { ok: false };
+    }
+  }
+  /* eslint-enable no-await-in-loop */
+
+  // Send passcode to user.
+  async function handleSendEmail() {
+    await sendEmail({
+      recipientEmail: [email],
+      subject: 'Wonkes Reset Password',
+      html: `<p>Your passcode is <b>${passcode}</b>. If you did not expect this email, you may safely ignore it.</p>`,
+    });
+  }
+  await handleSendEmail();
+
+  // Done.
+  return { ok: true };
+}
+
+/**
+ * Changes the password of an existing user in the database.
+ * @param credentials, an object containing information required for resetting password.
+ */
+export async function changePasswordByPasscode({ passcode, password } : {
+  passcode: string;
+  password: string;
+}) {
+  const account = await prisma.account.findMany({
+    where: {
+      PwdResetCode: { not: null },
+      PwdRstCdExp: { gt: new Date() },
+    },
+  });
+
+  if (!account) {
+    return { ok: false, message: 'Passcode is invalid or has expired' };
+  }
+
+  for (let index = 0; index < account.length; ++index) {
+    if (await compare(passcode, account[index].PwdResetCode || '')) {
+      await prisma.account.update({
+        where: { AccountID: account[0].AccountID },
+        data: {
+          Password: await hash(password, 14),
+          PwdResetCode: null,
+          PwdRstCdExp: null,
+        },
+      });
+      return { ok: true };
+    }
+  }
+
+  return { ok: false, message: 'Passcode is invalid or has expired' };
 }
 
 /**
