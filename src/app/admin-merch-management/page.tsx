@@ -6,7 +6,7 @@ import { loggedInProtectedPage } from '@/lib/page-protection';
 import { prisma } from '@/lib/prisma';
 import MerchSlip from '@/components/MerchSlip';
 
-export default async function MyStorePage() {
+export default async function AdminMerchManagementPage() {
   // Protect the page, only logged in users can access it.
   const session = await getServerSession(authOptions);
   loggedInProtectedPage(
