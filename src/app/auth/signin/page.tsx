@@ -85,6 +85,10 @@ const SignIn = () => {
                   Don&apos;t have an account?
                   {' '}
                   <a className="link-wonkes" href="/auth/signup">Sign up</a>
+                  <br />
+                  Forgot password?
+                  {' '}
+                  <a className="link-wonkes" href="/auth/forgot-password">Reset</a>
                 </Card.Footer>
               </Card>
             </Col>

@@ -9,6 +9,7 @@ import GuestOnly from '@/components/GuestOnly';
 import { useSession } from 'next-auth/react';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import { sendPasswordResetPasscode } from '@/lib/dbActions';
+import { useState } from 'react';
 
 export type ForgotPasswordForm = {
   username : string;
@@ -41,8 +42,10 @@ export default function ForgotPasswordPage() {
     reset,
     formState: { errors },
   } = useForm<ForgotPasswordForm>({ resolver: yupResolver(schema) });
+  const [active, setActive] = useState(true);
 
   const onSubmit = async (data : ForgotPasswordForm) => {
+    setActive(false);
     // Send password reset passcode.
     const result = await sendPasswordResetPasscode({
       username: data.username,
@@ -56,10 +59,11 @@ export default function ForgotPasswordPage() {
     }
 
     // Notify the user to check their inbox.
-    await swal('Passcode Sent', `A passcode has been sent to ${data.email}, copy it from your inbox`, 'success', {
-      timer: 2000,
+    await swal('Passcode Sent', `Sent to ${data.email}, check your inbox`, 'success', {
+      timer: 8000,
     });
     reset();
+    setActive(true);
   };
 
   if (status === 'loading') {
@@ -73,12 +77,23 @@ export default function ForgotPasswordPage() {
           <Row className="justify-content-center">
             <Col xs={5}>
               <Card>
-                <Card.Header>
-                  <h1 className="text-center"><i className="bi bi-1-circle-fill">Get Passcode</i></h1>
-                </Card.Header>
                 <Card.Body>
-                  <Form onSubmit={handleSubmit(onSubmit)}>
+                  <h1 className="text-center">
+                    <i className="bi bi-1-circle-fill me-2" />
+                    Get Passcode
+                  </h1>
 
+                  <Form.Group className="mb-3">
+                    <Form.Label>Username</Form.Label>
+                    <input
+                      type="text"
+                      {...register('username')}
+                      className={`form-control ${errors.username ? 'is-invalid' : ''}`}
+                    />
+                    <div className="invalid-feedback">{errors.username?.message}</div>
+                  </Form.Group>
+
+                  <Form onSubmit={handleSubmit(onSubmit)}>
                     <Form.Group className="mb-3">
                       <Form.Label>Email</Form.Label>
                       <input
@@ -89,22 +104,16 @@ export default function ForgotPasswordPage() {
                       <div className="invalid-feedback">{errors.email?.message}</div>
                     </Form.Group>
 
-                    <Form.Group className="mb-3">
-                      <Form.Label>Username</Form.Label>
-                      <input
-                        type="text"
-                        {...register('username')}
-                        className={`form-control ${errors.username ? 'is-invalid' : ''}`}
-                      />
-                      <div className="invalid-feedback">{errors.username?.message}</div>
-                    </Form.Group>
-
-                    <Button type="submit" className="w-100 bg-wonkes-1 border-0">
+                    <Button type="submit" className="w-100 bg-wonkes-1 border-0" disabled={!active}>
                       Get Passcode
                     </Button>
-
                   </Form>
                 </Card.Body>
+                <Card.Footer>
+                  Have passcode ready?
+                  {' '}
+                  <a className="link-wonkes" href="/auth/change-password-by-passcode">Step 2</a>
+                </Card.Footer>
               </Card>
             </Col>
           </Row>

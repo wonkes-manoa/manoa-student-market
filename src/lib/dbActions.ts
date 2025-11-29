@@ -9,6 +9,7 @@ import { Stuff,
   MassUnit } from '@prisma/client';
 import { compare, hash } from 'bcrypt';
 import { redirect } from 'next/navigation';
+import { sendEmail } from '@/lib/email';
 import { prisma } from './prisma';
 
 /**
@@ -229,13 +230,13 @@ export async function sendPasswordResetPasscode({ username, email } : {
     where: { Username: username, EmailAddress: email },
   });
   if (!account) {
-    return { ok: false, message: 'Account not found, please double check what you entered' };
+    return { ok: false, message: 'Account not found, double check what you entered' };
   }
 
   // Prepare passcode.
   let done : boolean = false;
   let iteration : number = 0;
-  const passcode : string = '';
+  let passcode : string = '';
   /* eslint-disable no-await-in-loop */
   while (!done) {
     ++iteration;
@@ -262,6 +263,9 @@ export async function sendPasswordResetPasscode({ username, email } : {
       console.error('Failed to generate unique passcode for 51 attempts');
       return { ok: false, message: 'An internal error occurred, try again later' };
     }
+    if (done) {
+      passcode = passCodeCandidate;
+    }
   }
   /* eslint-enable no-await-in-loop */
 
@@ -272,8 +276,6 @@ export async function sendPasswordResetPasscode({ username, email } : {
     // Passcode expires in 10 minutes.
   });
 
-  console.log(`Your passcode is ${passcode}. If you did not expect this email, you may safely ignore it.`);
-  /*
   // Send passcode to user.
   async function handleSendEmail() {
     await sendEmail({
@@ -283,7 +285,6 @@ export async function sendPasswordResetPasscode({ username, email } : {
     });
   }
   await handleSendEmail();
-  */
 
   // Done.
   return { ok: true };
@@ -294,8 +295,8 @@ export async function sendPasswordResetPasscode({ username, email } : {
  * @param credentials, an object containing information required for resetting password.
  */
 export async function changePasswordByPasscode({ passcode, password } : {
-  passcode: string;
-  password: string;
+  passcode : string;
+  password : string;
 }) {
   const account = await prisma.account.findMany({
     where: {
