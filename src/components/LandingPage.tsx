@@ -10,6 +10,7 @@ const LandingPage = () => (
         <Col
           md={6}
           className="d-flex flex-column justify-content-center align-items-center text-center"
+          style={{ paddingLeft: '100px' }}
         >
           <h1>Welcome to Wonkes!</h1>
           <p>
