@@ -26,7 +26,7 @@ export async function sendEmail({
 } : SendEmailRequest) {
   try {
     const result = await resend.emails.send({
-      from: 'Wonkes Market <no-reply@wonkes.org>',
+      from: 'Wonkes Market <onboarding@resend.dev>',
       to: recipientEmail,
       subject,
       html,
