@@ -53,6 +53,7 @@ export default function ChangePasswordByPasscodePage() {
     // Check change password status.
     if (!result.ok) {
       swal('Error', result.message || 'Failed to change password', 'error');
+      setActive(true);
       return;
     }
 
