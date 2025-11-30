@@ -1,20 +1,40 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { Button, Card, Col } from 'react-bootstrap';
+import { Heart, HeartFill } from 'react-bootstrap-icons';
 import type { ListingCardData } from '@/lib/ListingCardData';
 import Link from 'next/link';
 import MerchImageSingle from '@/components/MerchImageSingle';
-import { Heart, HeartFill } from 'react-bootstrap-icons';
 
-const ListingCard = ({ merch } : { merch : ListingCardData }) => {
-  const [isLiked, setLiked] = useState(false);
+type ListingCardWithLike = ListingCardData & { isLiked?: boolean };
+
+interface Props {
+  merch: ListingCardWithLike;
+  userId: number;
+}
+
+export default function ListingCard({ merch, userId }: Props) {
+  const [isLiked, setIsLiked] = useState(merch.isLiked ?? false);
+
+  const toggleLike = useCallback(async () => {
+    const res = await fetch('/api/like', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ merchId: merch.MerchID, userId }),
+    });
+
+    if (!res.ok) return;
+    const data = await res.json();
+    setIsLiked(data.liked);
+  }, [merch.MerchID, userId]);
 
   return (
     <Col className="position-relative">
+      {/* Like Button */}
       <Button
         variant="light"
-        className="border-1 border-black p-2"
+        className="p-2 shadow"
         style={{
           position: 'absolute',
           top: '10px',
@@ -23,60 +43,37 @@ const ListingCard = ({ merch } : { merch : ListingCardData }) => {
           borderRadius: '50%',
         }}
         onClick={(e) => {
-          e.preventDefault();
-          setLiked(!isLiked);
+          e.preventDefault(); // prevent link navigation
+          toggleLike();
         }}
       >
-        {isLiked ? (
-          <HeartFill size={20} fill="red" />
-        ) : (
-          <Heart size={20} />
-        )}
+        {isLiked ? <HeartFill size={20} fill="red" /> : <Heart size={20} />}
       </Button>
 
-      <Link
-        href={`/merch-detail/${merch.MerchID}`}
-        className="no-link-style"
-      >
+      {/* Card */}
+      <Link href={`/merch-detail/${merch.MerchID}`} className="no-link-style">
         <Card className="h-100 shadow-sm border-0 rounded-4 overflow-hidden">
           <div className="position-relative bg-light" style={{ height: '220px' }}>
-            <MerchImageSingle merchID={merch.MerchID} imageID={merch.Image[0]?.ImageID} />
+            <MerchImageSingle
+              merchID={merch.MerchID}
+              imageID={merch.Image[0]?.ImageID}
+            />
           </div>
-
-          <Card.Body className="p-3">
-            <Card.Title className="fw-semibold text-dark mb-2 text-center">
-              <u>{merch.Name}</u>
-            </Card.Title>
-
-            <Card.Title className="fw-semibold text-dark mb-2 text-center">
+          <Card.Body className="p-3 text-center">
+            <Card.Title><u>{merch.Name}</u></Card.Title>
+            <Card.Title>
               $
               {merch.Price}
             </Card.Title>
-
-            <Card.Text className="mb-2 text-center">
+            <Card.Text>
               Listed by:
-              {' '}
               {merch.seller.Username}
             </Card.Text>
-
-            <div className="d-flex justify-content-between align-items-center mt-3">
-              <div>
-                <small className="text-uppercase text-muted d-block">Condition</small>
-                <span className="fw-medium">{merch.Condition}</span>
-              </div>
-
-              <div className="text-end">
-                <small className="text-uppercase text-muted d-block">Listed</small>
-                <span className="fw-medium">
-                  {merch.PostTime.toLocaleDateString()}
-                </span>
-              </div>
-            </div>
+            <small className="text-muted d-block">Condition</small>
+            <span>{merch.Condition}</span>
           </Card.Body>
         </Card>
       </Link>
     </Col>
   );
-};
-
-export default ListingCard;
+}
