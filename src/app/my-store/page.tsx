@@ -33,7 +33,7 @@ export default async function MyStorePage() {
   return (
     <Container className="mt-5 mb-4 bg-wonkes-7 p-4 rounded-4 shadow-sm">
       <p className="text-muted my-2">Wonkes</p>
-      <h2 className="mb-4">My Listings:</h2>
+      <h2 className="mb-4">My Listings Added:</h2>
 
       {merch.length === 0 ? (
         <p className="text-center">No merch created.</p>

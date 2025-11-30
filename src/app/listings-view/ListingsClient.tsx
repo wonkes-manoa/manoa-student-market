@@ -3,13 +3,16 @@
 import { useState } from 'react';
 import { Row, Form } from 'react-bootstrap';
 import ListingCard from '@/components/ListingCard';
-import { ListingCardData } from '@/lib/ListingCardData';
+import type { ListingCardData } from '@/lib/ListingCardData';
+
+type ListingCardWithLike = ListingCardData & { isLiked?: boolean };
 
 interface Props {
-  initialListings: ListingCardData[];
+  initialListings: ListingCardWithLike[];
+  userId: number;
 }
 
-export default function ListingsClient({ initialListings }: Props) {
+export default function ListingsClient({ initialListings, userId }: Props) {
   const [search, setSearch] = useState('');
   const [listings] = useState(initialListings);
 
@@ -27,9 +30,14 @@ export default function ListingsClient({ initialListings }: Props) {
           />
         </Form.Group>
       </Form>
+
       <Row xs={1} md={3} className="g-4 pt-5">
         {filtered.map((merch) => (
-          <ListingCard key={merch.MerchID} merch={merch} />
+          <ListingCard
+            key={merch.MerchID}
+            merch={merch}
+            userId={userId}
+          />
         ))}
       </Row>
     </>

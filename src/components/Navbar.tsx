@@ -38,15 +38,34 @@ const NavBar: React.FC = () => {
           <Nav className="me-auto">
             {username && (
               <>
-                <Nav.Link
-                  id="my-store-nav"
-                  href="/my-store"
-                  key="my-store"
-                  active={pathname === '/my-store'}
-                  className="text-light"
+                <NavDropdown
+                  title="My Listings"
                 >
-                  My Store
-                </Nav.Link>
+                  <NavDropdown.Item
+                    disabled
+                    className="bg-wonkes-4 no-dim"
+                  >
+                    <strong>My Listings</strong>
+                  </NavDropdown.Item>
+                  <NavDropdown.Item
+                    id="listings-favorite-nav"
+                    href="/listings-favorite"
+                    key="listings-favorite"
+                    active={pathname === '/listings-favorite'}
+                    className="bg-wonkes-4 text-light"
+                  >
+                    Favorited Listings
+                  </NavDropdown.Item>
+                  <NavDropdown.Item
+                    id="my-store-nav"
+                    href="/my-store"
+                    key="my-store"
+                    active={pathname === '/my-store'}
+                    className="bg-wonkes-4 text-light"
+                  >
+                    Added Listings
+                  </NavDropdown.Item>
+                </NavDropdown>
                 <Nav.Link
                   id="listings-view-nav"
                   href="/listings-view"

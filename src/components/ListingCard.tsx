@@ -1,58 +1,79 @@
 'use client';
 
-import { Card, Col } from 'react-bootstrap';
+import { useState, useCallback } from 'react';
+import { Button, Card, Col } from 'react-bootstrap';
+import { Heart, HeartFill } from 'react-bootstrap-icons';
 import type { ListingCardData } from '@/lib/ListingCardData';
 import Link from 'next/link';
 import MerchImageSingle from '@/components/MerchImageSingle';
 
-const ListingCard = ({ merch } : { merch : ListingCardData }) => (
-  <Col>
-    <Link
-      href={`/merch-detail/${merch.MerchID}`}
-      className="no-link-style"
-    >
-      <Card className="h-100 shadow-sm border-0 rounded-4 overflow-hidden">
-        <div className="position-relative bg-light" style={{ height: '220px' }}>
-          <MerchImageSingle merchID={merch.MerchID} imageID={merch.Image[0]?.ImageID} />
-        </div>
+type ListingCardWithLike = ListingCardData & { isLiked?: boolean };
 
-        <Card.Body className="p-3">
-          {/* ITEM NAME */}
-          <Card.Title className="fw-semibold text-dark mb-2 text-center">
-            <u>{merch.Name}</u>
-          </Card.Title>
+interface Props {
+  merch: ListingCardWithLike;
+  userId: number;
+}
 
-          {/* PRICE */}
-          <Card.Title className="fw-semibold text-dark mb-2 text-center">
-            $
-            {merch.Price}
-          </Card.Title>
+export default function ListingCard({ merch, userId }: Props) {
+  const [isLiked, setIsLiked] = useState(merch.isLiked ?? false);
 
-          {/* USER */}
-          <Card.Text className="mb-2 text-center">
-            Listed by:
-            {' '}
-            {merch.seller.Username}
-          </Card.Text>
+  const toggleLike = useCallback(async () => {
+    const res = await fetch('/api/like', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ merchId: merch.MerchID, userId }),
+    });
 
-          {/* CONDITION + DATE */}
-          <div className="d-flex justify-content-between align-items-center mt-3">
-            <div>
-              <small className="text-uppercase text-muted d-block">Condition</small>
-              <span className="fw-medium">{merch.Condition}</span>
-            </div>
+    if (!res.ok) return;
+    const data = await res.json();
+    setIsLiked(data.liked);
+  }, [merch.MerchID, userId]);
 
-            <div className="text-end">
-              <small className="text-uppercase text-muted d-block">Listed</small>
-              <span className="fw-medium">
-                {merch.PostTime.toLocaleDateString()}
-              </span>
-            </div>
+  return (
+    <Col className="position-relative">
+      {/* Like Button */}
+      <Button
+        variant="light"
+        className="p-2 shadow"
+        style={{
+          position: 'absolute',
+          top: '10px',
+          left: '30px',
+          zIndex: 10,
+          borderRadius: '50%',
+        }}
+        onClick={(e) => {
+          e.preventDefault(); // prevent link navigation
+          toggleLike();
+        }}
+      >
+        {isLiked ? <HeartFill size={20} fill="red" /> : <Heart size={20} />}
+      </Button>
+
+      {/* Card */}
+      <Link href={`/merch-detail/${merch.MerchID}`} className="no-link-style">
+        <Card className="h-100 shadow-sm border-0 rounded-4 overflow-hidden">
+          <div className="position-relative bg-light" style={{ height: '220px' }}>
+            <MerchImageSingle
+              merchID={merch.MerchID}
+              imageID={merch.Image[0]?.ImageID}
+            />
           </div>
-        </Card.Body>
-      </Card>
-    </Link>
-  </Col>
-);
-
-export default ListingCard;
+          <Card.Body className="p-3 text-center">
+            <Card.Title><u>{merch.Name}</u></Card.Title>
+            <Card.Title>
+              $
+              {merch.Price}
+            </Card.Title>
+            <Card.Text>
+              Listed by:
+              {merch.seller.Username}
+            </Card.Text>
+            <small className="text-muted d-block">Condition</small>
+            <span>{merch.Condition}</span>
+          </Card.Body>
+        </Card>
+      </Link>
+    </Col>
+  );
+}

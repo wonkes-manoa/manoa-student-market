@@ -1,3 +1,4 @@
+// app/listings/page.tsx
 import { Container } from 'react-bootstrap';
 import { prisma } from '@/lib/prisma';
 import { getServerSession } from 'next-auth';
@@ -7,34 +8,32 @@ import ListingsClient from './ListingsClient';
 
 export default async function ListingsPage() {
   const session = await getServerSession(authOptions);
-  loggedInProtectedPage(
-    session as {
-      user: { email: string; id: string; randomKey: string };
-      // eslint-disable-next-line @typescript-eslint/comma-dangle
-    } | null,
-  );
+  loggedInProtectedPage(session);
+
+  const userId = Number(session?.user.id);
+
+  // Fetch merch with seller, first image, and likes by current user
   const listings = await prisma.merch.findMany({
     include: {
-      Image: {
-        select: { ImageID: true, MIMEType: true }, // We'll load image itself later.
-        take: 1,
-      },
+      Image: { select: { ImageID: true, MIMEType: true }, take: 1 },
       seller: { select: { Username: true } },
+      likedBy: { where: { AccountID: userId } }, // user-specific likes
     },
-    orderBy: {
-      MerchID: 'asc',
-    },
+    orderBy: { MerchID: 'asc' },
   });
 
+  // Map isLiked for client component
+  const listingsWithLikes = listings.map((m) => ({
+    ...m,
+    isLiked: m.likedBy.length > 0,
+  }));
+
   return (
-    <Container id="support" className="py-4 text-center">
+    <Container className="py-4 text-center">
       <h1 className="mb-4 fw-semibold">View Listings</h1>
-      <p>
-        View listings that others made. Search through items using search
-        bar or scroll through offers below!
-      </p>
-      {/* Pass server-fetched data to client component */}
-      <ListingsClient initialListings={listings} />
+      <p>View listings others made. Search or scroll through offers below!</p>
+
+      <ListingsClient initialListings={listingsWithLikes} userId={userId} />
     </Container>
   );
 }
