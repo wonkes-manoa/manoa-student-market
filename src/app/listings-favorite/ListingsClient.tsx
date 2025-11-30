@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { Row, Form } from 'react-bootstrap';
 import ListingCard from '@/components/ListingCard';
 
+type ListingCardWithLike = ListingCardData & { isLiked?: boolean };
+
 interface Props {
   initialListings: ListingCardWithLike[];
   userId: number;
