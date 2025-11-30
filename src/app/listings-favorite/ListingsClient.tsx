@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Row, Form } from 'react-bootstrap';
 import ListingCard from '@/components/ListingCard';
+import { ListingCardData } from '@/lib/ListingCardData';
 
 type ListingCardWithLike = ListingCardData & { isLiked?: boolean };
 
