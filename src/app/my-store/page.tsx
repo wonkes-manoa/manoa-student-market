@@ -31,14 +31,21 @@ export default async function MyStorePage() {
   }
 
   return (
-    <Container className="mt-5 mb-4">
-      {merch.map((m) => (
-        <Row className="mb-4">
-          <Col>
-            <MerchSlip key={m.MerchID} merch={m} usage="admin" />
-          </Col>
-        </Row>
-      ))}
+    <Container className="mt-5 mb-4 bg-wonkes-7 p-4 rounded-4 shadow-sm">
+      <p className="text-muted my-2">Wonkes</p>
+      <h2 className="mb-4">My Listings:</h2>
+
+      {merch.length === 0 ? (
+        <p className="text-center">No merch created.</p>
+      ) : (
+        merch.map((m) => (
+          <Row key={m.MerchID} className="mb-4">
+            <Col>
+              <MerchSlip merch={m} usage="admin" />
+            </Col>
+          </Row>
+        ))
+      )}
     </Container>
   );
 }
