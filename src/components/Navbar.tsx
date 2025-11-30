@@ -25,7 +25,7 @@ const NavBar: React.FC = () => {
     >
       <Container>
         <Navbar.Brand
-          href="/listings-view"
+          href="/"
           className="fw-bold text-light"
           style={{ letterSpacing: '0.5px' }}
         >
