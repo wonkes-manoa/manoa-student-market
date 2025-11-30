@@ -5,7 +5,7 @@ import AccordionFAQ from './AccordionFAQ';
 /** Render a list of stuff for the logged in user. */
 const SupportPage = async () => (
   <main>
-    <Container id="support" className="pb-5 pt-3">
+    <Container id="white-background" className="pb-5 pt-3">
       <Container className="justifyContentCenter p-3">
         <h1 className="text-center text-decoration-underline">Wonkes Support</h1>
       </Container>
