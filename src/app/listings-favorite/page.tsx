@@ -20,7 +20,7 @@ export default async function ListingFavoritesPage() {
     },
     include: {
       seller: { select: { Username: true } },
-      Image: { select: { ImageID: true }, take: 1 },
+      Image: { select: { ImageID: true, MIMEType: true }, take: 1 },
       likedBy: { where: { AccountID: userId } },
     },
     orderBy: { PostTime: 'desc' },
