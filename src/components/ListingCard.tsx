@@ -1,12 +1,27 @@
 'use client';
 
-import { Card, Col } from 'react-bootstrap';
+import { Button, Card, Col } from 'react-bootstrap';
 import type { ListingCardData } from '@/lib/ListingCardData';
 import Link from 'next/link';
 import MerchImageSingle from '@/components/MerchImageSingle';
+import { Heart } from 'react-bootstrap-icons';
 
 const ListingCard = ({ merch } : { merch : ListingCardData }) => (
-  <Col>
+  <Col className="position-relative">
+    <Button
+      variant="light"
+      className="border-1 border-black"
+      style={{
+        position: 'absolute',
+        top: '10px',
+        left: '30px',
+        zIndex: 10,
+        borderRadius: '50%',
+        padding: '6px',
+      }}
+    >
+      <Heart size={18} />
+    </Button>
     <Link
       href={`/merch-detail/${merch.MerchID}`}
       className="no-link-style"
