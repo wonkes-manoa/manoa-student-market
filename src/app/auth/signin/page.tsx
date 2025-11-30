@@ -1,5 +1,6 @@
 'use client';
 
+import GuestOnly from '@/components/GuestOnly';
 import { getCsrfToken, signIn } from 'next-auth/react';
 import { useState, useEffect } from 'react';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
@@ -51,44 +52,50 @@ const SignIn = () => {
   };
 
   return (
-    <main className="flex-grow-1 d-flex align-items-center bg-wonkes-7" style={{ minHeight: '70vh' }}>
-      <Container>
-        <Row className="justify-content-center">
-          <Col xs={5}>
-            <Card>
-              <Card.Body>
-                <h1 className="text-center">Login</h1>
-                <Form method="post" onSubmit={handleSubmit}>
+    <GuestOnly>
+      <main className="flex-grow-1 d-flex align-items-center bg-wonkes-7" style={{ minHeight: '70vh' }}>
+        <Container>
+          <Row className="justify-content-center">
+            <Col xs={5}>
+              <Card>
+                <Card.Body>
+                  <h1 className="text-center">Login</h1>
+                  <Form method="post" onSubmit={handleSubmit}>
 
-                  {/* CSRF token MUST be inside the form */}
-                  <input type="hidden" name="csrfToken" value={csrfToken} />
+                    {/* CSRF token MUST be inside the form */}
+                    <input type="hidden" name="csrfToken" value={csrfToken} />
 
-                  <Form.Group controlId="formBasicUsername">
-                    <Form.Label>Username</Form.Label>
-                    <input name="username" type="text" className="form-control" />
-                  </Form.Group>
+                    <Form.Group controlId="formBasicUsername">
+                      <Form.Label>Username</Form.Label>
+                      <input name="username" type="text" className="form-control" />
+                    </Form.Group>
 
-                  <Form.Group className="mt-3">
-                    <Form.Label>Password</Form.Label>
-                    <input name="password" type="password" className="form-control" />
-                  </Form.Group>
+                    <Form.Group className="mt-3">
+                      <Form.Label>Password</Form.Label>
+                      <input name="password" type="password" className="form-control" />
+                    </Form.Group>
 
-                  <Button type="submit" disabled={loading} className="w-100 fw-semibold bg-wonkes-1 border-0 mt-3">
-                    {loading ? 'Logging in...' : 'Login'}
-                  </Button>
-                </Form>
+                    <Button type="submit" disabled={loading} className="w-100 fw-semibold bg-wonkes-1 border-0 mt-3">
+                      {loading ? 'Logging in...' : 'Login'}
+                    </Button>
+                  </Form>
 
-              </Card.Body>
-              <Card.Footer>
-                Don&apos;t have an account?
-                {' '}
-                <a className="link-wonkes" href="/auth/signup">Sign up</a>
-              </Card.Footer>
-            </Card>
-          </Col>
-        </Row>
-      </Container>
-    </main>
+                </Card.Body>
+                <Card.Footer>
+                  Don&apos;t have an account?
+                  {' '}
+                  <a className="link-wonkes" href="/auth/signup">Sign up</a>
+                  <br />
+                  Forgot password?
+                  {' '}
+                  <a className="link-wonkes" href="/auth/forgot-password">Reset</a>
+                </Card.Footer>
+              </Card>
+            </Col>
+          </Row>
+        </Container>
+      </main>
+    </GuestOnly>
   );
 };
 

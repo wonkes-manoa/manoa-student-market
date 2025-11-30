@@ -126,6 +126,8 @@ model Account {
   EmailAddress  String                @unique @db.Citext
   FirstName     String
   LastName      String
+  PwdResetCode  String?               @unique
+  PwdRstCdExp   DateTime?
 
   merch         Merch[]
 }

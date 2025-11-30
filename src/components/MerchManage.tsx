@@ -46,6 +46,7 @@ const MerchManage = ({ merch }: { merch : Merch }) => {
       <Row>
         <Col className="text-center">
           <Button
+            href={`listings-edit/${merch.MerchID}`}
             variant="warning"
             className="w-100 fw-semibold"
           >

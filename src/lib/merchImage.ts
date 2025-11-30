@@ -21,8 +21,8 @@ export const DEFAULT_IMAGE : MerchImage = {
 
 /**
  * Returns an array of merch images associate with the merch of the given merch ID.
- * @param merchID ID of the merch to fetch associate images.
- * @param addDummy If true, DEFAULT_IMAGE is inserted to the result array of it is empty.
+ * @param merchID, ID of the merch to fetch associate images.
+ * @param addDummy, if true, DEFAULT_IMAGE is inserted to the result array of it is empty.
  * @returns An array of merch images.
  */
 export async function getMerchImagesByMerchID(merchID : number, addDummy : boolean = true) : Promise<MerchImage[]> {
@@ -47,7 +47,7 @@ export async function getMerchImagesByMerchID(merchID : number, addDummy : boole
 
 /**
  * Returns the string for the src attribute of the Image component for displaying the given image.
- * @param image The image to get the string for src.
+ * @param image, the image to get the string for src.
  * @returns A string that can pass directly to the src attribute of an Image component to display the given image.
  */
 export function parseImageSource(image: MerchImage) : string {

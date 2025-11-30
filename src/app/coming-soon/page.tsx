@@ -3,12 +3,12 @@
 import { Col, Container, Row, Button } from 'react-bootstrap';
 import Link from 'next/link';
 
-const NotFound = () => (
+const ComingSoon = () => (
   <Container
     className="flex-grow-1 d-flex align-items-end"
     style={{
       minHeight: '70vh',
-      backgroundImage: "url('/utility/middle-of-nowhere.png')",
+      backgroundImage: "url('/utility/middle-of-somewhere.png')",
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat',
@@ -25,9 +25,9 @@ const NotFound = () => (
               backdropFilter: 'blur(6px)',
             }}
           >
-            <p className="text-danger fw-semibold mb-4">
-              The page you look for doesn&apos;t exist or has moved.
-              Head to a safe location or ask us.
+            <p className="text-info fw-semibold mb-4">
+              This page is still being built.
+              Better head back to safety… or urge us to hurry.
             </p>
 
             <Row className="g-2 justify-content-center">
@@ -42,7 +42,7 @@ const NotFound = () => (
               <Col xs={12} sm={6}>
                 <Link href="/support" className="w-100">
                   <Button variant="outline-info" className="w-100 fw-semibold">
-                    Ask Us
+                    Urge Us
                   </Button>
                 </Link>
               </Col>
@@ -55,4 +55,4 @@ const NotFound = () => (
   </Container>
 );
 
-export default NotFound;
+export default ComingSoon;
