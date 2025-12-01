@@ -5,18 +5,24 @@ import MerchGallery from '@/components/MerchGallery';
 import MerchPanel from '@/components/MerchPanel';
 import MerchManage from '@/components/MerchManage';
 import { Container, Row, Col } from 'react-bootstrap';
-import type { Merch } from '@prisma/client';
+import type { Merch, LikedMerch } from '@prisma/client';
 import { getMerchImagesByMerchID, MerchImage } from '@/lib/merchImage';
 
-const MerchSlip = ({ merch, usage }: { merch: Merch, usage: string }) => {
+type MerchWithLikes = Merch & {
+  likedBy: LikedMerch[];
+};
+
+const MerchSlip = ({ merch, usage }: { merch: MerchWithLikes; usage: string }) => {
   const [images, setImages] = useState<MerchImage[]>([]);
 
   useEffect(() => {
-    async function fetchImages() : Promise<void> {
+    async function fetchImages() {
       setImages(await getMerchImagesByMerchID(merch.MerchID, true));
     }
     fetchImages();
   }, [merch.MerchID]);
+
+  const likeCount = merch.likedBy.length;
 
   return (
     <Container className="bg-white py-4 rounded-4 overflow-hidden" fluid>
@@ -31,7 +37,7 @@ const MerchSlip = ({ merch, usage }: { merch: Merch, usage: string }) => {
           )}
         </Col>
         <Col md={4}>
-          <MerchPanel merch={merch} usage={usage} />
+          <MerchPanel merch={merch} usage={usage} likeCount={likeCount} />
         </Col>
         <Col md={4}>
           <MerchManage merch={merch} />

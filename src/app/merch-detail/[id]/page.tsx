@@ -1,6 +1,5 @@
 import MerchDetail from '@/components/MerchDetail';
 import { Container } from 'react-bootstrap';
-import { Merch } from '@prisma/client';
 import { getServerSession } from 'next-auth';
 import { notFound } from 'next/navigation';
 import authOptions from '@/lib/authOptions';
@@ -8,26 +7,35 @@ import { loggedInProtectedPage } from '@/lib/page-protection';
 import { prisma } from '@/lib/prisma';
 
 export default async function MerchDetailPage({ params }: { params: { id: string | string[] } }) {
-  // Protect the page, only logged in users can access it.
   const session = await getServerSession(authOptions);
-  loggedInProtectedPage(
-    session as {
-      user: { email: string; id: string; randomKey: string };
-      // eslint-disable-next-line @typescript-eslint/comma-dangle
-    } | null,
-  );
-  const merchID = Number(Array.isArray(params?.id) ? params?.id[0] : params?.id);
-  const merch : Merch | null = await prisma.merch.findUnique({
+  loggedInProtectedPage(session);
+
+  const userId = Number(session?.user.id);
+  const merchID = Number(Array.isArray(params.id) ? params.id[0] : params.id);
+
+  const merch = await prisma.merch.findUnique({
     where: { MerchID: merchID },
+    include: {
+      likedBy: true,
+      Image: true,
+      seller: true,
+    },
   });
-  if (!merch) {
-    return (
-      notFound()
-    );
-  }
+
+  if (!merch) return notFound();
+
+  const likeCount = merch.likedBy.length;
+  const isLiked = merch.likedBy.some((like) => like.AccountID === userId);
+
   return (
     <Container className="my-5">
-      <MerchDetail merch={merch} usage="" />
+      <MerchDetail
+        merch={merch}
+        usage="detail"
+        userId={userId}
+        isLiked={isLiked}
+        likeCount={likeCount}
+      />
     </Container>
   );
 }
