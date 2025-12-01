@@ -18,6 +18,7 @@ export default async function AdminMerchManagementPage() {
   const merch = await prisma.merch.findMany({
     where: {},
     include: {
+      likedBy: true,
       Image: false, // We'll fetch images later by merch ID.
     },
   });

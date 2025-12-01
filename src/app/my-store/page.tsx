@@ -21,6 +21,7 @@ export default async function MyStorePage() {
       AccountID: accountID,
     },
     include: {
+      likedBy: true,
       Image: false, // We'll fetch images later by merch ID.
     },
   });

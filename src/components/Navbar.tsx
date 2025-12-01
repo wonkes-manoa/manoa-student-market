@@ -94,7 +94,7 @@ const NavBar: React.FC = () => {
                 active={pathname === '/admin-merch-management'}
                 className="text-light"
               >
-                Admin Merch Management
+                Admin
               </Nav.Link>
             )}
 
