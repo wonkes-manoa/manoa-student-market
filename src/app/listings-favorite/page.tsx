@@ -2,7 +2,7 @@ import { prisma } from '@/lib/prisma';
 import { getServerSession } from 'next-auth';
 import authOptions from '@/lib/authOptions';
 import { loggedInProtectedPage } from '@/lib/page-protection';
-import { Container } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 import ListingsClient from './ListingsClient';
 
 export default async function ListingFavoritesPage() {
@@ -33,8 +33,13 @@ export default async function ListingFavoritesPage() {
 
   return (
     <Container className="py-4 text-center">
-      <h1 className="mb-4 fw-semibold">My Favorite Listings</h1>
-      <ListingsClient initialListings={listingsWithLikes} userId={userId} />
+      <Row>
+        <Col className="bg-wonkes-7 p-4 rounded-4 shadow-sm">
+          <h1 className="mb-4 fw-semibold">My Favorite Listings</h1>
+          <ListingsClient initialListings={listingsWithLikes} userId={userId} />
+        </Col>
+      </Row>
+
     </Container>
   );
 }

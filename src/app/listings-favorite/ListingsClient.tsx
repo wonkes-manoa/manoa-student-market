@@ -28,11 +28,15 @@ export default function ListingsClient({ initialListings, userId }: Props) {
         />
       </Form>
 
-      <Row xs={1} md={3} className="g-4 pt-3">
-        {filtered.map((merch) => (
-          <ListingCard key={merch.MerchID} merch={merch} userId={userId} />
-        ))}
-      </Row>
+      {filtered.length === 0 ? (
+        <p className="text-center">No liked merch.</p>
+      ) : (
+        <Row xs={1} md={3} className="g-4 pt-3">
+          {filtered.map((merch) => (
+            <ListingCard key={merch.MerchID} merch={merch} userId={userId} />
+          ))}
+        </Row>
+      )}
     </>
   );
 }
