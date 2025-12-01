@@ -23,6 +23,14 @@ const AccordionFAQ = () => (
         listings, purchases, etc.
       </Accordion.Body>
     </Accordion.Item>
+    <Accordion.Item eventKey="2">
+      <Accordion.Header>When I like an item, why does the like count go to 0?</Accordion.Header>
+      <Accordion.Body>
+        The item count has to update to reflect the change in likes.
+        Please refresh the page to see the updated like count!
+        If there are still issues, feel free to contact us below.
+      </Accordion.Body>
+    </Accordion.Item>
   </Accordion>
 );
 

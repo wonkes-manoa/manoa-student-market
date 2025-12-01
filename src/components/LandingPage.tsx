@@ -71,6 +71,7 @@ const LandingPage = () => (
                 variant="top"
                 src="/placeholder.jpg"
                 alt="Image of website designers"
+                className="card-img-fixed"
               />
               <Card.Body>
                 <Card.Title>Connect with Students</Card.Title>
@@ -97,6 +98,7 @@ const LandingPage = () => (
                 variant="top"
                 src="/View-Listings-1.png"
                 alt="Image of Listings Page"
+                className="card-img-fixed"
               />
               <Card.Body>
                 <Card.Title>Buy and Sell Your Junk</Card.Title>
@@ -121,13 +123,15 @@ const LandingPage = () => (
             <Card className="border-0 text-center">
               <Card.Img
                 variant="top"
-                src="/placeholder.jpg"
+                src="/Like-Merch.png"
                 alt="Image of Liking Vendor"
+                className="card-img-fixed"
               />
               <Card.Body>
-                <Card.Title>Favorite Your Trusted Vendor</Card.Title>
+                <Card.Title>Favorite Your Items</Card.Title>
                 <Card.Text className="text-muted">
-                  This is yet to be implemented. Update on this soon!
+                  Like your favorite items to keep track of them! Easily access
+                  them later through the Favorited Listings page.
                 </Card.Text>
               </Card.Body>
             </Card>

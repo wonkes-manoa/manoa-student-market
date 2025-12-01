@@ -17,10 +17,12 @@ const SupportPage = async () => (
             <p className="text-muted mb-1">Wonkes</p>
             <h2 className="mb-4">About Us</h2>
             <p className="text-muted pe-4">
-              Et cupiditate eligendi rerum iusto reiciendis. Dolorem quo sed eligendi
-              impedit incidunt quis. Enim cupiditate quis ut id aut sed omnis et.
-              Sit qui labore dolores cupiditate iste repellendus. Quas voluptatem
-              doloribus et non non. Quod soluta ratione et ipsa rerum et.
+              Wonkes is a web application that allows users to sell and buy items with
+              just a click of a button. Users can create postings, browse for products,
+              and connect with the community easily. Our mission is to provide a
+              platform that fosters a safe and efficient marketplace for students to
+              trade items they no longer need. Feel free to sign in to view everyones
+              listings!
             </p>
           </Col>
 
@@ -54,9 +56,10 @@ const SupportPage = async () => (
               want. All with just a click of a button!
             </p>
 
-            <h3>Favorite Your Trusted Vendor</h3>
+            <h3>Favorite Your Items</h3>
             <p className="text-muted mt-2">
-              This is yet to be implemented. Update on this soon!
+              Like your favorite items to keep track of them! Easily access
+              them later through the Favorited Listings page.
             </p>
           </Col>
 
@@ -66,10 +69,30 @@ const SupportPage = async () => (
 
       <Container className="d-flex flex-column px-5">
         <h2>Webpage Info</h2>
-        <u>View Listings</u>
-        - use search bar to find the items you need!
+        <h5><u>Add Listings</u></h5>
+        - Add your items you want to get rid of!
+        <Image
+          src="Add-Listings.png"
+          alt="Add Listings Page"
+          fluid
+          rounded
+          style={{ width: '75%', maxWidth: '350px' }}
+          className="mb-3"
+        />
+        - View your created listings in the My Listings tab under Added Listings!
+        <Image
+          src="My-Store.png"
+          alt="My Store Page"
+          fluid
+          rounded
+          style={{ width: '75%', maxWidth: '350px' }}
+          className="mb-3"
+        />
+
+        <h5><u>View Listings</u></h5>
+        - Use the search bar to find the items you need!
         <Row>
-          <Col>
+          <Col className="mb-3">
             <Image
               src="View-Listings-1.png"
               alt="View Listings (1) Page"
@@ -88,32 +111,34 @@ const SupportPage = async () => (
             />
           </Col>
         </Row>
-        - click the item you are interested in!
+        - Click the item to view more details.
         <Image
           src="View-Merch.png"
           alt="View Single Listing Page"
           fluid
           rounded
           style={{ width: '75%', maxWidth: '350px' }}
+          className="mb-3"
+        />
+        - Like items you are interested in!
+        <Image
+          src="Like-Merch.png"
+          alt="Like Item Image"
+          fluid
+          rounded
+          style={{ width: '75%', maxWidth: '350px' }}
+          className="mb-3"
+        />
+        - View your liked items in the My Listings tab under Favorited Listings!
+        <Image
+          src="Favorites-Page.png"
+          alt="Favorites Page"
+          fluid
+          rounded
+          style={{ width: '75%', maxWidth: '350px' }}
+          className="mb-3"
         />
 
-        <u>Add Listings</u>
-        - Add your items you want to get rid of!
-        <Image
-          src="Add-Listings.png"
-          alt="Add Listings Page"
-          fluid
-          rounded
-          style={{ width: '75%', maxWidth: '350px' }}
-        />
-        <u>View Listings</u>
-        <Image
-          src="View-Listings-1.png"
-          alt="View Listings Page"
-          fluid
-          rounded
-          style={{ width: '75%', maxWidth: '350px' }}
-        />
       </Container>
 
       <hr />
