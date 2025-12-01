@@ -85,10 +85,12 @@ const MerchPanel = ({
         <Col>
           <p className="mb-1">
             Condition:
+            {' '}
             {merch.Condition.toLowerCase()}
           </p>
           <p className="mb-1">
             Material:
+            {' '}
             {merch.Material.toLowerCase()}
           </p>
           <p className="mb-1">{dimension}</p>
