@@ -163,3 +163,8 @@ footer, footer a {
   opacity: 1;
   transform: translateY(0);
 }
+
+.card-img-fixed {
+  height: 300px;
+  object-fit: cover;
+}
