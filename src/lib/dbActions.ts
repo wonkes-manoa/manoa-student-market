@@ -117,6 +117,25 @@ export async function editMerch(merch: {
 }
 
 /**
+ * Update (only) the stock status of a given merch in the database to the given stock status.
+ * @param merch, an object that specify the detail of the merch to edit.
+ */
+export async function updateMerchStockStatus(merch : {
+  MerchID: number,
+  StockStatus: string,
+}) {
+  const stockStatus = merch.StockStatus as MerchStockStatus;
+  const editedMerch = await prisma.merch.update({
+    where: { MerchID: merch.MerchID },
+    data: {
+      StockStatus: stockStatus,
+    },
+  });
+
+  return editedMerch;
+}
+
+/**
  * Adds a new stuff to the database.
  * @param stuff, an object with the following properties: name, quantity, owner, condition.
  */

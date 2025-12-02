@@ -2,6 +2,7 @@
 
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { Merch, MerchStockStatus } from '@prisma/client';
+import { updateMerchStockStatus } from '@/lib/dbActions';
 
 const statusColorMap: Record<MerchStockStatus, string> = {
   ON_STOCK: 'bg-wonkes-6',
@@ -61,6 +62,7 @@ const MerchManage = ({ merch }: { merch : Merch }) => {
           <Button
             variant="info"
             className="w-100 fw-semibold"
+            onClick={() => updateMerchStockStatus({merch.MerchID, 'SOLD'})}
           >
             Mark as Sold
           </Button>
