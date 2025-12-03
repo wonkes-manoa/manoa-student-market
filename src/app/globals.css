@@ -168,3 +168,7 @@ footer, footer a {
   height: 300px;
   object-fit: cover;
 }
+
+.dropdown-menu.show {
+  background-color: var(--theme-color-4);
+}

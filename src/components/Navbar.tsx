@@ -42,12 +42,6 @@ const NavBar: React.FC = () => {
                   title="My Listings"
                 >
                   <NavDropdown.Item
-                    disabled
-                    className="bg-wonkes-4 no-dim"
-                  >
-                    <strong>My Listings</strong>
-                  </NavDropdown.Item>
-                  <NavDropdown.Item
                     id="listings-favorite-nav"
                     href="/listings-favorite"
                     key="listings-favorite"

@@ -463,7 +463,7 @@ const EditMerchForm = ({ merch } : { merch : Merch }) => {
                       variant="danger"
                       className="w-100"
                     >
-                      Recover
+                      Cancel
                     </Button>
                   </Col>
                 </Row>
