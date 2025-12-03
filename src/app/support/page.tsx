@@ -7,15 +7,14 @@ const SupportPage = async () => (
   <main>
     <Container id="support-background" className="pb-5 pt-3">
       <Container className="justifyContentCenter p-3">
-        <h1 className="text-center text-decoration-underline">Wonkes Support</h1>
+        <h1 className="text-center fw-bold text-dark display-3">Wonkes Support</h1>
       </Container>
       <Container className="py-5">
         <Row className="g-5 align-items-start">
 
           {/* LEFT COLUMN */}
-          <Col md={6} className="px-5">
-            <p className="text-muted mb-1">Wonkes</p>
-            <h2 className="mb-4">About Us</h2>
+          <Col md={6} className="p-5 gap-5">
+            <h2 className="mb-4 display-6">About Us</h2>
             <p className="text-muted pe-4">
               Wonkes is a web application that allows users to sell and buy items with
               just a click of a button. Users can create postings, browse for products,
@@ -27,42 +26,45 @@ const SupportPage = async () => (
           </Col>
 
           {/* ICON COLUMN */}
+          {/* ICON + RIGHT COLUMN WRAPPER */}
           <Col
-            md={1}
-            className="d-none d-md-flex flex-column align-items-center pt-2 gap-5"
+            md={6}
+            className="d-flex flex-row align-items-start p-4 support-text-box"
           >
-            <Button className="mb-5" variant="secondary" disabled>
-              <Globe />
-            </Button>
-            <Button className="my-4" variant="secondary" disabled>
-              <ArrowRepeat />
-            </Button>
-            <Button className="my-5" variant="secondary" disabled>
-              <Star />
-            </Button>
+            {/* ICON COLUMN */}
+            <div className="d-none d-md-flex flex-column align-items-center pt-2 gap-5 me-4">
+              <Button className="my-3 support-button" variant="success" disabled>
+                <Globe size={40} />
+              </Button>
+              <Button className="my-4 support-button" variant="success" disabled>
+                <ArrowRepeat size={40} />
+              </Button>
+              <Button className="my-3 support-button" variant="success" disabled>
+                <Star size={40} />
+              </Button>
+            </div>
+
+            {/* RIGHT COLUMN */}
+            <div className="flex-grow-1">
+              <h3>Connect with Students</h3>
+              <p className="text-muted mt-2 mb-5">
+                Meet new people who are willing to buy/sell items.
+                Connect through our website!
+              </p>
+
+              <h3>Buy and Sell Your Junk</h3>
+              <p className="text-muted mt-2 mb-5">
+                Buy items you need for college and items you don&apos;t
+                want. All with just a click of a button!
+              </p>
+
+              <h3>Favorite Your Items</h3>
+              <p className="text-muted mt-2">
+                Like your favorite items to keep track of them! Easily access
+                them later through the Favorited Listings page.
+              </p>
+            </div>
           </Col>
-
-          {/* RIGHT COLUMN */}
-          <Col md={5} className="pe-5">
-            <h3>Connect with Students</h3>
-            <p className="text-muted mt-2 mb-5">
-              Meet new people who are willing to buy/sell items.
-              Connect through our website!
-            </p>
-
-            <h3>Buy and Sell Your Junk</h3>
-            <p className="text-muted mt-2 mb-5">
-              Buy items you need for college and items you don&apos;t
-              want. All with just a click of a button!
-            </p>
-
-            <h3>Favorite Your Items</h3>
-            <p className="text-muted mt-2">
-              Like your favorite items to keep track of them! Easily access
-              them later through the Favorited Listings page.
-            </p>
-          </Col>
-
         </Row>
       </Container>
       <hr />

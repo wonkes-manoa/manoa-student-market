@@ -72,9 +72,22 @@ footer, footer a {
 }
 
 #support-background {
-  background-color: #bed8a1
+  background-color: #9fe295
 }
 
+.support-button {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  justify-content: center; 
+  align-items: center;      
+  padding: 0;           
+}
+
+.support-text-box {
+  background-color: #cdf9cb;
+  margin-right: 0px;
+}
 
 .link-wonkes {
   color: var(--theme-color-3) !important;
