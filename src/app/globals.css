@@ -71,6 +71,11 @@ footer, footer a {
   background-color: aliceblue;
 }
 
+#support-background {
+  background-color: #bed8a1
+}
+
+
 .link-wonkes {
   color: var(--theme-color-3) !important;
 }
