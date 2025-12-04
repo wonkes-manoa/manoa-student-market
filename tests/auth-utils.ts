@@ -73,14 +73,18 @@ async function authenticateWithUI(
       { selector: 'input[name="password"]', value: password },
     ]);
 
-    // Click submit button and wait for navigation
-    const submitButton = page.getByRole('button', { name: /sign[ -]?in/i });
-    if (!await submitButton.isVisible({ timeout: 1000 })) {
-      // Try alternative selector if the first one doesn't work
-      await page.getByRole('button', { name: /log[ -]?in/i }).click();
-    } else {
-      await submitButton.click();
-    }
+    // Commented out due to login using a submit button instead of a login button
+    // // Click submit button and wait for navigation
+    // const submitButton = page.getByRole('button', { name: /sign[ -]?in/i });
+    // if (!await submitButton.isVisible({ timeout: 1000 })) {
+    //   // Try alternative selector if the first one doesn't work
+    //   await page.getByRole('button', { name: /log[ -]?in/i }).click();
+    // } else {
+    //   await submitButton.click();
+    // }
+    // Above code replaced with the following:
+    // Click the actual form submit button (type="submit" only)
+    await page.locator('form button[type="submit"]').click();
 
     // Wait for navigation to complete
     await page.waitForLoadState('networkidle');
