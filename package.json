@@ -37,7 +37,7 @@
     "yup": "^1.4.0"
   },
   "devDependencies": {
-    "@playwright/test": "^1.48.2",
+    "@playwright/test": "^1.57.0",
     "@types/bcrypt": "^5.0.2",
     "@types/jest": "^30.0.0",
     "@types/node": "^22.5.4",
