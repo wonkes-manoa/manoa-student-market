@@ -121,7 +121,7 @@ enum MerchMaterial {
 model Account {
   AccountID     Int               @id @unique @default(autoincrement())
   Privilege     AccountPrivilege              @default(USER)
-  Username      String                @unique
+  Username      String                @unique @pg.Citext 
   Password      String
   EmailAddress  String                @unique @db.Citext
   FirstName     String
