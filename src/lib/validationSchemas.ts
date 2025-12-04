@@ -32,7 +32,8 @@ export const AddMerchSchema = Yup.object({
   Name: Yup.string()
     .required('Provide a merch name'),
   Description: Yup.string()
-    .required('Describe your merch'),
+    .required('Describe your merch')
+    .max(250, 'No more than 250 characters'),
   Image: Yup.mixed<FileList>()
     .test('minFiles', 'At least one photo is required', (value) => value && value.length >= 1)
     .test('maxFiles', 'You can upload at most 9 photos', (value) => value && value.length <= 9)
@@ -137,7 +138,8 @@ export const EditMerchSchema = Yup.object({
   Name: Yup.string()
     .required('Provide a merch name'),
   Description: Yup.string()
-    .required('Describe your merch'),
+    .required('Describe your merch')
+    .max(250, 'No more than 250 characters'),
   Image: Yup.mixed<FileList>()
     .test('maxFiles', 'You can upload at most 9 photos', (value) => {
       // value might be undefined after calling reset(), allow value being undefined in this case

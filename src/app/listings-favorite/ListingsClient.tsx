@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { Row, Form } from 'react-bootstrap';
+import { useState, useEffect } from 'react';
+import { Row, Form, Button } from 'react-bootstrap';
 import ListingCard from '@/components/ListingCard';
 import { ListingCardData } from '@/lib/ListingCardData';
 
@@ -14,8 +14,21 @@ interface Props {
 
 export default function ListingsClient({ initialListings, userId }: Props) {
   const [search, setSearch] = useState('');
+  const [listings] = useState(initialListings);
+  const [pageNumber, setPageNumber] = useState(1);
 
-  const filtered = initialListings.filter((item) => item.Name.toLowerCase().includes(search.toLowerCase()));
+  useEffect(() => {
+    setPageNumber(1);
+  }, [search]);
+
+  const filtered = listings.filter((item) => item.Name.toLowerCase().includes(search.toLowerCase()));
+
+  const itemsPerPage = 20;
+  const totalPages = Math.ceil(filtered.length / itemsPerPage);
+  const startIndex = (pageNumber - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  const paginatedItems = filtered.slice(startIndex, endIndex);
 
   return (
     <>
@@ -28,15 +41,44 @@ export default function ListingsClient({ initialListings, userId }: Props) {
         />
       </Form>
 
-      {filtered.length === 0 ? (
+      {paginatedItems.length === 0 ? (
         <p className="text-center">No liked merch.</p>
       ) : (
         <Row xs={1} md={3} className="g-4 pt-3">
-          {filtered.map((merch) => (
+          {paginatedItems.map((merch) => (
             <ListingCard key={merch.MerchID} merch={merch} userId={userId} />
           ))}
         </Row>
       )}
+      <div className="d-flex justify-content-center align-items-center mt-4">
+        <Button
+          onClick={pageNumber > 1 ? () => { setPageNumber(pageNumber - 1); } : undefined}
+          disabled={pageNumber === 1}
+          variant="success"
+          className="me-3"
+        >
+          Previous
+        </Button>
+
+        <span>
+          Page
+          {' '}
+          {pageNumber}
+          {' '}
+          of
+          {' '}
+          {totalPages}
+        </span>
+
+        <Button
+          onClick={pageNumber < totalPages ? () => { setPageNumber(pageNumber + 1); } : undefined}
+          disabled={pageNumber === totalPages}
+          variant="success"
+          className="ms-3"
+        >
+          Next
+        </Button>
+      </div>
     </>
   );
 }
