@@ -128,7 +128,7 @@ async function fillFormWithRetry(
     while (attempts < maxAttempts) {
       try {
         const element = page.locator(field.selector);
-        await element.waitFor({ state: 'visible', timeout: 2000 });
+        await element.waitFor({ state: 'visible', timeout: 5000 }); // originally 2000
         await element.clear();
         await element.fill(field.value);
         await element.evaluate((el) => el.blur()); // Trigger blur event
