@@ -69,6 +69,10 @@ export default function ListingCard({ merch, userId }: Props) {
               Listed by:
               {merch.seller.Username}
             </Card.Text>
+            <Card.Text>
+              Stock:
+              {merch.StockStatus}
+            </Card.Text>
             <small className="text-muted d-block">Condition</small>
             <span>{merch.Condition}</span>
           </Card.Body>
