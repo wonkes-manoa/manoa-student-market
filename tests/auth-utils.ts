@@ -69,7 +69,7 @@ async function authenticateWithUI(
 
     // Fill in credentials with retry logic
     await fillFormWithRetry(page, [
-      { selector: 'input[name="email"]', value: email },
+      { selector: 'input[name="username"]', value: email },
       { selector: 'input[name="password"]', value: password },
     ]);
 
