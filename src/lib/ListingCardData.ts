@@ -6,6 +6,7 @@ export type ListingCardData = {
   }[]
   Name: string;
   Price: number;
+  StockStatus: string;
   seller: {
     Username: string;
   };
