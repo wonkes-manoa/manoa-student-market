@@ -176,6 +176,7 @@ model MerchImage {
 
 enum Role {
   USER
+  ADMINISTRATOR
   ADMIN
 }
 
