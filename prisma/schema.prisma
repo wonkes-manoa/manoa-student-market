@@ -17,14 +17,12 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
-
 // Role or privilege of an account.
 
 enum AccountPrivilege {
   USER
   ADMINISTRATOR
 }
-
 
 //  Stock status of a merchandise.
 
@@ -33,7 +31,6 @@ enum MerchStockStatus {
   SOLD
   RECALLED
 }
-
 
 //  SI and imperial units for length.
 
@@ -49,7 +46,6 @@ enum LengthUnit {
   MILE
 }
 
-
 //  SI and imperial units for mass.
 
 enum MassUnit {
@@ -61,7 +57,6 @@ enum MassUnit {
   OUNCE
   POUND
 }
-
 
 //  Tags that categorizes a merchandise.
 
@@ -76,7 +71,6 @@ enum MerchTag {
   SPORT_EQUIPMENT
 }
 
-
 //  How new is a merchandise.
 
 enum MerchCondition {
@@ -86,7 +80,6 @@ enum MerchCondition {
   FAIR
   POOR
 }
-
 
 //  Main material that a merchandise is made of.
 
@@ -115,32 +108,31 @@ enum MerchMaterial {
   OTHER
 }
 
-
 //  Stores account and user information.
 
 model Account {
-  AccountID     Int               @id @unique @default(autoincrement())
-  Privilege     AccountPrivilege              @default(USER)
-  Username      String                @unique @db.Citext 
-  Password      String
-  EmailAddress  String                @unique @db.Citext
-  FirstName     String
-  LastName      String
-  PwdResetCode  String?               @unique
-  PwdRstCdExp   DateTime?
+  AccountID    Int              @id @unique @default(autoincrement())
+  Privilege    AccountPrivilege @default(USER)
+  Username     String           @unique @db.Citext
+  Password     String
+  EmailAddress String           @unique @db.Citext
+  FirstName    String
+  LastName     String
+  PwdResetCode String?          @unique
+  PwdRstCdExp  DateTime?
 
-  merch         Merch[]
-  likedMerch    LikedMerch[]
+  merch      Merch[]
+  likedMerch LikedMerch[]
 }
 
 // Adds any Merch that was liked from users to Merch
 model LikedMerch {
-  LikeID     Int      @id @default(autoincrement())
-  AccountID  Int
-  MerchID    Int
+  LikeID    Int @id @default(autoincrement())
+  AccountID Int
+  MerchID   Int
 
-  account    Account  @relation(fields: [AccountID], references: [AccountID])
-  merch      Merch    @relation(fields: [MerchID], references: [MerchID])
+  account Account @relation(fields: [AccountID], references: [AccountID])
+  merch   Merch   @relation(fields: [MerchID], references: [MerchID])
 
   @@unique([AccountID, MerchID]) // prevents double liking
 }
@@ -148,38 +140,38 @@ model LikedMerch {
 //  Stores merchandise information. There is one to many correspondence between Account and Merch.
 
 model Merch {
-  MerchID       Int               @id @unique @default(autoincrement())
-  AccountID     Int
-  PostTime      DateTime                      @default(now())
-  StockStatus   MerchStockStatus
-  Price         Float
-  Name          String
-  Description   String
-  Image         MerchImage[]
-  Length        Float?
-  Width         Float?
-  Height        Float?
-  Mass          Float?
-  LUnit         LengthUnit?
-  WUnit         LengthUnit?
-  HUnit         LengthUnit?
-  MUnit         MassUnit?
-  Material      MerchMaterial
-  Condition     MerchCondition
+  MerchID     Int              @id @unique @default(autoincrement())
+  AccountID   Int
+  PostTime    DateTime         @default(now())
+  StockStatus MerchStockStatus
+  Price       Float
+  Name        String
+  Description String
+  Image       MerchImage[]
+  Length      Float?
+  Width       Float?
+  Height      Float?
+  Mass        Float?
+  LUnit       LengthUnit?
+  WUnit       LengthUnit?
+  HUnit       LengthUnit?
+  MUnit       MassUnit?
+  Material    MerchMaterial
+  Condition   MerchCondition
 
-  seller        Account           @relation(fields: [AccountID], references: [AccountID])
-  likedBy       LikedMerch[]
+  seller  Account      @relation(fields: [AccountID], references: [AccountID])
+  likedBy LikedMerch[]
 }
 
 model MerchImage {
-  ImageID       Int               @id @unique @default(autoincrement())
-  MerchID       Int
-  FileName      String
-  MIMEType      String            // Type of file.
-  Data          Bytes             // Image itself.
-  CreationTime  DateTime                      @default(now())
+  ImageID      Int      @id @unique @default(autoincrement())
+  MerchID      Int
+  FileName     String
+  MIMEType     String // Type of file.
+  Data         Bytes // Image itself.
+  CreationTime DateTime @default(now())
 
-  merch         Merch             @relation(fields: [MerchID], references: [MerchID])
+  merch Merch @relation(fields: [MerchID], references: [MerchID])
 }
 
 enum Role {
