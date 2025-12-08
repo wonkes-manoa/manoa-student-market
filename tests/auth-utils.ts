@@ -13,6 +13,17 @@ if (!fs.existsSync(SESSION_STORAGE_PATH)) {
   fs.mkdirSync(SESSION_STORAGE_PATH, { recursive: true });
 }
 
+// Utility: Delete all session files in SESSION_STORAGE_PATH
+function deleteAllSessionFiles() {
+  if (fs.existsSync(SESSION_STORAGE_PATH)) {
+    for (const file of fs.readdirSync(SESSION_STORAGE_PATH)) {
+      if (file.endsWith('.json')) {
+        fs.unlinkSync(path.join(SESSION_STORAGE_PATH, file));
+      }
+    }
+  }
+}
+
 // Define our custom fixtures
 interface AuthFixtures {
   getUserPage: (email: string, password: string) => Promise<Page>;
@@ -26,6 +37,8 @@ async function authenticateWithUI(
   password: string,
   sessionName: string
 ): Promise<void> {
+  // Clean out old sessions first
+  deleteAllSessionFiles();
   const sessionPath = path.join(SESSION_STORAGE_PATH, `${sessionName}.json`);
 
   // Try to restore session from storage if available
