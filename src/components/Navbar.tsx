@@ -15,7 +15,7 @@ const NavBar: React.FC = () => {
   const pathname = usePathname();
 
   const username = session?.user?.username;
-  const role = session?.user?.randomKey; // ADMINISTRATOR or USER
+  const role = session?.user?.randomKey; // ADMIN or USER
 
   return (
     <Navbar
@@ -80,12 +80,12 @@ const NavBar: React.FC = () => {
               </>
             )}
 
-            {username && role === 'ADMINISTRATOR' && (
+            {username && role === 'ADMIN' && (
               <Nav.Link
                 id="admin-stuff-nav"
-                href="/admin-merch-management"
+                href="/admin"
                 key="admin"
-                active={pathname === '/admin-merch-management'}
+                active={pathname === '/admin'}
                 className="text-light"
               >
                 Admin

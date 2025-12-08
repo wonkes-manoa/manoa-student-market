@@ -21,7 +21,7 @@ datasource db {
 
 enum AccountPrivilege {
   USER
-  ADMINISTRATOR
+  ADMIN
 }
 
 //  Stock status of a merchandise.

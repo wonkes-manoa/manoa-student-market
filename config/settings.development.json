@@ -32,7 +32,7 @@
       "EmailAddress": "admin@foo.com",
       "Username": "admin@foo.com",
       "Password": "changeme",
-      "Privilege": "ADMINISTRATOR",
+      "Privilege": "ADMIN",
       "FirstName": "Admin",
       "LastName": "IsTrator"
     }
