@@ -83,9 +83,9 @@ const NavBar: React.FC = () => {
             {username && role === 'ADMIN' && (
               <Nav.Link
                 id="admin-stuff-nav"
-                href="/admin-merch-management"
+                href="/admin"
                 key="admin"
-                active={pathname === '/admin-merch-management'}
+                active={pathname === '/admin'}
                 className="text-light"
               >
                 Admin
