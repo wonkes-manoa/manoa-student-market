@@ -1,5 +1,18 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable import/no-extraneous-dependencies */
+/**
+ * To run tests locally, ensure you have a local instance of the app running.
+ *  You can set the PLAYWRIGHT_TEST_BASE_URL environment variable to point to your local instance if it's not running on http://localhost:3000
+ * Example:
+ *    PLAYWRIGHT_TEST_BASE_URL=http://localhost:4000 npx playwright test
+ *  If not set, it defaults to http://localhost:3000
+ * 
+ * Run tests using: npx playwright test
+ * Run specific test file: npx playwright test tests/john-pages.spec.ts
+ * Run with headed mode for debugging: npx playwright test --headed
+ * View test report: npx playwright show-report (it should open automatically after tests complete)
+ * To generate code manually: playwright codegen localhost:3000/ --load-storage=tests/playwright-auth-sessions/session-john@foo.com.json
+ */
 import { test as base, expect, Page } from '@playwright/test';
 import fs from 'fs';
 import path from 'path';
