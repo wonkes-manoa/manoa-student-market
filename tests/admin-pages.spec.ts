@@ -6,8 +6,7 @@ test('test access to admin page', async ({ getUserPage }) => {
   const adminPage = await getUserPage('admin@foo.com', 'changeme');
 
   // Navigate to the home adminPage
-  await adminPage.goto('http://localhost:3000/');
-
+  // await customUserPage.goto('http://localhost:3000/'); // already navigating as part of authentication, removing.
   // Check for navigation elements
   // await expect(adminPage.getByRole('link', { name: 'Add Stuff' })).toBeVisible();
   // await expect(adminPage.getByRole('link', { name: 'List Stuff' })).toBeVisible();
