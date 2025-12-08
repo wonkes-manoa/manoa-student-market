@@ -21,8 +21,6 @@ type SignUpForm = {
 const SignUp = () => {
   const validationSchema = Yup.object().shape({
     username: Yup.string()
-      .trim()
-      .transform((v) => (typeof v === 'string' ? v.toLowerCase() : v))
       .required('Username is required')
       .matches(/^[a-zA-Z0-9_@.]+$/, 'Username only allow alphabet letters, Arabic numerals, and _@.')
       .min(3, 'Username must be at least 3 characters long')
