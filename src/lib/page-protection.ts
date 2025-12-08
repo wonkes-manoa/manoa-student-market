@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation';
-import { Role } from '@prisma/client';
+import { AccountPrivilege } from '@prisma/client';
 
 /**
  * Redirects to the login page if the user is not logged in.
@@ -21,9 +21,9 @@ export const adminProtectedPage = (
 ) => {
   loggedInProtectedPage(session);
 
-  // Safe check: convert to string, trim, and compare with Role.ADMIN
+  // Check against AccountPrivilege enum
   const privilege = session?.user?.randomKey?.toString().trim();
-  if (privilege !== Role.ADMIN) {
+  if (privilege !== AccountPrivilege.ADMIN) {
     redirect('/not-authorized');
   }
 };

@@ -21,7 +21,7 @@ datasource db {
 
 enum AccountPrivilege {
   USER
-  ADMINISTRATOR
+  ADMIN
 }
 
 //  Stock status of a merchandise.
@@ -176,7 +176,6 @@ model MerchImage {
 
 enum Role {
   USER
-  ADMINISTRATOR
   ADMIN
 }
 
