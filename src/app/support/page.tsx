@@ -154,23 +154,25 @@ const SupportPage = async () => (
       <hr />
 
       */}
-      <Container className="px-5">
-        <h2>FAQ</h2>
+      <Container className="px-5 mt-2">
+        <h1 className="mb-3">FAQ</h1>
         <AccordionFAQ />
-        <p className="my-2">
+        <p className="my-3">
           For more information, click
           {' '}
-          <a href="https://wonkes-manoa.github.io/" target="_blank" rel="noreferrer">here</a>
+          <a className="link-wonkes" href="https://wonkes-manoa.github.io/" target="_blank" rel="noreferrer">here</a>
         </p>
       </Container>
 
       <hr />
-      <Container className="px-5">
-        <h2>Contact us</h2>
-        <p>
-          Have a question? Feel free to email myemail@foo or call us at (808)111-1111
-          for more information!
-        </p>
+      <Container className="px-5 mb-2">
+        <div style={{ paddingTop: '20px' }}>
+          <h2>Contact us</h2>
+          <p>
+            Have a question? Feel free to email wonkes@foo or call us at (808)111-1111
+            for more information!
+          </p>
+        </div>
       </Container>
     </Container>
   </main>
