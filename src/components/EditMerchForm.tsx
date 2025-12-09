@@ -80,7 +80,7 @@ const onSubmit = async (data: {
   swal('Success', 'Your merch has been edited', 'success', {
     timer: 2000,
   }).then(() => {
-    router.push(`/merch-detail/${editedMerch.MerchID}`);
+    router.push('/my-store');
   });
 };
 

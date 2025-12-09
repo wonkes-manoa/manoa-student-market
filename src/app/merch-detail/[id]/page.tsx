@@ -24,6 +24,11 @@ export default async function MerchDetailPage({ params }: { params: { id: string
 
   if (!merch) return notFound();
 
+  // Block access if SOLD or RECALLED
+  if (merch.StockStatus === 'SOLD' || merch.StockStatus === 'RECALLED') {
+    return notFound();
+  }
+
   const likeCount = merch.likedBy.length;
   const isLiked = merch.likedBy.some((like) => like.AccountID === userId);
 
