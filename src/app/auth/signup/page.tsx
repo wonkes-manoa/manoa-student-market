@@ -91,12 +91,14 @@ const SignUp = () => {
       >
         <Container>
           <Row className="justify-content-center">
-            <Col xs={5}>
+            <Col xs={8}>
               <Card>
                 <Card.Body>
                   <h1 className="text-center">Sign Up</h1>
                   <Form onSubmit={handleSubmit(onSubmit)}>
+                    <Row>
                     {/* Username */}
+                    <Col md={6}>
                     <Form.Group className="form-group">
                       <Form.Label>Username</Form.Label>
                       <input
@@ -128,7 +130,9 @@ const SignUp = () => {
                       />
                       <div className="invalid-feedback">{errors.firstName?.message}</div>
                     </Form.Group>
+                    </Col>
 
+                    <Col md={6}>
                     {/* Last Name */}
                     <Form.Group className="form-group">
                       <Form.Label>Last Name</Form.Label>
@@ -161,10 +165,12 @@ const SignUp = () => {
                       />
                       <div className="invalid-feedback">{errors.confirmPassword?.message}</div>
                     </Form.Group>
+                    </Col>
+                    </Row>
 
                     {/* Submit Button */}
                     <Form.Group className="form-group py-3">
-                      <Row>
+                      <Row className="justify-content-center">
                         <Col>
                           <Button
                             type="submit"
