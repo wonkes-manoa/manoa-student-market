@@ -225,8 +225,8 @@ const EditMerchForm = ({ merch } : { merch : Merch }) => {
                     {...register('StockStatus')}
                     className={errors.StockStatus ? 'is-invalid' : ''}
                   >
-                    <option key="--" value="--">
-                      --
+                    <option value="" disabled>
+                      -- Select Status --
                     </option>
                     {Object.keys(MerchStockStatus).map((key) => (
                       <option key={key} value={key}>
@@ -234,6 +234,9 @@ const EditMerchForm = ({ merch } : { merch : Merch }) => {
                       </option>
                     ))}
                   </Form.Select>
+                  <Form.Text className="text-muted">
+                    Sold/Recalled items are not publicly visible.
+                  </Form.Text>
                   <div className="invalid-feedback">{errors.StockStatus?.message}</div>
                 </Form.Group>
 
