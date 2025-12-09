@@ -1,6 +1,7 @@
 import { prisma } from '@/lib/prisma';
 import { NextResponse } from 'next/server';
 
+/* eslint-disable import/prefer-default-export */
 export async function POST(request: Request) {
   const { accountId, newPrivilege } = await request.json();
 
@@ -18,5 +19,3 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Failed to update privilege', details: err }, { status: 500 });
   }
 }
-
-export default POST;
