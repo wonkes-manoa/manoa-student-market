@@ -71,6 +71,24 @@ footer, footer a {
   background-color: aliceblue;
 }
 
+#support-background {
+  background-color: #c0f2b8
+}
+
+.support-button {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  justify-content: center; 
+  align-items: center;      
+  padding: 0;           
+}
+
+.support-text-box {
+  background-color: #e3ffe2;
+  margin-right: 0px;
+}
+
 .link-wonkes {
   color: var(--theme-color-3) !important;
 }
