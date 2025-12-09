@@ -1,30 +1,89 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider  = "postgresql"
-  // for local development
-  // url       = env("DATABASE_URL")
-  // for Vercel
   url       = env("POSTGRES_PRISMA_URL")
   directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
-// Role or privilege of an account.
+model Account {
+  AccountID    Int              @id @unique @default(autoincrement())
+  Privilege    AccountPrivilege @default(USER)
+  EmailAddress String           @unique @db.Citext
+  Password     String
+  FirstName    String
+  LastName     String
+  Username     String           @unique
+  PwdResetCode String?          @unique
+  PwdRstCdExp  DateTime?
+  likedMerch   LikedMerch[]
+  merch        Merch[]
+}
+
+model LikedMerch {
+  LikeID    Int     @id @default(autoincrement())
+  AccountID Int
+  MerchID   Int
+  account   Account @relation(fields: [AccountID], references: [AccountID], onDelete: Cascade)
+  merch     Merch   @relation(fields: [MerchID], references: [MerchID], onDelete: Cascade)
+
+  @@unique([AccountID, MerchID])
+}
+
+model Merch {
+  MerchID     Int              @id @unique @default(autoincrement())
+  AccountID   Int
+  PostTime    DateTime         @default(now())
+  StockStatus MerchStockStatus
+  Price       Float
+  Name        String
+  Description String
+  Length      Float?
+  Width       Float?
+  Height      Float?
+  Mass        Float?
+  Material    MerchMaterial
+  Condition   MerchCondition
+  HUnit       LengthUnit?
+  LUnit       LengthUnit?
+  MUnit       MassUnit?
+  WUnit       LengthUnit?
+  likedBy     LikedMerch[]
+  seller      Account          @relation(fields: [AccountID], references: [AccountID],  onDelete: Cascade)
+  Image       MerchImage[]
+}
+
+model MerchImage {
+  ImageID      Int      @id @unique @default(autoincrement())
+  MerchID      Int
+  FileName     String
+  MIMEType     String
+  Data         Bytes
+  CreationTime DateTime @default(now())
+  merch        Merch    @relation(fields: [MerchID], references: [MerchID], onDelete: Cascade)
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  password String
+  role     Role   @default(USER)
+}
+
+model Stuff {
+  id        Int       @id @default(autoincrement())
+  name      String
+  quantity  Int
+  condition Condition @default(good)
+  owner     String
+}
 
 enum AccountPrivilege {
   USER
   ADMIN
 }
-
-//  Stock status of a merchandise.
 
 enum MerchStockStatus {
   ON_STOCK
@@ -32,33 +91,25 @@ enum MerchStockStatus {
   RECALLED
 }
 
-//  SI and imperial units for length.
-
 enum LengthUnit {
   MILLIMETER
   CENTIMETER
   DECIMETER
   METER
-
   INCH
   FEET
   YARD
   MILE
 }
 
-//  SI and imperial units for mass.
-
 enum MassUnit {
   MILLIGRAM
   GRAM
   KILOGRAM
   TON
-
   OUNCE
   POUND
 }
-
-//  Tags that categorizes a merchandise.
 
 enum MerchTag {
   COLLECTABLE
@@ -71,8 +122,6 @@ enum MerchTag {
   SPORT_EQUIPMENT
 }
 
-//  How new is a merchandise.
-
 enum MerchCondition {
   NEW
   EXCELLENT
@@ -80,8 +129,6 @@ enum MerchCondition {
   FAIR
   POOR
 }
-
-//  Main material that a merchandise is made of.
 
 enum MerchMaterial {
   ALUMINUM
@@ -108,82 +155,9 @@ enum MerchMaterial {
   OTHER
 }
 
-//  Stores account and user information.
-
-model Account {
-  AccountID    Int              @id @unique @default(autoincrement())
-  Privilege    AccountPrivilege @default(USER)
-  Username     String           @unique @db.Citext
-  Password     String
-  EmailAddress String           @unique @db.Citext
-  FirstName    String
-  LastName     String
-  PwdResetCode String?          @unique
-  PwdRstCdExp  DateTime?
-
-  merch      Merch[]
-  likedMerch LikedMerch[]
-}
-
-// Adds any Merch that was liked from users to Merch
-model LikedMerch {
-  LikeID    Int @id @default(autoincrement())
-  AccountID Int
-  MerchID   Int
-
-  account Account @relation(fields: [AccountID], references: [AccountID])
-  merch   Merch   @relation(fields: [MerchID], references: [MerchID])
-
-  @@unique([AccountID, MerchID]) // prevents double liking
-}
-
-//  Stores merchandise information. There is one to many correspondence between Account and Merch.
-
-model Merch {
-  MerchID     Int              @id @unique @default(autoincrement())
-  AccountID   Int
-  PostTime    DateTime         @default(now())
-  StockStatus MerchStockStatus
-  Price       Float
-  Name        String
-  Description String
-  Image       MerchImage[]
-  Length      Float?
-  Width       Float?
-  Height      Float?
-  Mass        Float?
-  LUnit       LengthUnit?
-  WUnit       LengthUnit?
-  HUnit       LengthUnit?
-  MUnit       MassUnit?
-  Material    MerchMaterial
-  Condition   MerchCondition
-
-  seller  Account      @relation(fields: [AccountID], references: [AccountID])
-  likedBy LikedMerch[]
-}
-
-model MerchImage {
-  ImageID      Int      @id @unique @default(autoincrement())
-  MerchID      Int
-  FileName     String
-  MIMEType     String // Type of file.
-  Data         Bytes // Image itself.
-  CreationTime DateTime @default(now())
-
-  merch Merch @relation(fields: [MerchID], references: [MerchID])
-}
-
 enum Role {
   USER
   ADMIN
-}
-
-model User {
-  id       Int    @id @default(autoincrement())
-  email    String @unique
-  password String
-  role     Role   @default(USER)
 }
 
 enum Condition {
@@ -191,12 +165,4 @@ enum Condition {
   good
   fair
   poor
-}
-
-model Stuff {
-  id        Int       @id @default(autoincrement())
-  name      String
-  quantity  Int
-  condition Condition @default(good)
-  owner     String
 }

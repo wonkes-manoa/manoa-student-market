@@ -12,36 +12,23 @@ const authOptions: NextAuthOptions = {
     CredentialsProvider({
       name: 'Username and Password',
       credentials: {
-        username: {
-          label: 'Username',
-          type: 'text',
-          placeholder: 'john@foo.com',
-        },
-        password: {
-          label: 'Password',
-          type: 'password' },
+        username: { label: 'Username', type: 'text', placeholder: 'john@foo.com' },
+        password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
         if (!credentials?.username || !credentials.password) {
-          console.log('MISSING CREDENTIAL');
-          return null;
-        }
-        console.log('BEGIN QUERY');
-        const account = await prisma.account.findUnique({
-          where: {
-            Username: credentials.username,
-          },
-        });
-        console.log('QUERY SUCCESS');
-        if (!account) {
           return null;
         }
 
+        const account = await prisma.account.findUnique({
+          where: { Username: credentials.username },
+        });
+
+        if (!account) return null;
+
         const isPasswordValid = await compare(credentials.password, account.Password);
-        if (!isPasswordValid) {
-          return null;
-        }
-        console.log('PASSED CREDENTIAL CHECKS');
+        if (!isPasswordValid) return null;
+
         return {
           id: `${account.AccountID}`,
           email: account.EmailAddress,
@@ -51,16 +38,14 @@ const authOptions: NextAuthOptions = {
       },
     }),
   ],
+
   pages: {
     signIn: '/auth/signin',
     signOut: '/auth/signout',
-    //   error: '/auth/error',
-    //   verifyRequest: '/auth/verify-request',
-    //   newUser: '/auth/new-user'
   },
+
   callbacks: {
     session: ({ session, token }) => {
-      // console.log('Session Callback', { session, token })
       return {
         ...session,
         user: {
@@ -68,25 +53,26 @@ const authOptions: NextAuthOptions = {
           id: token.id as string,
           email: token.email as string,
           username: token.username as string,
-          randomKey: token.randomKey as string,
+          randomKey: token.randomKey as string, // <-- must match what you returned in authorize
         },
       };
     },
+
     jwt: ({ token, user }) => {
-      // console.log('JWT Callback', { token, user })
       if (user) {
-        const u = user as unknown as any;
+        const u = user as any;
         return {
           ...token,
           id: u.id,
           email: u.email,
           username: u.username,
-          randomKey: u.randomKey,
+          randomKey: u.randomKey, // <-- match authorize
         };
       }
       return token;
     },
   },
+
   secret: process.env.NEXTAUTH_SECRET,
 };
 

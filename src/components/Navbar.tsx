@@ -81,17 +81,29 @@ const NavBar: React.FC = () => {
             )}
 
             {username && role === 'ADMIN' && (
-              <Nav.Link
-                id="admin-stuff-nav"
-                href="/admin"
-                key="admin"
-                active={pathname === '/admin'}
-                className="text-light"
+              <NavDropdown
+                title="Admin"
               >
-                Admin
-              </Nav.Link>
+                <NavDropdown.Item
+                  id="admin-user-management"
+                  href="/admin/user-management"
+                  key="admin-user-management"
+                  active={pathname === '/admin/user-management'}
+                  className="bg-wonkes-4 text-light"
+                >
+                  User Management
+                </NavDropdown.Item>
+                <NavDropdown.Item
+                  id="admin-merch-management"
+                  href="/admin/merch-management"
+                  key="admin-merch-management"
+                  active={pathname === '/admin/merch-management'}
+                  className="bg-wonkes-4 text-light"
+                >
+                  Merch Management
+                </NavDropdown.Item>
+              </NavDropdown>
             )}
-
             <Nav.Link
               href="/support"
               active={pathname === '/support'}

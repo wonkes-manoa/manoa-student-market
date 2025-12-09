@@ -3,56 +3,55 @@
 import { useState, useEffect } from 'react';
 import { Row, Form, Button } from 'react-bootstrap';
 import ListingCard from '@/components/ListingCard';
-import { ListingCardData } from '@/lib/ListingCardData';
 
-type ListingCardWithLike = ListingCardData & { isLiked?: boolean };
-
-interface Props {
-  initialListings: ListingCardWithLike[];
-  userId: number;
-}
-
-export default function ListingsClient({ initialListings, userId }: Props) {
+export default function ListingsClient({ userId }: { userId: number }) {
   const [search, setSearch] = useState('');
-  const [listings] = useState(initialListings);
   const [pageNumber, setPageNumber] = useState(1);
+  const [items, setItems] = useState<any[]>([]);
+  const [totalPages, setTotalPages] = useState(1);
 
+  // Reset page on search change
   useEffect(() => {
     setPageNumber(1);
   }, [search]);
 
-  const filtered = listings.filter((item) => item.Name.toLowerCase().includes(search.toLowerCase()));
+  // Fetch from API
+  useEffect(() => {
+    async function load() {
+      const res = await fetch(
+        `/api/favorites?search=${encodeURIComponent(search)}&page=${pageNumber}&perPage=10`,
+        { cache: 'no-store' },
+      );
+      const data = await res.json();
+      setItems(data.items);
+      setTotalPages(data.totalPages);
+    }
 
-  const itemsPerPage = 20;
-  const totalPages = Math.ceil(filtered.length / itemsPerPage);
-  const startIndex = (pageNumber - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-
-  const paginatedItems = filtered.slice(startIndex, endIndex);
+    load();
+  }, [search, pageNumber]);
 
   return (
     <>
-      <Form className="mb-3">
-        <Form.Control
-          type="text"
-          placeholder="Search item keyword"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
+      <Form>
+        <Form.Group controlId="search" className="mb-3">
+          <Form.Control
+            type="text"
+            placeholder="Search item keyword"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </Form.Group>
       </Form>
 
-      {paginatedItems.length === 0 ? (
-        <p className="text-center">No liked merch.</p>
-      ) : (
-        <Row xs={1} md={3} className="g-4 pt-3">
-          {paginatedItems.map((merch) => (
-            <ListingCard key={merch.MerchID} merch={merch} userId={userId} />
-          ))}
-        </Row>
-      )}
+      <Row xs={1} md={3} className="g-4 pt-5">
+        {items.map((merch) => (
+          <ListingCard key={merch.MerchID} merch={merch} userId={userId} />
+        ))}
+      </Row>
+
       <div className="d-flex justify-content-center align-items-center mt-4">
         <Button
-          onClick={pageNumber > 1 ? () => { setPageNumber(pageNumber - 1); } : undefined}
+          onClick={() => setPageNumber((p) => p - 1)}
           disabled={pageNumber === 1}
           variant="success"
           className="me-3"
@@ -71,7 +70,7 @@ export default function ListingsClient({ initialListings, userId }: Props) {
         </span>
 
         <Button
-          onClick={pageNumber < totalPages ? () => { setPageNumber(pageNumber + 1); } : undefined}
+          onClick={() => setPageNumber((p) => p + 1)}
           disabled={pageNumber === totalPages}
           variant="success"
           className="ms-3"
