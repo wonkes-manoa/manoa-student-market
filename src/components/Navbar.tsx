@@ -8,6 +8,7 @@ import {
   Lock,
   PersonFill,
   PersonPlusFill,
+  Trash,
 } from 'react-bootstrap-icons';
 
 const NavBar: React.FC = () => {
@@ -122,6 +123,14 @@ const NavBar: React.FC = () => {
                 className="text-light"
               >
                 <NavDropdown.Item
+                  href="/auth/delete-account"
+                  className="bg-wonkes-4 text-light text-danger"
+                >
+                  <Trash />
+                  {' '}
+                  Delete Account
+                </NavDropdown.Item>
+                <NavDropdown.Item
                   href="/auth/change-password"
                   className="bg-wonkes-4 text-light"
                 >
@@ -138,6 +147,7 @@ const NavBar: React.FC = () => {
                   {' '}
                   Sign Out
                 </NavDropdown.Item>
+
               </NavDropdown>
             ) : (
               <NavDropdown
