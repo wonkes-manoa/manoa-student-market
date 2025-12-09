@@ -24,6 +24,9 @@ export async function GET(request: Request) {
       contains: search,
       mode: Prisma.QueryMode.insensitive,
     },
+    StockStatus: {
+      notIn: ['SOLD', 'RECALLED'], // exclude sold or recalled
+    },
   };
 
   const totalCount = await prisma.merch.count({ where });

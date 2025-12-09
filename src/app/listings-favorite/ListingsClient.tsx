@@ -62,7 +62,7 @@ export default function ListingsClient({ userId }: { userId: number }) {
         <span>
           Page
           {' '}
-          {pageNumber}
+          {totalPages === 0 ? 0 : pageNumber}
           {' '}
           of
           {' '}
