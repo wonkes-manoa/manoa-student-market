@@ -3,7 +3,7 @@ import authOptions from '@/lib/authOptions';
 import { loggedInProtectedPage } from '@/lib/page-protection';
 import { Container } from 'react-bootstrap';
 import EditMerchForm from '@/components/EditMerchForm';
-import notFound from '@/app/not-found';
+import { notFound } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
 import { Merch } from '@prisma/client';
 
@@ -16,15 +16,18 @@ export default async function EditMerch({ params }: { params: { id: string | str
       // eslint-disable-next-line @typescript-eslint/comma-dangle
     } | null,
   );
+
+  const userId = Number(session?.user.id);
   const merchID = Number(Array.isArray(params?.id) ? params?.id[0] : params?.id);
+
   const merch : Merch | null = await prisma.merch.findUnique({
     where: { MerchID: merchID },
   });
-  if (!merch) {
-    return (
-      notFound()
-    );
-  }
+
+  if (!merch) return notFound();
+
+  // Block access if current user is not the seller
+  if (merch.AccountID !== userId) return notFound();
 
   return (
     <main className="flex-grow-1 bg-wonkes-7">
