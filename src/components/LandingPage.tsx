@@ -69,7 +69,7 @@ const LandingPage = () => (
             <Card className="border-0 text-center">
               <Card.Img
                 variant="top"
-                src="/connect.jpg"
+                src="/placeholder.jpg"
                 alt="Image of website designers"
                 className="card-img-fixed"
               />

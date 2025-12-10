@@ -51,7 +51,7 @@ async function authenticateWithUI(
   sessionName: string
 ): Promise<void> {
   // Clean out old sessions first
-  deleteAllSessionFiles();
+  // deleteAllSessionFiles();
   const sessionPath = path.join(SESSION_STORAGE_PATH, `${sessionName}.json`);
 
   // Try to restore session from storage if available
