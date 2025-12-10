@@ -8,6 +8,7 @@ import {
   Lock,
   PersonFill,
   PersonPlusFill,
+  Trash,
 } from 'react-bootstrap-icons';
 
 const NavBar: React.FC = () => {
@@ -15,7 +16,7 @@ const NavBar: React.FC = () => {
   const pathname = usePathname();
 
   const username = session?.user?.username;
-  const role = session?.user?.randomKey; // ADMINISTRATOR or USER
+  const role = session?.user?.randomKey; // ADMIN or USER
 
   return (
     <Navbar
@@ -86,18 +87,30 @@ const NavBar: React.FC = () => {
               </>
             )}
 
-            {username && role === 'ADMINISTRATOR' && (
-              <Nav.Link
-                id="admin-stuff-nav"
-                href="/admin-merch-management"
-                key="admin"
-                active={pathname === '/admin-merch-management'}
-                className="text-light"
+            {username && role === 'ADMIN' && (
+              <NavDropdown
+                title="Admin"
               >
-                Admin
-              </Nav.Link>
+                <NavDropdown.Item
+                  id="admin-user-management"
+                  href="/admin/user-management"
+                  key="admin-user-management"
+                  active={pathname === '/admin/user-management'}
+                  className="bg-wonkes-4 text-light"
+                >
+                  User Management
+                </NavDropdown.Item>
+                <NavDropdown.Item
+                  id="admin-merch-management"
+                  href="/admin/merch-management"
+                  key="admin-merch-management"
+                  active={pathname === '/admin/merch-management'}
+                  className="bg-wonkes-4 text-light"
+                >
+                  Merch Management
+                </NavDropdown.Item>
+              </NavDropdown>
             )}
-
             <Nav.Link
               href="/support"
               active={pathname === '/support'}
@@ -116,6 +129,14 @@ const NavBar: React.FC = () => {
                 className="text-light"
               >
                 <NavDropdown.Item
+                  href="/auth/delete-account"
+                  className="bg-wonkes-4 text-light text-danger"
+                >
+                  <Trash />
+                  {' '}
+                  Delete Account
+                </NavDropdown.Item>
+                <NavDropdown.Item
                   href="/auth/change-password"
                   className="bg-wonkes-4 text-light"
                 >
@@ -132,6 +153,7 @@ const NavBar: React.FC = () => {
                   {' '}
                   Sign Out
                 </NavDropdown.Item>
+
               </NavDropdown>
             ) : (
               <NavDropdown

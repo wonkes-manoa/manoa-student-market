@@ -1,10 +1,12 @@
 import { redirect } from 'next/navigation';
-import { Role } from '@prisma/client';
+import { AccountPrivilege } from '@prisma/client';
 
 /**
  * Redirects to the login page if the user is not logged in.
  */
-export const loggedInProtectedPage = (session: { user: { email: string; id: string; randomKey: string } } | null) => {
+export const loggedInProtectedPage = (
+  session: { user: { email: string; id: string; randomKey: string } } | null,
+) => {
   if (!session) {
     redirect('/auth/signin');
   }
@@ -14,9 +16,14 @@ export const loggedInProtectedPage = (session: { user: { email: string; id: stri
  * Redirects to the login page if the user is not logged in.
  * Redirects to the not-authorized page if the user is not an admin.
  */
-export const adminProtectedPage = (session: { user: { email: string; id: string; randomKey: string } } | null) => {
+export const adminProtectedPage = (
+  session: { user: { email: string; id: string; randomKey: string } } | null,
+) => {
   loggedInProtectedPage(session);
-  if (session && session.user.randomKey !== Role.ADMIN) {
+
+  // Check against AccountPrivilege enum
+  const privilege = session?.user?.randomKey?.toString().trim();
+  if (privilege !== AccountPrivilege.ADMIN) {
     redirect('/not-authorized');
   }
 };

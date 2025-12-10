@@ -1,33 +1,30 @@
 import { getServerSession } from 'next-auth';
 import authOptions from '@/lib/authOptions';
-import { loggedInProtectedPage } from '@/lib/page-protection';
+import { adminProtectedPage } from '@/lib/page-protection';
 import { Container } from 'react-bootstrap';
 import EditMerchForm from '@/components/EditMerchForm';
-import { notFound } from 'next/navigation';
+import notFound from '@/app/not-found';
 import { prisma } from '@/lib/prisma';
 import { Merch } from '@prisma/client';
 
 export default async function EditMerch({ params }: { params: { id: string | string[] } }) {
-  // Protect the page, only logged in users can access it.
+  // Protect the page, only admin can access it.
   const session = await getServerSession(authOptions);
-  loggedInProtectedPage(
+  adminProtectedPage(
     session as {
       user: { email: string; id: string; randomKey: string };
       // eslint-disable-next-line @typescript-eslint/comma-dangle
     } | null,
   );
-
-  const userId = Number(session?.user.id);
   const merchID = Number(Array.isArray(params?.id) ? params?.id[0] : params?.id);
-
   const merch : Merch | null = await prisma.merch.findUnique({
     where: { MerchID: merchID },
   });
-
-  if (!merch) return notFound();
-
-  // Block access if current user is not the seller
-  if (merch.AccountID !== userId) return notFound();
+  if (!merch) {
+    return (
+      notFound()
+    );
+  }
 
   return (
     <main className="flex-grow-1 bg-wonkes-7">
