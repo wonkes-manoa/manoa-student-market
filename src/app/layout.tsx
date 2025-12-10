@@ -18,7 +18,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const classString = `${inter.className} wrapper`;
+  const classString = `${inter.className} wrapper bg-wonkes-7`;
   return (
     <html lang="en">
       <body className={classString}>
