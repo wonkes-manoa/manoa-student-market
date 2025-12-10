@@ -117,6 +117,48 @@ export async function editMerch(merch: {
 }
 
 /**
+ * Update (only) the stock status of a given merch in the database to the given stock status.
+ * @param merch, an object that specify the detail of the merch to edit.
+ */
+export async function updateMerchStockStatus(merch : {
+  MerchID: number,
+  StockStatus: string,
+}) {
+  const stockStatus = merch.StockStatus as MerchStockStatus;
+  const editedMerch = await prisma.merch.update({
+    where: { MerchID: merch.MerchID },
+    data: {
+      StockStatus: stockStatus,
+    },
+  });
+
+  return editedMerch;
+}
+
+/**
+ * Permanently delete the specified merch and its associated images and likes.
+ * This operation is not recoverable.
+ * @param merchID, the ID of the merch to delete.
+ */
+export async function deleteMerchByID(merchID: number) {
+  return prisma.$transaction(async (tx) => {
+    const deletedMerchLike = await tx.likedMerch.deleteMany({
+      where: { MerchID: merchID },
+    });
+
+    const deletedMerchImage = await tx.merchImage.deleteMany({
+      where: { MerchID: merchID },
+    });
+
+    const deletedMerch = await tx.merch.delete({
+      where: { MerchID: merchID },
+    });
+
+    return { deletedMerch, deletedMerchImage, deletedMerchLike };
+  });
+}
+
+/**
  * Adds a new stuff to the database.
  * @param stuff, an object with the following properties: name, quantity, owner, condition.
  */
