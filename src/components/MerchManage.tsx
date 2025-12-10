@@ -2,7 +2,10 @@
 
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { Merch, MerchStockStatus } from '@prisma/client';
-import { updateMerchStockStatus } from '@/lib/dbActions';
+import { deleteMerchByID, updateMerchStockStatus } from '@/lib/dbActions';
+import swal from 'sweetalert';
+import { useRouter } from 'next/navigation';
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
 const statusColorMap: Record<MerchStockStatus, string> = {
   ON_STOCK: 'bg-wonkes-6',
@@ -16,7 +19,62 @@ const statusLabelMap: Record<MerchStockStatus, string> = {
   SOLD: 'SOLD',
 };
 
+const handleDelete = async (merchID : number, router: AppRouterInstance) => {
+  // Confirm delete operation.
+  const confirmation = await swal({
+    title: 'Delete this merch?',
+    text: 'This can not be undone',
+    icon: 'warning',
+    buttons: {
+      cancel: {
+        text: 'No, go back',
+        visible: true,
+      },
+      confirm: {
+        text: 'Yes, delete it',
+        visible: true,
+        closeModal: false,
+        className: 'swal-button--danger',
+      },
+    },
+    dangerMode: true,
+    closeOnClickOutside: false,
+    closeOnEsc: false,
+  });
+
+  // Cancel delete.
+  if (!confirmation) {
+    return;
+  }
+
+  // Delete merch.
+  try {
+    const result = await deleteMerchByID(merchID);
+
+    if (result?.deletedMerch) {
+      await swal({
+        title: 'Deleted',
+        text: 'Everything about this merch is deleted',
+        icon: 'success',
+        timer: 3000,
+      });
+      router.refresh();
+    } else {
+      throw new Error('Delete failed');
+    }
+  } catch (error) {
+    console.error(error);
+
+    await swal({
+      title: 'Error',
+      text: 'Something went wrong while deleting',
+      icon: 'error',
+    });
+  }
+};
+
 const MerchManage = ({ merch }: { merch : Merch }) => {
+  const router = useRouter();
   const statusColor = statusColorMap[merch.StockStatus] || 'bg-danger';
   const statusLabel = statusLabelMap[merch.StockStatus] || 'ERROR';
 
@@ -62,13 +120,25 @@ const MerchManage = ({ merch }: { merch : Merch }) => {
           <Button
             variant="info"
             className="w-100 fw-semibold"
-            onClick={() => updateMerchStockStatus({merch.MerchID, 'SOLD'})}
+            onClick={() => updateMerchStockStatus({ MerchID: merch.MerchID, StockStatus: 'SOLD' })}
           >
             Mark as Sold
           </Button>
         </Col>
       </Row>
       )}
+
+      <Row className="mt-2">
+        <Col className="text-center">
+          <Button
+            variant="danger"
+            className="w-100 fw-semibold"
+            onClick={() => handleDelete(merch.MerchID, router)}
+          >
+            Delete Merch
+          </Button>
+        </Col>
+      </Row>
     </Container>
   );
 };

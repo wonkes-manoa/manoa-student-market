@@ -136,6 +136,29 @@ export async function updateMerchStockStatus(merch : {
 }
 
 /**
+ * Permanently delete the specified merch and its associated images and likes.
+ * This operation is not recoverable.
+ * @param merchID, the ID of the merch to delete.
+ */
+export async function deleteMerchByID(merchID: number) {
+  return prisma.$transaction(async (tx) => {
+    const deletedMerchLike = await tx.likedMerch.deleteMany({
+      where: { MerchID: merchID },
+    });
+
+    const deletedMerchImage = await tx.merchImage.deleteMany({
+      where: { MerchID: merchID },
+    });
+
+    const deletedMerch = await tx.merch.delete({
+      where: { MerchID: merchID },
+    });
+
+    return { deletedMerch, deletedMerchImage, deletedMerchLike };
+  });
+}
+
+/**
  * Adds a new stuff to the database.
  * @param stuff, an object with the following properties: name, quantity, owner, condition.
  */
