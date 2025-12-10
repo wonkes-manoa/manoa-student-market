@@ -111,17 +111,6 @@ enum MassUnit {
   POUND
 }
 
-enum MerchTag {
-  COLLECTABLE
-  ELECTRONIC
-  FICTIONAL
-  FURNITURE
-  HYGIENE_EQUIPMENT
-  KITCHENWARE
-  SCHOOL_SUPPLY
-  SPORT_EQUIPMENT
-}
-
 enum MerchCondition {
   NEW
   EXCELLENT
@@ -153,16 +142,4 @@ enum MerchMaterial {
   TITANIUM
   WOOD
   OTHER
-}
-
-enum Role {
-  USER
-  ADMIN
-}
-
-enum Condition {
-  excellent
-  good
-  fair
-  poor
 }
