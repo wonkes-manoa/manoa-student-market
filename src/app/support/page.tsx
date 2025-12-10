@@ -3,7 +3,6 @@ import { ArrowRepeat, Globe, Star } from 'react-bootstrap-icons';
 import RevealOnScroll from '@/components/Animations';
 import AccordionFAQ from './AccordionFAQ';
 
-/** Render a list of stuff for the logged in user. */
 const SupportPage = async () => (
   <main>
     <Container id="support-background" className="pb-5 pt-3">
@@ -76,84 +75,6 @@ const SupportPage = async () => (
       </Container>
       <hr />
 
-      {/*
-      <Container className="d-flex flex-column px-5">
-        <h1>Webpage Info</h1>
-        <h5><u>Add Listings</u></h5>
-        - Add your items you want to get rid of!
-        <Image
-          src="Add-Listings.png"
-          alt="Add Listings Page"
-          fluid
-          rounded
-          style={{ width: '75%', maxWidth: '350px' }}
-          className="mb-3"
-        />
-        - View your created listings in the My Listings tab under Added Listings!
-        <Image
-          src="My-Store.png"
-          alt="My Store Page"
-          fluid
-          rounded
-          style={{ width: '75%', maxWidth: '350px' }}
-          className="mb-3"
-        />
-
-        <h5><u>View Listings</u></h5>
-        - Use the search bar to find the items you need!
-        <Row>
-          <Col className="mb-3">
-            <Image
-              src="View-Listings-1.png"
-              alt="View Listings (1) Page"
-              fluid
-              rounded
-              style={{ width: '75%', maxWidth: '350px' }}
-            />
-          </Col>
-          <Col>
-            <Image
-              src="View-Listings-2.png"
-              alt="View Listings (2) Page"
-              fluid
-              rounded
-              style={{ width: '75%', maxWidth: '350px' }}
-            />
-          </Col>
-        </Row>
-        - Click the item to view more details.
-        <Image
-          src="View-Merch.png"
-          alt="View Single Listing Page"
-          fluid
-          rounded
-          style={{ width: '75%', maxWidth: '350px' }}
-          className="mb-3"
-        />
-        - Like items you are interested in!
-        <Image
-          src="Like-Merch.png"
-          alt="Like Item Image"
-          fluid
-          rounded
-          style={{ width: '75%', maxWidth: '350px' }}
-          className="mb-3"
-        />
-        - View your liked items in the My Listings tab under Favorited Listings!
-        <Image
-          src="Favorites-Page.png"
-          alt="Favorites Page"
-          fluid
-          rounded
-          style={{ width: '75%', maxWidth: '350px' }}
-          className="mb-3"
-        />
-
-      </Container>
-
-      <hr />
-
-      */}
       <Container className="px-5 mt-2">
         <h1 className="mb-3">FAQ</h1>
         <AccordionFAQ />

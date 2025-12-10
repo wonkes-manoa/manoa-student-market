@@ -22,16 +22,6 @@ model Account {
   merch        Merch[]
 }
 
-model LikedMerch {
-  LikeID    Int     @id @default(autoincrement())
-  AccountID Int
-  MerchID   Int
-  account   Account @relation(fields: [AccountID], references: [AccountID], onDelete: Cascade)
-  merch     Merch   @relation(fields: [MerchID], references: [MerchID], onDelete: Cascade)
-
-  @@unique([AccountID, MerchID])
-}
-
 model Merch {
   MerchID     Int              @id @unique @default(autoincrement())
   AccountID   Int
@@ -65,19 +55,14 @@ model MerchImage {
   merch        Merch    @relation(fields: [MerchID], references: [MerchID], onDelete: Cascade)
 }
 
-model User {
-  id       Int    @id @default(autoincrement())
-  email    String @unique
-  password String
-  role     Role   @default(USER)
-}
+model LikedMerch {
+  LikeID    Int     @id @default(autoincrement())
+  AccountID Int
+  MerchID   Int
+  account   Account @relation(fields: [AccountID], references: [AccountID], onDelete: Cascade)
+  merch     Merch   @relation(fields: [MerchID], references: [MerchID], onDelete: Cascade)
 
-model Stuff {
-  id        Int       @id @default(autoincrement())
-  name      String
-  quantity  Int
-  condition Condition @default(good)
-  owner     String
+  @@unique([AccountID, MerchID])
 }
 
 enum AccountPrivilege {
