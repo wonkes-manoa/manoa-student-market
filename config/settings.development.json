@@ -1,40 +1,12 @@
 {
-  "defaultAccounts": [
-    { "email": "admin@foo.com", "password": "changeme", "role": "ADMIN" },
-    { "email": "john@foo.com", "password": "changeme" }
-  ],
-
-  "defaultData": [
-    { "name": "Basket", "quantity": 3, "owner": "john@foo.com", "condition": "excellent" },
-    { "name": "Bicycle", "quantity": 2, "owner": "john@foo.com", "condition": "poor" },
-    { "name": "Banana", "quantity": 2, "owner": "admin@foo.com", "condition": "good" },
-    { "name": "Boogie Board", "quantity": 2, "owner": "admin@foo.com", "condition": "excellent" }
-  ],
-
   "defaultAccount": [
     {
-      "EmailAddress": "john@foo.com",
-      "Username": "john@foo.com",
-      "Password": "changeme",
       "Privilege": "USER",
-      "FirstName": "John",
-      "LastName": "Ny"
-    },
-    {
-      "EmailAddress": "abc@foo.com",
-      "Username": "abc@foo.com",
+      "Username": "Alpi",
+      "EmailAddress": "alpi@hawaii.edu",
       "Password": "changeme",
-      "Privilege": "USER",
       "FirstName": "Alpi",
-      "LastName": "Bava"
-    },
-    {
-      "EmailAddress": "admin@foo.com",
-      "Username": "admin@foo.com",
-      "Password": "changeme",
-      "Privilege": "ADMIN",
-      "FirstName": "Admin",
-      "LastName": "IsTrator"
+      "LastName": "Ny"
     }
   ],
 

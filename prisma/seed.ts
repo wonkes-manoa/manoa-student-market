@@ -24,8 +24,8 @@ async function main() {
       update: {},
       create: {
         Privilege: privilege,
-        EmailAddress: account.EmailAddress,
         Username: account.Username,
+        EmailAddress: account.EmailAddress,
         // eslint-disable-next-line no-await-in-loop
         Password: await hash(account.Password, 14),
         FirstName: account.FirstName,
