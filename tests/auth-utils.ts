@@ -112,10 +112,10 @@ async function authenticateWithUI(
     // Click the actual form submit button (type="submit" only)
     await page.locator('form button[type="submit"]').click();
 
-    // Wait for navigation to complete
-    await page.waitForLoadState('networkidle');
+    // Wait for the redirect to /listings-view (which happens after SweetAlert timer)
+    await page.waitForURL(`${BASE_URL}/listings-view`, { timeout: 10000 });
 
-    // Verify authentication was successful
+    // Verify authentication was successful by checking for navbar elements
     await expect(async () => {
       const authState = await Promise.race([
         page.getByText(email).isVisible().then((visible) => ({ success: visible })),
@@ -123,11 +123,11 @@ async function authenticateWithUI(
         page.getByText('Sign out').isVisible().then((visible) => ({ success: visible })),
         page.getByRole('button', { name: 'Sign out' }).isVisible().then((visible) => ({ success: visible })),
         // eslint-disable-next-line no-promise-executor-return
-        new Promise<{ success: boolean }>((resolve) => setTimeout(() => resolve({ success: false }), 5000)),
+        new Promise<{ success: boolean }>((resolve) => setTimeout(() => resolve({ success: false }), 3000)),
       ]);
 
       expect(authState.success).toBeTruthy();
-    }).toPass({ timeout: 3000 });
+    }).toPass({ timeout: 5000 });
 
     // Save session for future tests
     const cookies = await page.context().cookies();
