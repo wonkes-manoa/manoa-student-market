@@ -19,6 +19,22 @@ const statusLabelMap: Record<MerchStockStatus, string> = {
   SOLD: 'SOLD',
 };
 
+const handleMarkMerchSold = async (merchID : number, router: AppRouterInstance) => {
+  const result = await updateMerchStockStatus({ MerchID: merchID, StockStatus: 'SOLD' });
+  if (result) {
+    await swal({
+      title: 'Updated',
+      text: 'Just marked this merch as sold',
+      icon: 'success',
+      timer: 3000,
+    });
+    router.refresh();
+  } else {
+    throw new Error('Update stock status failed');
+  }
+  router.refresh();
+};
+
 const handleDelete = async (merchID : number, router: AppRouterInstance) => {
   // Confirm delete operation.
   const confirmation = await swal({
@@ -120,7 +136,7 @@ const MerchManage = ({ merch }: { merch : Merch }) => {
           <Button
             variant="info"
             className="w-100 fw-semibold"
-            onClick={() => updateMerchStockStatus({ MerchID: merch.MerchID, StockStatus: 'SOLD' })}
+            onClick={() => handleMarkMerchSold(merch.MerchID, router)}
           >
             Mark as Sold
           </Button>
