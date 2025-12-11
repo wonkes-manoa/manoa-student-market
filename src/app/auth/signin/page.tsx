@@ -44,10 +44,10 @@ const SignIn = () => {
     setLoading(false);
 
     if (result?.ok) {
-      swal('Welcome back!', 'You are now logged in', 'success', { timer: 2000 })
+      swal('Welcome back!', 'You are now signed in', 'success', { timer: 2000 })
         .then(() => window.location.href = '/listings-view');
     } else {
-      swal('Login failed', 'Invalid login credential', 'error');
+      swal('Sign in failed', 'Invalid user credential', 'error');
     }
   };
 
@@ -59,7 +59,7 @@ const SignIn = () => {
             <Col xs={5}>
               <Card>
                 <Card.Body>
-                  <h1 className="text-center">Login</h1>
+                  <h1 className="text-center">Sign in</h1>
                   <Form method="post" onSubmit={handleSubmit}>
 
                     {/* CSRF token MUST be inside the form */}
@@ -76,7 +76,7 @@ const SignIn = () => {
                     </Form.Group>
 
                     <Button type="submit" disabled={loading} className="w-100 fw-semibold bg-wonkes-1 border-0 mt-3">
-                      {loading ? 'Logging in...' : 'Login'}
+                      {loading ? 'Signing in...' : 'Sign in'}
                     </Button>
                   </Form>
 
@@ -88,7 +88,7 @@ const SignIn = () => {
                   <br />
                   Forgot password?
                   {' '}
-                  <a className="link-wonkes" href="/auth/forgot-password">Reset</a>
+                  <a className="link-wonkes" href="/auth/forgot-password">Reset it</a>
                 </Card.Footer>
               </Card>
             </Col>
