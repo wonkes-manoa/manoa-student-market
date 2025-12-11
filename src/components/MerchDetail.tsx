@@ -49,7 +49,7 @@ export default function MerchDetail({ merch, usage, userId, isLiked: initialIsLi
           <Button
             variant="light"
             className="p-2 shadow position-absolute"
-            style={{ top: '15px', left: '20px', zIndex: 50, borderRadius: '50%' }}
+            style={{ top: '-12px', left: '12px', zIndex: 50, borderRadius: '50%' }}
             onClick={toggleLike}
           >
             {isLiked ? <HeartFill size={24} fill="red" /> : <Heart size={24} />}

@@ -15,12 +15,18 @@ export async function POST(req: Request) {
     await prisma.likedMerch.delete({
       where: { AccountID_MerchID: { AccountID: userId, MerchID: merchId } },
     });
-    return NextResponse.json({ liked: false });
+  } else {
+    await prisma.likedMerch.create({
+      data: { AccountID: userId, MerchID: merchId },
+    });
   }
 
-  await prisma.likedMerch.create({
-    data: { AccountID: userId, MerchID: merchId },
+  const newLikeCount = await prisma.likedMerch.findMany({
+    where: { MerchID: merchId },
   });
 
-  return NextResponse.json({ liked: true });
+  if (existing) {
+    return NextResponse.json({ liked: false, likeCount: newLikeCount.length });
+  }
+  return NextResponse.json({ liked: true, likeCount: newLikeCount.length });
 }

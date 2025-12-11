@@ -34,14 +34,7 @@ const MerchPanel = ({
     mass = `Mass: ${merch.Mass} ${merch.MUnit.toLowerCase()}`;
   }
 
-  let likeText = '';
-  if (likeCount === undefined) {
-    likeText = '0 people have liked this product.';
-  } else if (likeCount === 1) {
-    likeText = '1 person has liked this product.';
-  } else {
-    likeText = `${likeCount} people have liked this product.`;
-  }
+  const likeText = `${likeCount} ${likeCount === 1 ? 'person' : 'people'} liked this listing.`;
 
   return (
     <Container fluid>
