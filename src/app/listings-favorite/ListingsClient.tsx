@@ -43,7 +43,7 @@ export default function ListingsClient({ userId }: { userId: number }) {
         </Form.Group>
       </Form>
 
-      <Row xs={1} md={3} className="g-4 pt-5 d-flex justify-content-between">
+      <Row xs={1} md={3} className="g-4 pt-5 d-flex">
         {items.map((merch) => (
           <ListingCard key={merch.MerchID} merch={merch} userId={userId} />
         ))}
