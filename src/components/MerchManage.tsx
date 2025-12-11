@@ -43,11 +43,11 @@ const handleDelete = async (merchID : number, router: AppRouterInstance) => {
     icon: 'warning',
     buttons: {
       cancel: {
-        text: 'No, go back',
+        text: 'No, Take Me Back',
         visible: true,
       },
       confirm: {
-        text: 'Yes, delete it',
+        text: 'Yes, Delete Now',
         visible: true,
         closeModal: false,
         className: 'swal-button--danger',
