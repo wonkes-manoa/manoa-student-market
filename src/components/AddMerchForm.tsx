@@ -68,7 +68,7 @@ const onSubmit = async (data: {
       console.error('Image upload failed');
     }
   }
-  swal('Success', 'Your merch has been added', 'success', {
+  swal('Success', 'Your listing has been added', 'success', {
     timer: 2000,
   }).then(() => {
     router.push(`/merch-detail/${newMerch.MerchID}`);
@@ -129,7 +129,7 @@ const AddMerchForm = ({ id } : { id : number }) => {
         <Col xs={12} md={6}>
           <Card className="shadow-sm">
             <Card.Body>
-              <h2 className="text-center mb-4">Add Merchandise</h2>
+              <h2 className="text-center mb-4">Add Listing</h2>
               <Form onSubmit={handleSubmit((data) => onSubmit(data, router))}>
                 <input type="hidden" {...register('AccountID')} value={id} />
                 {/* Name */}
