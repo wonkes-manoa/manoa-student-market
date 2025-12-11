@@ -20,7 +20,7 @@ const Footer = () => (
 
         {/* Column 2 - Contact / Institution */}
         <Col xs={12} md={4}>
-          <h6 className="fw-semibold">University of Hawai&lsquo;i at Mānoa</h6>
+          <h6 className="fw-semibold">University of Hawaiʻi at Mānoa</h6>
           <p className="mb-1 small">Honolulu, HI 96822</p>
           <p className="mb-1 small">
             <a href="https://manoa.hawaii.edu" className="text-decoration-none text-wonkes-3">
