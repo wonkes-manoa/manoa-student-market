@@ -16,6 +16,10 @@ import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.share
 import { useEffect, useRef, useState } from 'react';
 import { getMerchImagesByMerchID, MerchImage } from '@/lib/merchImage';
 
+const handleCancel = (router : AppRouterInstance) => {
+  router.replace('/listings-view');
+};
+
 const onSubmit = async (data: {
   MerchID: number,
   StockStatus: string;
@@ -77,7 +81,7 @@ const onSubmit = async (data: {
       console.error('Image upload failed');
     }
   }
-  swal('Success', 'Your merch has been edited', 'success', {
+  swal('Success', 'Your listing has been edited', 'success', {
     timer: 2000,
   }).then(() => {
     router.push('/my-store');
@@ -169,7 +173,7 @@ const EditMerchForm = ({ merch } : { merch : Merch }) => {
         <Col xs={12} md={6}>
           <Card className="shadow-sm">
             <Card.Body>
-              <h2 className="text-center mb-4">Edit Merchandise</h2>
+              <h2 className="text-center mb-4">Edit Listing</h2>
               <Form onSubmit={handleSubmit((data) => onSubmit(data, router))}>
                 <input type="hidden" {...register('MerchID')} value={merch.MerchID} />
                 {/* Name */}
@@ -235,7 +239,7 @@ const EditMerchForm = ({ merch } : { merch : Merch }) => {
                     ))}
                   </Form.Select>
                   <Form.Text className="text-muted">
-                    Sold/Recalled items are not publicly visible.
+                    Sold and recalled listings are not publicly visible.
                   </Form.Text>
                   <div className="invalid-feedback">{errors.StockStatus?.message}</div>
                 </Form.Group>
@@ -466,7 +470,17 @@ const EditMerchForm = ({ merch } : { merch : Merch }) => {
                       variant="danger"
                       className="w-100"
                     >
-                      Cancel
+                      Abandon Changes
+                    </Button>
+                  </Col>
+                </Row>
+                <Row className="pt-3">
+                  <Col>
+                    <Button
+                      className="w-100 bg-wonkes-4 border-0"
+                      onClick={() => handleCancel(router)}
+                    >
+                      Cancel Edit
                     </Button>
                   </Col>
                 </Row>
