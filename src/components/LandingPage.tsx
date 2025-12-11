@@ -23,17 +23,18 @@ const LandingPage = () => (
           >
             <h1>Welcome to Wonkes!</h1>
 
-            <p>
-              A Manoa-run marketplace where you can buy/sell items students need
-              for campus dorming, classes, and school life!
-            </p>
+            <h5>
+              A student-built online thrift market where you can
+              buy or sell school supplies and dormitory furnitures.
+              Great for school life!
+            </h5>
 
             <div className="d-flex gap-3 justify-content-center">
               <Button
                 href="/auth/signin"
                 className="bg-wonkes-1 border-0"
               >
-                Log in
+                Sign in
               </Button>
 
               <Button
@@ -52,7 +53,7 @@ const LandingPage = () => (
         >
           <Image
             src="sunset-wonkes.png"
-            alt="Wonkes logo"
+            alt=""
             fluid
             rounded
             style={{ width: '75%', maxWidth: '350px' }}
@@ -62,37 +63,26 @@ const LandingPage = () => (
 
       <Row className="py-5">
         <Col sm={6} md={4}>
-          <RevealOnScroll
-            className=""
-            delay="0s"
-          >
+          <RevealOnScroll className="" delay="0s">
             <Card className="border-0 text-center">
               <Card.Img
                 variant="top"
                 src="/connect.jpg"
-                alt="Image of website designers"
+                alt=""
                 className="card-img-fixed"
               />
               <Card.Body>
-                <Card.Title>Connect with Students</Card.Title>
+                <Card.Title>Connect with schoolmates</Card.Title>
                 <Card.Text className="text-muted">
-                  Meet new people who are willing to buy/sell items. Connect
-                  through our website!
+                  Meet new people willing to buy or sell their stuffs. Begin the connection at our website!
                 </Card.Text>
               </Card.Body>
             </Card>
           </RevealOnScroll>
         </Col>
 
-        <Col
-          sm={6}
-          md={4}
-          className="text-center gap-3"
-        >
-          <RevealOnScroll
-            className=""
-            delay="0.15s"
-          >
+        <Col sm={6} md={4}>
+          <RevealOnScroll className="" delay="0.15s">
             <Card className="border-0 text-center">
               <Card.Img
                 variant="top"
@@ -101,25 +91,17 @@ const LandingPage = () => (
                 className="card-img-fixed"
               />
               <Card.Body>
-                <Card.Title>Buy and Sell Your Junk</Card.Title>
+                <Card.Title>Recycle usable supplies and furnitures</Card.Title>
                 <Card.Text className="text-muted">
-                  Buy items you need for college and items you don&apos;t want. All
-                  with just a click of a button!
+                  Sell what you don&apos;t need; buy what you need cheap.
                 </Card.Text>
               </Card.Body>
             </Card>
           </RevealOnScroll>
         </Col>
 
-        <Col
-          sm={6}
-          md={4}
-          className="text-center"
-        >
-          <RevealOnScroll
-            className=""
-            delay="0.3s"
-          >
+        <Col sm={6} md={4}>
+          <RevealOnScroll className="" delay="0.30s">
             <Card className="border-0 text-center">
               <Card.Img
                 variant="top"
@@ -128,10 +110,9 @@ const LandingPage = () => (
                 className="card-img-fixed"
               />
               <Card.Body>
-                <Card.Title>Favorite Your Items</Card.Title>
+                <Card.Title>Favorite stuffs</Card.Title>
                 <Card.Text className="text-muted">
-                  Like your favorite items to keep track of them! Easily access
-                  them later through the Favorited Listings page.
+                  Put an eye on what you like, and access them later easily.
                 </Card.Text>
               </Card.Body>
             </Card>
