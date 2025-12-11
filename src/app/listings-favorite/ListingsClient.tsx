@@ -32,16 +32,14 @@ export default function ListingsClient({ userId }: { userId: number }) {
 
   return (
     <>
-      <Form>
-        <Form.Group controlId="search" className="mb-3">
-          <Form.Control
-            type="text"
-            placeholder="Search item keyword"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-        </Form.Group>
-      </Form>
+      <Form.Group controlId="search" className="mb-3">
+        <Form.Control
+          type="text"
+          placeholder="Search item keyword"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </Form.Group>
 
       <Row xs={1} md={3} className="g-4 pt-5 d-flex">
         {items.map((merch) => (

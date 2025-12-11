@@ -46,7 +46,7 @@ export async function GET(request: Request) {
 
   return NextResponse.json({
     items,
-    totalPages: Math.ceil(totalCount / perPage),
+    totalPages: Math.max(Math.ceil(totalCount / perPage), 1),
     currentPage: page,
     totalCount,
   });

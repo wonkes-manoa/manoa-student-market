@@ -15,7 +15,7 @@ export default async function ListingFavoritesPage() {
       <Row>
         <Col className="bg-wonkes-7 p-4 rounded-4">
           <h1 className="mb-4 fw-semibold">View Listings</h1>
-          <p>View listings others made. Search or scroll through offers below!</p>
+          <p>View listings others have. Search or scroll through offers below!</p>
 
           <ListingsClient userId={userId} />
         </Col>

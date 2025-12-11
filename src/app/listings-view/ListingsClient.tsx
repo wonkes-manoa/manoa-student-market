@@ -9,6 +9,18 @@ export default function ListingsClient({ userId }: { userId: number }) {
   const [pageNumber, setPageNumber] = useState(1);
   const [items, setItems] = useState<any[]>([]);
   const [totalPages, setTotalPages] = useState(1);
+  const wordBank = [
+    '(„• ᴗ •„) Search something!',
+    '(　-_･) ︻デ═一 ▸ What\'s your target?',
+    '(⸝⸝⸝O﹏ O⸝⸝⸝) What\'s here today?',
+    '(⸝⸝> ᴗ•⸝⸝) Good luck searching!',
+    '<(￣︶￣)> What\'s the plan?',
+    'ヽ(・∀・)ﾉ Aloha! What to find?',
+    '(///▽///) Searching something hot?',
+    '(×﹏×) RIP me, search bar.',
+    '(⊃｡•́‿•̀｡)⊃ Hug what you like.',
+    '(‾́。‾́ )y~~ No cigars on sale.',
+  ];
 
   // Reset page on search change
   useEffect(() => {
@@ -32,16 +44,14 @@ export default function ListingsClient({ userId }: { userId: number }) {
 
   return (
     <>
-      <Form>
-        <Form.Group controlId="search" className="mb-3">
-          <Form.Control
-            type="text"
-            placeholder="Search item keyword"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-        </Form.Group>
-      </Form>
+      <Form.Group controlId="search" className="mb-3">
+        <Form.Control
+          type="text"
+          placeholder={wordBank[Math.floor(Math.random() * wordBank.length)]}
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </Form.Group>
 
       <Row xs={1} md={3} className="g-4 pt-5 d-flex">
         {items.map((merch) => (
