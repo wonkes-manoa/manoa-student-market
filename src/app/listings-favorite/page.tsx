@@ -13,7 +13,7 @@ export default async function ListingFavoritesPage() {
   return (
     <Container className="py-4 text-center">
       <Row>
-        <Col className="bg-wonkes-7 p-4 rounded-4 shadow-sm">
+        <Col className="bg-wonkes-7 p-4 rounded-4">
           <h1 className="mb-4 fw-semibold">My Favorite Listings</h1>
           <ListingsClient userId={userId} />
         </Col>
