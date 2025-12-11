@@ -7,17 +7,17 @@ export const AddMerchSchema = Yup.object({
   StockStatus: Yup.string()
     .oneOf(
       Object.keys(MerchStockStatus) as (keyof typeof MerchStockStatus)[],
-      'Should people see your merch right after you add it?',
+      'Should people see your listing right after you add it?',
     )
-    .required('Should people see your merch right after you add it?'),
+    .required('Should people see your listing right after you add it?'),
   Price: Yup.number()
     .typeError('Please enter a price')
     .positive('Price shall be positive')
     .required('Please enter a price'),
   Name: Yup.string()
-    .required('Provide a merch name'),
+    .required('Provide a listing name'),
   Description: Yup.string()
-    .required('Describe your merch')
+    .required('Describe your listing')
     .max(250, 'No more than 250 characters'),
   Image: Yup.mixed<FileList>()
     .test('minFiles', 'At least one photo is required', (value) => value && value.length >= 1)
@@ -100,10 +100,10 @@ export const AddMerchSchema = Yup.object({
     })
     .nullable(),
   Material: Yup.string()
-    .oneOf(Object.keys(MerchMaterial) as (keyof typeof MerchMaterial)[], 'Specify the main material of your merch')
+    .oneOf(Object.keys(MerchMaterial) as (keyof typeof MerchMaterial)[], 'Specify the main material of your listing')
     .required(),
   Condition: Yup.string()
-    .oneOf(Object.keys(MerchCondition) as (keyof typeof MerchCondition)[], 'Specify how is your merch now')
+    .oneOf(Object.keys(MerchCondition) as (keyof typeof MerchCondition)[], 'Specify how is your listing now')
     .required(),
 });
 
@@ -113,17 +113,17 @@ export const EditMerchSchema = Yup.object({
   StockStatus: Yup.string()
     .oneOf(
       Object.keys(MerchStockStatus) as (keyof typeof MerchStockStatus)[],
-      'Should people see your merch right after you add it?',
+      'Should people see your listing right after you add it?',
     )
-    .required('Should people see your merch right after you add it?'),
+    .required('Should people see your listing right after you add it?'),
   Price: Yup.number()
     .typeError('Please enter a price')
     .positive('Price shall be positive')
     .required('Please enter a price'),
   Name: Yup.string()
-    .required('Provide a merch name'),
+    .required('Provide a listing name'),
   Description: Yup.string()
-    .required('Describe your merch')
+    .required('Describe your listing')
     .max(250, 'No more than 250 characters'),
   Image: Yup.mixed<FileList>()
     .test('maxFiles', 'You can upload at most 9 photos', (value) => {
@@ -217,9 +217,9 @@ export const EditMerchSchema = Yup.object({
     })
     .nullable(),
   Material: Yup.string()
-    .oneOf(Object.keys(MerchMaterial) as (keyof typeof MerchMaterial)[], 'Specify the main material of your merch')
+    .oneOf(Object.keys(MerchMaterial) as (keyof typeof MerchMaterial)[], 'Specify the main material of your listing')
     .required(),
   Condition: Yup.string()
-    .oneOf(Object.keys(MerchCondition) as (keyof typeof MerchCondition)[], 'Specify how is your merch now')
+    .oneOf(Object.keys(MerchCondition) as (keyof typeof MerchCondition)[], 'Specify how is your listing now')
     .required(),
 });

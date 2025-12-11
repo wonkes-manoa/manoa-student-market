@@ -58,7 +58,7 @@ export default function ChangePasswordByPasscodePage() {
     }
 
     // Congratulations to the user.
-    await swal('Password Changed', 'You may log in with your new password', 'success', {
+    await swal('Password activated', 'You may sign in with your new password', 'success', {
       timer: 2000,
     });
     reset();

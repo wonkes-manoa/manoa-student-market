@@ -59,7 +59,7 @@ export default function ForgotPasswordPage() {
     }
 
     // Notify the user to check their inbox.
-    await swal('Passcode Sent', `Sent to ${data.email}, check your inbox`, 'success', {
+    await swal('Passcode sent', `Sent to ${data.email}, check your inbox`, 'success', {
       timer: 8000,
     });
     reset();

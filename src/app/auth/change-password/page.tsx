@@ -57,7 +57,7 @@ const ChangePassword = () => {
     }
 
     // Congratulations to the user.
-    await swal('Password Changed', 'Your password has been changed', 'success', {
+    await swal('Password changed', 'Your password has been changed', 'success', {
       timer: 2000,
     });
     reset();
