@@ -77,7 +77,7 @@ const SignUp = () => {
       return;
     }
 
-    // Login with new account.
+    // Sign in with new account.
     await signIn('credentials', {
       username: data.username,
       password: data.password,
