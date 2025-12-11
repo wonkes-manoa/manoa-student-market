@@ -19,7 +19,7 @@ export default function ListingsClient({ userId }: { userId: number }) {
   useEffect(() => {
     async function load() {
       const res = await fetch(
-        `/api/listings?search=${encodeURIComponent(search)}&page=${pageNumber}&perPage=10`,
+        `/api/listings?search=${encodeURIComponent(search)}&page=${pageNumber}&perPage=12`,
         { cache: 'no-store' },
       );
       const data = await res.json();
@@ -43,7 +43,7 @@ export default function ListingsClient({ userId }: { userId: number }) {
         </Form.Group>
       </Form>
 
-      <Row xs={1} md={3} className="g-4 pt-5">
+      <Row xs={1} md={3} className="g-4 pt-5 d-flex justify-content-between">
         {items.map((merch) => (
           <ListingCard key={merch.MerchID} merch={merch} userId={userId} />
         ))}

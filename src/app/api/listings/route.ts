@@ -13,7 +13,7 @@ export async function GET(request: Request) {
   const params = new URL(request.url).searchParams;
   const search = params.get('search') ?? '';
   const page = Number(params.get('page') ?? 1);
-  const perPage = Number(params.get('perPage') ?? 10);
+  const perPage = Number(params.get('perPage') ?? 12);
 
   const where: Prisma.MerchWhereInput = {
     Name: {
