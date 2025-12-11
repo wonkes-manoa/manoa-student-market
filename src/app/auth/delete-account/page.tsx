@@ -1,7 +1,8 @@
 'use client';
 
 import AuthOnly from '@/components/AuthOnly';
-import { useEffect, useState } from 'react'; import { signOut } from 'next-auth/react';
+import { useEffect, useState } from 'react';
+import { signOut } from 'next-auth/react';
 import { Button, Col, Container, Row, Card, Spinner, Modal, Alert } from 'react-bootstrap';
 import { Trash } from 'react-bootstrap-icons';
 
@@ -61,13 +62,15 @@ const DeleteAccountPage = () => {
       >
         <Container>
           <Card>
-            <Card.Body>
+            <Card.Body className="text-center">
               <h1><Trash className="mb-2" /></h1>
-              <h3 className="fw-semibold mb-3 text-dark">Delete Your Account?</h3>
-              <p className="text-muted mb-4">This action cannot be undone.</p>
+              <h3 className="fw-semibold mb-3 text-dark">Delete your account?</h3>
+              <p className="text-muted mb-4">
+                Everything related to your account will be deleted, and this can not be undone
+              </p>
               {error && <Alert variant="danger" className="mb-3">{error}</Alert>}
-              <Row className="g-2 justify-content-center">
-                <Col xs={12} sm={6}>
+              <Row>
+                <Col>
                   <Button
                     variant="danger"
                     className="w-100 fw-semibold"
@@ -77,17 +80,17 @@ const DeleteAccountPage = () => {
                     {loading ? (
                       <Spinner animation="border" size="sm" />
                     ) : (
-                      'Delete Account'
+                      'Yes, Delete Now'
                     )}
                   </Button>
                 </Col>
-                <Col xs={12} sm={6}>
+                <Col>
                   <Button
                     href="/"
                     className="w-100 fw-semibold bg-wonkes-1 border-0"
                     disabled={loading}
                   >
-                    Cancel
+                    No, Take Me Back
                   </Button>
                 </Col>
               </Row>
@@ -98,15 +101,12 @@ const DeleteAccountPage = () => {
         {/* Confirmation Modal */}
         <Modal show={showConfirm} onHide={() => setShowConfirm(false)} centered>
           <Modal.Header closeButton>
-            <Modal.Title>Confirm Deletion</Modal.Title>
+            <Modal.Title>Confirm deletion</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            Are you sure you want to delete your account? This action cannot be undone.
+            This is the final warning
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={() => setShowConfirm(false)} disabled={loading}>
-              Cancel
-            </Button>
             <Button
               variant="danger"
               onClick={handleDelete}
@@ -117,12 +117,14 @@ const DeleteAccountPage = () => {
                   return <Spinner animation="border" size="sm" />;
                 }
                 if (!canClick) {
-                  return `Wait ${countdown}s`;
+                  return `Calm down ${countdown}s`;
                 }
-                return 'Delete Account';
+                return 'Delete Account Now';
               })()}
             </Button>
-
+            <Button variant="secondary" onClick={() => setShowConfirm(false)} disabled={loading}>
+              Cancel, Take Me Back!
+            </Button>
           </Modal.Footer>
         </Modal>
       </main>
