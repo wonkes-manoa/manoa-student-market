@@ -46,7 +46,7 @@
       "Condition": "GOOD"
     },
     {
-      "AccountID": 2,
+      "AccountID": 1,
       "StockStatus": "ON_STOCK",
       "Price": 249.0,
       "Name": "Office Chair",
@@ -63,7 +63,7 @@
       "Condition": "EXCELLENT"
     },
     {
-      "AccountID": 3,
+      "AccountID": 1,
       "StockStatus": "ON_STOCK",
       "Price": 999.0,
       "Name": "Gaming Laptop",
@@ -80,7 +80,7 @@
       "Condition": "NEW"
     },
     {
-      "AccountID": 2,
+      "AccountID": 1,
       "StockStatus": "SOLD",
       "Price": 79.99,
       "Name": "Smart Lamp",
