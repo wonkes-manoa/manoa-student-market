@@ -22,12 +22,11 @@ const NavBar: React.FC = () => {
     <Navbar
       expand="lg"
       className="bg-wonkes-4 border-bottom border-wonkes-7 shadow-sm"
-      variant="dark"
     >
       <Container>
         <Navbar.Brand
           href="/"
-          className="fw-bold text-light"
+          className="fw-bold text-white"
           style={{ letterSpacing: '0.5px' }}
         >
           Wonkes Market
@@ -36,18 +35,16 @@ const NavBar: React.FC = () => {
         <Navbar.Toggle aria-controls="wonkes-navbar" />
 
         <Navbar.Collapse id="wonkes-navbar">
-          <Nav className="me-auto">
+          <Nav className="me-auto text-white">
             {username && (
               <>
-                <NavDropdown
-                  title="My Listings"
-                >
+                <NavDropdown title={<span className="text-white">My Listings</span>} className="text-white">
                   <NavDropdown.Item
                     id="listings-favorite-nav"
                     href="/listings-favorite"
                     key="listings-favorite"
                     active={pathname === '/listings-favorite'}
-                    className="bg-wonkes-4 text-light"
+                    className="bg-wonkes-4 text-white"
                   >
                     Favorited Listings
                   </NavDropdown.Item>
@@ -56,7 +53,7 @@ const NavBar: React.FC = () => {
                     href="/my-store"
                     key="my-store"
                     active={pathname === '/my-store'}
-                    className="bg-wonkes-4 text-light"
+                    className="bg-wonkes-4 text-white"
                   >
                     Added Listings
                   </NavDropdown.Item>
@@ -66,7 +63,7 @@ const NavBar: React.FC = () => {
                   href="/listings-view"
                   key="listings-view"
                   active={pathname === '/listings-view'}
-                  className="text-light"
+                  className="text-white"
                 >
                   View Listings
                 </Nav.Link>
@@ -74,7 +71,7 @@ const NavBar: React.FC = () => {
                 <Nav.Link
                   href="/listings-add"
                   active={pathname === '/listings-add'}
-                  className="text-light"
+                  className="text-white"
                 >
                   Add Listing
                 </Nav.Link>
@@ -82,15 +79,13 @@ const NavBar: React.FC = () => {
             )}
 
             {username && role === 'ADMIN' && (
-              <NavDropdown
-                title="Admin"
-              >
+              <NavDropdown title={<span className="text-white">Admin Panel</span>}>
                 <NavDropdown.Item
                   id="admin-user-management"
                   href="/admin/user-management"
                   key="admin-user-management"
                   active={pathname === '/admin/user-management'}
-                  className="bg-wonkes-4 text-light"
+                  className="bg-wonkes-4 text-white"
                 >
                   User Management
                 </NavDropdown.Item>
@@ -99,7 +94,7 @@ const NavBar: React.FC = () => {
                   href="/admin/merch-management"
                   key="admin-merch-management"
                   active={pathname === '/admin/merch-management'}
-                  className="bg-wonkes-4 text-light"
+                  className="bg-wonkes-4 text-white"
                 >
                   Merch Management
                 </NavDropdown.Item>
@@ -108,7 +103,7 @@ const NavBar: React.FC = () => {
             <Nav.Link
               href="/support"
               active={pathname === '/support'}
-              className="text-light"
+              className="text-white"
             >
               Support
             </Nav.Link>
@@ -118,21 +113,21 @@ const NavBar: React.FC = () => {
             {username ? (
               <NavDropdown
                 id="login-dropdown"
-                title={<span className="text-light">{username}</span>}
-                menuVariant="light"
-                className="text-light"
+                title={<span className="text-white">{username}</span>}
+                className="text-white"
               >
                 <NavDropdown.Item
-                  href="/auth/delete-account"
-                  className="bg-wonkes-4 text-light text-danger"
+                  href="/auth/signout"
+                  className="bg-wonkes-4 text-white"
                 >
-                  <Trash />
+                  <BoxArrowRight />
                   {' '}
-                  Delete Account
+                  Sign Out
                 </NavDropdown.Item>
+
                 <NavDropdown.Item
                   href="/auth/change-password"
-                  className="bg-wonkes-4 text-light"
+                  className="bg-wonkes-4 text-white"
                 >
                   <Lock />
                   {' '}
@@ -140,34 +135,33 @@ const NavBar: React.FC = () => {
                 </NavDropdown.Item>
 
                 <NavDropdown.Item
-                  href="/auth/signout"
-                  className="bg-wonkes-4 text-light"
+                  href="/auth/delete-account"
+                  className="bg-wonkes-4 text-white text-danger"
                 >
-                  <BoxArrowRight />
+                  <Trash />
                   {' '}
-                  Sign Out
+                  Delete Account
                 </NavDropdown.Item>
-
               </NavDropdown>
             ) : (
               <NavDropdown
                 id="login-dropdown"
-                title={<span className="text-light">Log in</span>}
+                title={<span className="text-white">Sign in</span>}
               >
                 <NavDropdown.Item
                   id="login-dropdown-sign-in"
                   href="/auth/signin"
-                  className="bg-wonkes-4 text-light"
+                  className="bg-wonkes-4 text-white"
                 >
                   <PersonFill />
                   {' '}
-                  Log in
+                  Sign in
                 </NavDropdown.Item>
 
                 <NavDropdown.Item
                   id="login-dropdown-sign-up"
                   href="/auth/signup"
-                  className="bg-wonkes-4 text-light"
+                  className="bg-wonkes-4 text-white"
                 >
                   <PersonPlusFill />
                   {' '}
