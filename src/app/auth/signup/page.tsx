@@ -111,17 +111,6 @@ const SignUp = () => {
                           <div className="invalid-feedback">{errors.username?.message}</div>
                         </Form.Group>
 
-                        {/* Email */}
-                        <Form.Group className="form-group">
-                          <Form.Label>Email Address</Form.Label>
-                          <input
-                            type="text"
-                            {...register('email')}
-                            className={`form-control ${errors.email ? 'is-invalid' : ''}`}
-                          />
-                          <div className="invalid-feedback">{errors.email?.message}</div>
-                        </Form.Group>
-
                         {/* First Name */}
                         <Form.Group className="form-group">
                           <Form.Label>First Name</Form.Label>
@@ -132,9 +121,7 @@ const SignUp = () => {
                           />
                           <div className="invalid-feedback">{errors.firstName?.message}</div>
                         </Form.Group>
-                      </Col>
 
-                      <Col md={6}>
                         {/* Last Name */}
                         <Form.Group className="form-group">
                           <Form.Label>Last Name</Form.Label>
@@ -144,6 +131,19 @@ const SignUp = () => {
                             className={`form-control ${errors.lastName ? 'is-invalid' : ''}`}
                           />
                           <div className="invalid-feedback">{errors.lastName?.message}</div>
+                        </Form.Group>
+                      </Col>
+
+                      <Col md={6}>
+                        {/* Email */}
+                        <Form.Group className="form-group">
+                          <Form.Label>Email Address</Form.Label>
+                          <input
+                            type="text"
+                            {...register('email')}
+                            className={`form-control ${errors.email ? 'is-invalid' : ''}`}
+                          />
+                          <div className="invalid-feedback">{errors.email?.message}</div>
                         </Form.Group>
 
                         {/* Password */}
@@ -188,7 +188,7 @@ const SignUp = () => {
 
                 <Card.Footer>
                   Already have an account?&nbsp;
-                  <a id="login-link" className="link-wonkes" href="/auth/signin">Login</a>
+                  <a id="login-link" className="link-wonkes" href="/auth/signin">Sign in</a>
                 </Card.Footer>
               </Card>
             </Col>
