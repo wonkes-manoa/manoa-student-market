@@ -15,14 +15,17 @@ const SupportPage = async () => (
           {/* LEFT COLUMN */}
           <Col md={6} className="p-5 gap-5" style={{ marginTop: '80px' }}>
             <RevealOnScroll className="mb-4" delay="0.2s">
-              <h2 className="mb-4 display-6">About Us</h2>
+              <h2 className="mb-4 display-6">Our goal</h2>
               <p className="text-muted pe-4">
-                Wonkes is a web application that allows users to sell and buy items with
-                just a click of a button. Users can create postings, browse for products,
-                and connect with the community easily. Our mission is to provide a
-                platform that fosters a safe and efficient marketplace for students to
-                trade items they no longer need. Feel free to sign in to view everyones
-                listings!
+                Wonkes is an online marketplace designed for students attending
+                University of Hawaiʻi. Our goal is to make buying and selling school
+                supplies and dormitory furnitures time-saving and money-saving.
+                Instead of throwing stuffs away students can list them on Wonkes;
+                instead of buying new supplies students can find cheaper secondhand
+                choices from their dorm neighbors.
+                <br />
+                <br />
+                Sign in now to view everyone&apos;s listings (˶˃ ᵕ ˂˶)
               </p>
             </RevealOnScroll>
           </Col>
@@ -51,22 +54,20 @@ const SupportPage = async () => (
             {/* RIGHT COLUMN */}
             <RevealOnScroll className="mb-4" delay="0.6s">
               <div className="flex-grow-1">
-                <h3>Connect with Students</h3>
+                <h3>Connect with schoolmates</h3>
                 <p className="text-muted mt-2 mb-5">
-                  Meet new people who are willing to buy/sell items.
-                  Connect through our website!
+                  Meet new people willing to buy or sell their stuffs.
+                  Begin the connection at our website!
                 </p>
 
-                <h3>Buy and Sell Your Junk</h3>
+                <h3>Recycle usable supplies and furnitures</h3>
                 <p className="text-muted mt-2 mb-5">
-                  Buy items you need for college and items you don&apos;t
-                  want. All with just a click of a button!
+                  Sell what you don&apos;t need; buy what you need cheap.
                 </p>
 
-                <h3>Favorite Your Items</h3>
+                <h3>Favorite stuffs </h3>
                 <p className="text-muted mt-2">
-                  Like your favorite items to keep track of them! Easily access
-                  them later through the Favorited Listings page.
+                  Put an eye on what you like, and access them later easily.
                 </p>
               </div>
             </RevealOnScroll>
@@ -76,12 +77,13 @@ const SupportPage = async () => (
       <hr />
 
       <Container className="px-5 mt-2">
-        <h1 className="mb-3">FAQ</h1>
+        <h2 className="mb-3">FAQ</h2>
         <AccordionFAQ />
         <p className="my-3">
           For more information, click
           {' '}
           <a className="link-wonkes" href="https://wonkes-manoa.github.io/" target="_blank" rel="noreferrer">here</a>
+          .
         </p>
       </Container>
 
@@ -90,8 +92,12 @@ const SupportPage = async () => (
         <div style={{ paddingTop: '20px' }}>
           <h2>Contact us</h2>
           <p>
-            Have a question? Feel free to email wonkes@foo or call us at (808)111-1111
-            for more information!
+            Have a question or whatnot?
+            Send an email to
+            {' '}
+            <b>yuhang34@hawaii.edu</b>
+            !
+            Please allow 14 days for a response.
           </p>
         </div>
       </Container>

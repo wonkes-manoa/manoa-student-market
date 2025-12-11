@@ -2,46 +2,60 @@
 
 import { Accordion } from 'react-bootstrap';
 
+const faq = [
+  {
+    question: 'What is Wonkes?',
+    answer: 'Please read above.',
+  },
+  {
+    question: 'Who can use Wonkes?',
+    answer: 'Only UH students with a valid @hawaii.edu email address can use Wonkes.',
+  },
+  {
+    question: 'May I sign up with false information?',
+    answer: 'We suggest not, because you need them genuine when someone contact you.',
+  },
+  {
+    question: 'What am I allowed to sell?',
+    answer: `You may sell common school supplies and furnitures like rulers and pillows.
+             Dangerous or restricted items like weapons and poisons are not allowed.`,
+  },
+  {
+    question: 'Will transactions made online or in-person?',
+    answer: 'You will contact and meet sellers or buyers in-person to make transaction.',
+  },
+  {
+    question: 'What is Wonkes\'s role in a transaction?',
+    answer: `Wonkes only provides a platform to connect buyers and sellers.
+             Wonkes does not participate or responsible for anything in a transaction.
+             You will contact and meet sellers or buyers all by yourself.`,
+  },
+  {
+    question: 'I favorited an item I interested, but why did it disappeared?',
+    answer: `The item may have been sold, removed by the seller, or taken down
+             for violating our policies. It may also disappear if the seller deletes
+             their account.`,
+  },
+  {
+    question: 'How do I report a problem or ask for help?',
+    answer: 'Please send us your request with the contact information below.',
+  },
+];
+
 const AccordionFAQ = () => (
   <Accordion>
-    <Accordion.Item eventKey="0">
-      <Accordion.Header>Why can I not sell items?</Accordion.Header>
-      <Accordion.Body>
-        You should check if you are signed in first at the top right corner.
-        It should state your username if you are signed in.
-        To ensure safety and security of all users, you must be signed in to sell items.
-      </Accordion.Body>
-    </Accordion.Item>
-
-    <Accordion.Item eventKey="1">
-      <Accordion.Header>Why can I not sign in?</Accordion.Header>
-      <Accordion.Body>
-        There can be many reasons as to why this may be the case.
-        First, check if you typed your username/email or password correctly.
-        If you are sure that you have, you can contact us below for more clarification.
-        Also be sure to double check your email to see if your account was banned for false
-        listings, purchases, etc.
-      </Accordion.Body>
-    </Accordion.Item>
-    <Accordion.Item eventKey="2">
-      <Accordion.Header>When I like an item, why does the like count go to 0?</Accordion.Header>
-      <Accordion.Body>
-        The item count has to update to reflect the change in likes.
-        Please refresh the page to see the updated like count!
-        If there are still issues, feel free to contact us below.
-      </Accordion.Body>
-    </Accordion.Item>
-    <Accordion.Item eventKey="3">
-      <Accordion.Header>
-        I had an item I was interested in... Why does it not show up in favorited listings anymore?
-      </Accordion.Header>
-      <Accordion.Body>
-        If an item you favorited is no longer available, it may have been sold or recalled by the seller.
-        It may also have been removed due to violations of our marketplace policies or as a result of the
-        seller removing their account. To ensure a safe and reliable marketplace, sold or recalled items
-        are removed from all listings.
-      </Accordion.Body>
-    </Accordion.Item>
+    {
+      faq.map((qna, index) => (
+        <Accordion.Item eventKey={String(index)}>
+          <Accordion.Header>
+            {qna.question}
+          </Accordion.Header>
+          <Accordion.Body className="ms-3">
+            {qna.answer}
+          </Accordion.Body>
+        </Accordion.Item>
+      ))
+    }
   </Accordion>
 );
 
