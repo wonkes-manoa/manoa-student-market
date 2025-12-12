@@ -90,6 +90,7 @@ const onSubmit = async (data: {
 
 const EditMerchForm = ({ merch } : { merch : Merch }) => {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const [previewImages, setPreviewImages] = useState<MerchImage[]>([]);
   const initialImages = useRef<MerchImage[]>([]);
   useEffect(() => {
@@ -174,7 +175,11 @@ const EditMerchForm = ({ merch } : { merch : Merch }) => {
           <Card className="shadow-sm">
             <Card.Body>
               <h2 className="text-center mb-4">Edit Listing</h2>
-              <Form onSubmit={handleSubmit((data) => onSubmit(data, router))}>
+              <Form onSubmit={handleSubmit((data) => {
+                setLoading(true);
+                onSubmit(data, router);
+              })}
+              >
                 <input type="hidden" {...register('MerchID')} value={merch.MerchID} />
                 {/* Name */}
                 <Form.Group className="mb-3">
@@ -459,8 +464,9 @@ const EditMerchForm = ({ merch } : { merch : Merch }) => {
                     <Button
                       type="submit"
                       className="w-100 bg-wonkes-1 border-0"
+                      disabled={loading}
                     >
-                      Submit
+                      {loading ? 'Submitting' : 'Submit'}
                     </Button>
                   </Col>
                   <Col>

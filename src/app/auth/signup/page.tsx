@@ -8,6 +8,7 @@ import { Card, Col, Container, Button, Form, Row } from 'react-bootstrap';
 import { createAccount } from '@/lib/dbActions';
 import swal from 'sweetalert';
 import GuestOnly from '@/components/GuestOnly';
+import { useState } from 'react';
 
 type SignUpForm = {
   username: string;
@@ -67,12 +68,16 @@ const SignUp = () => {
     resolver: yupResolver(validationSchema),
   });
 
+  const [loading, setLoading] = useState(false);
+
   const onSubmit = async (data: SignUpForm) => {
+    setLoading(true);
     // Create account.
     const result = await createAccount(data);
 
     // Check account creation status.
     if (!result.ok) {
+      setLoading(false);
       swal('Error', result.message || 'Failed to create account', 'error');
       return;
     }
@@ -177,8 +182,9 @@ const SignUp = () => {
                           <Button
                             type="submit"
                             className="w-100 fw-semibold bg-wonkes-1 border-0"
+                            disabled={loading}
                           >
-                            Register
+                            {loading ? 'Registering…' : 'Register'}
                           </Button>
                         </Col>
                       </Row>

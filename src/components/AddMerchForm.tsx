@@ -77,6 +77,7 @@ const onSubmit = async (data: {
 
 const AddMerchForm = ({ id } : { id : number }) => {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const [previewImages, setPreviewImages] = useState<string[]>([]);
   const { data: session, status } = useSession();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -130,7 +131,11 @@ const AddMerchForm = ({ id } : { id : number }) => {
           <Card className="shadow-sm">
             <Card.Body>
               <h2 className="text-center mb-4">Add Listing</h2>
-              <Form onSubmit={handleSubmit((data) => onSubmit(data, router))}>
+              <Form onSubmit={handleSubmit((data) => {
+                setLoading(true);
+                onSubmit(data, router);
+              })}
+              >
                 <input type="hidden" {...register('AccountID')} value={id} />
                 {/* Name */}
                 <Form.Group className="mb-3">
@@ -412,8 +417,9 @@ const AddMerchForm = ({ id } : { id : number }) => {
                     <Button
                       type="submit"
                       className="w-100 bg-wonkes-1 border-0"
+                      disabled={loading}
                     >
-                      Submit
+                      {loading ? 'Submitting…' : 'Submit'}
                     </Button>
                   </Col>
                   <Col>

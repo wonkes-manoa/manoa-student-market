@@ -9,6 +9,7 @@ import { Card, Col, Container, Button, Form, Row } from 'react-bootstrap';
 import { changePassword } from '@/lib/dbActions';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import AuthOnly from '@/components/AuthOnly';
+import { useState } from 'react';
 
 type ChangePasswordForm = {
   oldpassword: string;
@@ -21,6 +22,8 @@ const ChangePassword = () => {
   const { data: session, status } = useSession();
   const username = session?.user?.username || '';
   console.log('Session: ', session?.user?.username);
+
+  const [loading, setLoading] = useState(false);
 
   const validationSchema = Yup.object().shape({
     oldpassword: Yup.string().required('Old password is required'),
@@ -43,6 +46,7 @@ const ChangePassword = () => {
   });
 
   const onSubmit = async (data: ChangePasswordForm) => {
+    setLoading(true);
     // Change password.
     const result = await changePassword({
       username,
@@ -52,10 +56,12 @@ const ChangePassword = () => {
 
     // Check change password status.
     if (!result.ok) {
+      setLoading(false);
       swal('Error', result.message || 'Failed to change password', 'error');
       return;
     }
 
+    setLoading(false);
     // Congratulations to the user.
     await swal('Password changed', 'Your password has been changed', 'success', {
       timer: 2000,
@@ -117,8 +123,9 @@ const ChangePassword = () => {
                             variant="danger"
                             type="submit"
                             className="w-100 fw-semibold float-center"
+                            disabled={loading}
                           >
-                            Change
+                            {loading ? 'Changing' : 'Change'}
                           </Button>
                         </Col>
                       </Row>
