@@ -6,7 +6,7 @@ const MerchCard = async ({ merch } : { merch : Merch }) => {
   const merchImages: {
     id: number;
     mimeType: string;
-    base64: string;
+    url: string;
   }[] = await getMerchImagesByMerchID(merch.MerchID, true);
   if (merchImages.length === 0) {
     merchImages.push(DEFAULT_IMAGE);
