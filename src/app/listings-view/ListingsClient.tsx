@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Row, Form, Button } from 'react-bootstrap';
 import ListingCard from '@/components/ListingCard';
 
@@ -21,6 +21,7 @@ export default function ListingsClient({ userId }: { userId: number }) {
     '(⊃｡•́‿•̀｡)⊃ Hug what you like.',
     '(‾́。‾́ )y~~ No cigars on sale.',
   ];
+  const searchbarPlaceholder = useRef<string>(wordBank[Math.floor(Math.random() * wordBank.length)]);
 
   // Reset page on search change
   useEffect(() => {
@@ -47,7 +48,7 @@ export default function ListingsClient({ userId }: { userId: number }) {
       <Form.Group controlId="search" className="mb-3">
         <Form.Control
           type="text"
-          placeholder={wordBank[Math.floor(Math.random() * wordBank.length)]}
+          placeholder={searchbarPlaceholder.current}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
