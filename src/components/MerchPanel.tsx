@@ -24,7 +24,7 @@ const MerchPanel = ({
     const result = await getAccountByMerchID(merchID);
     if (result.ok && result.EmailAddress && result.FirstName && result.LastName) {
       await swal({
-        title: 'Seller contact',
+        title: 'Here you go, contact him or her',
         text: `Email Address: ${result.EmailAddress}, Name: ${result.FirstName} ${result.LastName}`,
         icon: 'success',
       });
