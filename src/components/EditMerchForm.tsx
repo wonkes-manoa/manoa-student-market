@@ -84,7 +84,7 @@ const onSubmit = async (data: {
   swal('Success', 'Your listing has been edited', 'success', {
     timer: 2000,
   }).then(() => {
-    router.push('/my-store');
+    router.push('/listings-view');
   });
 };
 
