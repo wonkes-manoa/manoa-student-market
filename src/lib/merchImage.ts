@@ -50,8 +50,7 @@ export async function getMerchImagesByMerchID(
 
 /**
  * Returns an image source URL for the <Image> component.
- * Blob URLs can be used directly.
  */
 export function parseImageSource(image: MerchImage): string {
-  return image.url || DEFAULT_IMAGE.url;
+  return (image.url ?? DEFAULT_IMAGE.url) ?? '/merch-photo/no-image-available.png';
 }
