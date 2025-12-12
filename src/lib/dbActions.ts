@@ -157,6 +157,33 @@ export async function deleteMerchByID(merchID: number) {
 }
 
 /**
+ * Permanently delete the specified merch and its associated images and likes.
+ * This operation is not recoverable.
+ * @param merchID, the ID of the merch to delete.
+ */
+export async function getAccountByMerchID(merchID: number) {
+  return prisma.$transaction(async (tx) => {
+    const merch = await tx.merch.findUnique({
+      where: { MerchID: merchID },
+      select: { AccountID: true },
+    });
+
+    if (merch) {
+      const account = await tx.account.findUnique({
+        where: { AccountID: merch?.AccountID },
+        select: {
+          FirstName: true,
+          LastName: true,
+          EmailAddress: true,
+        },
+      });
+      return { ok: true, message: '', ...account };
+    }
+    return { ok: false, message: 'Listing not recognized by the system' };
+  });
+}
+
+/**
  * Creates a user new account in the database.
  * @param credentials, an object containing information required for creating an account.
  */

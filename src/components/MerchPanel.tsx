@@ -2,6 +2,8 @@
 
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import { Merch } from '@prisma/client';
+import swal from 'sweetalert';
+import { getAccountByMerchID } from '@/lib/dbActions';
 
 const MerchPanel = ({
   merch,
@@ -12,17 +14,31 @@ const MerchPanel = ({
   usage: string;
   likeCount: number;
 }) => {
+  const dimensionName = ['long', 'wide', 'high'];
   const dimensionValue = [merch.Length, merch.Width, merch.Height];
   const dimensionUnit = [merch.LUnit, merch.WUnit, merch.HUnit];
   let dimension = '';
   let mass = '';
 
-  for (let index = 0; index < dimensionValue.length; ++index) {
+  const handleGetSellerInfo = async (merchID : number) => {
+    const result = await getAccountByMerchID(merchID);
+    if (result.ok && result.EmailAddress && result.FirstName && result.LastName) {
+      await swal({
+        title: 'Seller contact',
+        text: `Email Address: ${result.EmailAddress}, Name: ${result.FirstName} ${result.LastName}`,
+        icon: 'success',
+      });
+    } else {
+      swal('Error', result.message || 'Something went wrong', 'error');
+    }
+  };
+
+  for (let index = 0; index < dimensionName.length; ++index) {
     if (dimensionValue[index] && dimensionUnit[index]) {
       if (dimension !== '') {
         dimension += ' × ';
       }
-      dimension += `${dimensionValue[index]} ${dimensionUnit[index]?.toLowerCase()}`;
+      dimension += `${dimensionValue[index]} ${dimensionUnit[index]?.toLowerCase()} ${dimensionName[index]}`;
     }
   }
 
@@ -34,7 +50,14 @@ const MerchPanel = ({
     mass = `Mass: ${merch.Mass} ${merch.MUnit.toLowerCase()}`;
   }
 
-  const likeText = `${likeCount} ${likeCount === 1 ? 'person' : 'people'} liked this listing.`;
+  let likeText = '';
+  if (likeCount === undefined) {
+    likeText = '0 people have liked this product.';
+  } else if (likeCount === 1) {
+    likeText = '1 person has liked this product.';
+  } else {
+    likeText = `${likeCount} people have liked this product.`;
+  }
 
   return (
     <Container fluid>
@@ -62,7 +85,11 @@ const MerchPanel = ({
       {usage !== 'admin' && (
         <Row className="g-2 mb-3">
           <Col xs={12} md={6}>
-            <Button variant="warning" className="w-100 fw-semibold">
+            <Button
+              variant="warning"
+              className="w-100 fw-semibold"
+              onClick={() => handleGetSellerInfo(merch.MerchID)}
+            >
               Get Seller&apos;s Contact
             </Button>
           </Col>
