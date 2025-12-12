@@ -21,7 +21,6 @@ type ChangePasswordForm = {
 const ChangePassword = () => {
   const { data: session, status } = useSession();
   const username = session?.user?.username || '';
-  console.log('Session: ', session?.user?.username);
 
   const [loading, setLoading] = useState(false);
 

@@ -128,7 +128,6 @@ export const EditMerchSchema = Yup.object({
   Image: Yup.mixed<FileList>()
     .test('maxFiles', 'You can upload at most 9 photos', (value) => {
       // value might be undefined after calling reset(), allow value being undefined in this case
-      console.log('A');
       if (!value) {
         return true;
       }
@@ -136,20 +135,15 @@ export const EditMerchSchema = Yup.object({
     })
     .test('fileType', 'Invalid file type', (value) => {
       // value might be undefined after calling reset(), allow value being undefined in this case
-      console.log('B');
       if (!value) {
-        console.log('K');
-        console.log(value);
         return true;
       }
-      console.log('C');
       for (let i = 0; i < value.length; i++) {
         const file = value[i];
         if (!['image/jpeg', 'image/png'].includes(file.type)) {
           return false;
         }
       }
-      console.log('D');
       return true;
     }),
   Length: Yup.number()

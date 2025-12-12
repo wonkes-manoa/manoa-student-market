@@ -38,7 +38,6 @@ const onSubmit = async (data: {
   Material: string;
   Condition: string;
 }, router: AppRouterInstance) => {
-  console.log('Q');
   const editedMerch = await editMerch({
     MerchID: data.MerchID,
     StockStatus: data.StockStatus,

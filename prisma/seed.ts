@@ -15,7 +15,6 @@ import * as config from '../config/settings.development.json';
 const prisma = new PrismaClient();
 
 async function main() {
-  console.log('Seeding the database');
   for (const account of config.defaultAccount) {
     const privilege = account.Privilege as AccountPrivilege || AccountPrivilege.USER;
     // eslint-disable-next-line no-await-in-loop
