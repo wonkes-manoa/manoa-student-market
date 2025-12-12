@@ -37,7 +37,7 @@ export default async function MyStorePage() {
       <h2 className="mb-4">My Listings Added:</h2>
 
       {merch.length === 0 ? (
-        <p className="text-center">No merch created.</p>
+        <p className="text-center">No listing created.</p>
       ) : (
         merch.map((m) => (
           <Row key={m.MerchID} className="mb-4">
