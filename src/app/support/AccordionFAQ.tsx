@@ -12,6 +12,13 @@ const faq = [
     answer: 'Only UH students with a valid @hawaii.edu email address can use Wonkes.',
   },
   {
+    question: 'Do I have to sign in to view listings?',
+    answer: `Yes, you have to sign in to view listings. This is because we want
+             to protect our sellers and buyers from unidentified people, so we
+             decide to require every user to sign in before they can view listings
+             as well as performing most of the other actions.`,
+  },
+  {
     question: 'May I sign up with false information?',
     answer: 'We suggest not, because you need them genuine when someone contact you.',
   },
