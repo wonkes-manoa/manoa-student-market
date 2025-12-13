@@ -52,21 +52,22 @@ const onSubmit = async (data: {
   });
   const images = data.Image;
   if (images && images.length > 0) {
-    const uploadData = new FormData();
-    uploadData.append('MerchID', String(newMerch.MerchID));
-
+    // Vercel rejects overly large payload/request,
+    // so upload images one by one instead of all together.
+    /* eslint-disable no-await-in-loop */
     for (const image of images) {
+      const uploadData = new FormData();
+      uploadData.append('MerchID', String(newMerch.MerchID));
       uploadData.append('Image', image);
+      const result = await fetch('/api/upload/merch-images', {
+        method: 'POST',
+        body: uploadData,
+      });
+      if (!result.ok) {
+        throw new Error('Image upload failed');
+      }
     }
-
-    const result = await fetch('/api/upload/merch-images', {
-      method: 'POST',
-      body: uploadData,
-    });
-
-    if (!result.ok) {
-      console.error('Image upload failed');
-    }
+    /* eslint-enable no-await-in-loop */
   }
   swal('Success', 'Your listing has been added', 'success', {
     timer: 2000,
@@ -419,7 +420,7 @@ const AddMerchForm = ({ id } : { id : number }) => {
                       className="w-100 bg-wonkes-1 border-0"
                       disabled={loading}
                     >
-                      {loading ? 'Submitting…' : 'Submit'}
+                      {loading ? 'May take a minute…' : 'Submit'}
                     </Button>
                   </Col>
                   <Col>

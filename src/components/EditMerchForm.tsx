@@ -62,23 +62,22 @@ const onSubmit = async (data: {
       method: 'DELETE',
     });
 
-    // Gather new image data.
-    const uploadData = new FormData();
-    uploadData.append('MerchID', String(editedMerch.MerchID));
+    // Vercel rejects overly large payload/request,
+    // so upload images one by one instead of all together.
+    /* eslint-disable no-await-in-loop */
     for (const image of images) {
+      const uploadData = new FormData();
+      uploadData.append('MerchID', String(editedMerch.MerchID));
       uploadData.append('Image', image);
+      const result = await fetch('/api/upload/merch-images', {
+        method: 'POST',
+        body: uploadData,
+      });
+      if (!result.ok) {
+        throw new Error('Image upload failed');
+      }
     }
-
-    // Upload new images.
-    const result = await fetch('/api/upload/merch-images', {
-      method: 'POST',
-      body: uploadData,
-    });
-
-    // Notice failure if upload failed.
-    if (!result.ok) {
-      console.error('Image upload failed');
-    }
+    /* eslint-enable no-await-in-loop */
   }
   swal('Success', 'Your listing has been edited', 'success', {
     timer: 2000,
@@ -461,11 +460,10 @@ const EditMerchForm = ({ merch } : { merch : Merch }) => {
                 <Row className="pt-3">
                   <Col>
                     <Button
-                      type="submit"
-                      className="w-100 bg-wonkes-1 border-0"
-                      disabled={loading}
+                      className="w-100 bg-wonkes-4 border-0"
+                      onClick={() => handleCancel(router)}
                     >
-                      {loading ? 'Submitting' : 'Submit'}
+                      Cancel Edit
                     </Button>
                   </Col>
                   <Col>
@@ -482,10 +480,11 @@ const EditMerchForm = ({ merch } : { merch : Merch }) => {
                 <Row className="pt-3">
                   <Col>
                     <Button
-                      className="w-100 bg-wonkes-4 border-0"
-                      onClick={() => handleCancel(router)}
+                      type="submit"
+                      className="w-100 bg-wonkes-1 border-0"
+                      disabled={loading}
                     >
-                      Cancel Edit
+                      {loading ? 'Submitting, this may take a minute or so…' : 'Submit'}
                     </Button>
                   </Col>
                 </Row>
