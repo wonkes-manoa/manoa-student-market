@@ -13,12 +13,24 @@ export default async function MerchDetailPage({ params }: { params: { id: string
   const userId = Number(session?.user.id);
   const merchID = Number(Array.isArray(params.id) ? params.id[0] : params.id);
 
+  // DO NOT! DO NOT! DO NOT EVER include Image here, WE WILL FETCH THEM LATER!
+  // (Repeat three times for important things)
+  // (Don't trust AI here; they don't know the full story)
   const merch = await prisma.merch.findUnique({
     where: { MerchID: merchID },
     include: {
       likedBy: true,
-      Image: true,
-      seller: true,
+      Image: false,
+      seller: {
+        select: {
+          AccountID: true,
+          Privilege: true,
+          Username: true,
+          FirstName: true,
+          LastName: true,
+          EmailAddress: true,
+        },
+      },
     },
   });
 
