@@ -443,6 +443,8 @@ const EditMerchForm = ({ merch } : { merch : Merch }) => {
                     Upload 1-9 photos. You can upload multiple photos at once. Square photos fits better.
                     <br />
                     Accepted formats: JPG (JPEG), PNG.
+                    {' '}
+                    Overly large photo may cause upload to fail without notifying you.
                   </Form.Text>
                 </Form.Group>
 
