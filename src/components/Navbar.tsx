@@ -38,6 +38,16 @@ const NavBar: React.FC = () => {
           <Nav className="me-auto text-white">
             {username && (
               <>
+                <Nav.Link
+                  id="listings-view-nav"
+                  href="/listings-view"
+                  key="listings-view"
+                  active={pathname === '/listings-view'}
+                  className="text-white"
+                >
+                  View Listings
+                </Nav.Link>
+
                 <NavDropdown title={<span className="text-white">My Listings</span>} className="text-white">
                   <NavDropdown.Item
                     id="listings-favorite-nav"
@@ -58,15 +68,6 @@ const NavBar: React.FC = () => {
                     Added Listings
                   </NavDropdown.Item>
                 </NavDropdown>
-                <Nav.Link
-                  id="listings-view-nav"
-                  href="/listings-view"
-                  key="listings-view"
-                  active={pathname === '/listings-view'}
-                  className="text-white"
-                >
-                  View Listings
-                </Nav.Link>
 
                 <Nav.Link
                   href="/listings-add"
